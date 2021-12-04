@@ -17,7 +17,12 @@ a {
 }
 
 nav {
-  padding-top: 10px;
+  padding-top: 20px;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 ul {
@@ -42,7 +47,6 @@ hr {
   border: none;
   border-top: 1px dashed rgb(19, 18, 18);
   text-align: center;
-  height: 8px;
   opacity: 20%;
 }
 
@@ -78,7 +82,7 @@ hr {
   line-height: 1.5;
   font-weight: bold;
   padding-left: 40px;
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 .gde {
