@@ -63,10 +63,10 @@ hr {
 }
 
 .menu {
-  font-size: 12px;
+  font-size: 14px;
   font-family: "PT Mono", monospace;
   color: rgb(19, 18, 18);
-  padding-right: 30px;
+  padding-right: 40px;
   text-align: center;
   font-weight: 700;
 }
