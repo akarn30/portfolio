@@ -27,10 +27,9 @@ nav {
 }
 
 footer {
-  padding-top: 20px;
+  padding-top: 10px;
   overflow: hidden;
   background-color: #ffffff;
-  bottom: 0;
   width: 100%;
 }
 
@@ -54,7 +53,7 @@ li a {
 
 hr {
   border: none;
-  border-top: 1px dashed #000000;
+  border-top: 1px dashed rgb(0, 0, 0);
   text-align: center;
 }
 
@@ -65,6 +64,11 @@ hr {
   padding-right: 40px;
   text-align: center;
   font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.menu:hover {
+  color: rgb(0, 0, 0);
 }
 
 .name {
@@ -80,7 +84,7 @@ hr {
   font-family: "Flow Rounded", cursive;
   font-size: 16px;
   padding-left: 40px;
-  color: #000000;
+  color: rgb(0, 0, 0);
 }
 
 .about {
@@ -108,12 +112,12 @@ hr {
 }
 
 div.gallery {
-  border: 1px dashed rgb(0, 0, 0);
+  /* border: 1px dashed rgb(0, 0, 0); */
   border-radius: 8px;
 }
 
 div.gallery:hover {
-  border: 1.5px dashed #000000;
+  border: 6px dashed #ffffff;
 }
 
 div.gallery img {
