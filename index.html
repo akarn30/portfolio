@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animesh Singh, Design Leader</title>
+<meta name="description" content="Animesh Singh leads design for AI products that make roads safer. Head of Design candidate for mobility, automotive and AI startups.">
+<meta property="og:title" content="Animesh Singh, Design Leader">
+<meta property="og:description" content="Design leadership for AI, mobility and hardware + software products.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B6B4F'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'>A</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EEF0EC;
+    --ink: #1D2428;
+    --muted: #5B656B;
+    --sign: #0B6B4F;
+    --sign-ink: #FFFFFF;
+    --lane: #E8B10A;
+    --rule: #CDD2CC;
+    --font: "Overpass", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1A1F22;
+      --ink: #E6E9E6;
+      --muted: #9AA4A9;
+      --sign: #0E7A5A;
+      --rule: #333B3F;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration-color: var(--lane); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  a:hover { text-decoration-color: currentColor; }
+  :focus-visible { outline: 3px solid var(--lane); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { width: min(100% - 2.5rem, 960px); margin-inline: auto; }
+
+  /* Top bar */
+  header.top { padding: 1.5rem 0; }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .name { font-weight: 800; letter-spacing: -0.01em; text-decoration: none; }
+  nav { display: flex; gap: 1.5rem; font-size: 1rem; }
+  nav a { text-decoration: none; color: var(--muted); }
+  nav a:hover { color: var(--ink); }
+
+  /* Hero: a highway sign */
+  .hero { padding: 3rem 0 4rem; }
+  .sign {
+    background: var(--sign);
+    color: var(--sign-ink);
+    border-radius: 22px;
+    padding: 10px;
+  }
+  .sign-inner {
+    border: 3px solid var(--sign-ink);
+    border-radius: 14px;
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+  }
+  .sign h1 {
+    font-size: clamp(2.4rem, 7vw, 4.75rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 14ch;
+  }
+  .sign p {
+    margin-top: 1.5rem;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    max-width: 38ch;
+    opacity: 0.92;
+  }
+  .sign .exits { margin-top: 2.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .exit {
+    display: inline-block;
+    background: var(--sign-ink);
+    color: var(--sign);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .exit.ghost { background: transparent; color: var(--sign-ink); box-shadow: inset 0 0 0 2px var(--sign-ink); }
+  .exit:hover { filter: brightness(0.95); }
+
+  /* Lane line under the hero: the one moving thing */
+  .lane {
+    height: 6px;
+    margin-top: 2.5rem;
+    background: repeating-linear-gradient(90deg, var(--lane) 0 48px, transparent 48px 84px);
+    animation: drive 1.6s cubic-bezier(.2,.7,.3,1) both;
+  }
+  @keyframes drive { from { background-position: -420px 0; opacity: 0; } to { background-position: 0 0; opacity: 1; } }
+
+  section { padding: 3.5rem 0; }
+  h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 1.5rem; }
+  .lede { font-size: 1.3rem; max-width: 60ch; }
+  .lede + p { margin-top: 1rem; max-width: 64ch; color: var(--muted); }
+
+  /* Selected work */
+  .work { display: grid; gap: 2.5rem; }
+  .project { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+  .project h3 { font-size: 1.35rem; font-weight: 800; line-height: 1.25; }
+  .project .where { color: var(--muted); font-size: 1rem; margin-top: 0.35rem; }
+  .project p { max-width: 60ch; }
+  .project .result { margin-top: 0.75rem; font-weight: 600; }
+  .project .more { display: inline-block; margin-top: 0.75rem; font-weight: 600; }
+
+  /* Experience: a lane-line timeline */
+  .road { position: relative; padding-left: 2.25rem; }
+  .road::before {
+    content: ""; position: absolute; left: 0.45rem; top: 0.5rem; bottom: 0.5rem; width: 5px;
+    background: repeating-linear-gradient(180deg, var(--lane) 0 28px, transparent 28px 50px);
+  }
+  .stop { position: relative; padding-bottom: 2.25rem; }
+  .stop:last-child { padding-bottom: 0; }
+  .stop::before {
+    content: ""; position: absolute; left: -2.25rem; top: 0.35rem; width: 1.4rem; height: 1.4rem;
+    border-radius: 50%; background: var(--paper); border: 4px solid var(--sign);
+  }
+  .stop h3 { font-size: 1.25rem; font-weight: 800; }
+  .stop .role { font-weight: 600; }
+  .stop .when { color: var(--muted); font-size: 1rem; }
+  .stop ul { margin-top: 0.6rem; padding-left: 1.15rem; max-width: 62ch; }
+  .stop li + li { margin-top: 0.3rem; }
+
+  /* Strengths */
+  .strengths { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.75rem 2.5rem; }
+  .strengths h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; }
+  .strengths p { color: var(--muted); font-size: 1rem; }
+
+  /* Contact */
+  .contact { border-top: 6px solid var(--sign); }
+  .contact .big { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; }
+  .contact ul { list-style: none; margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; }
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.95rem; }
+
+  @media (max-width: 700px) {
+    nav { gap: 1rem; }
+    .project { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .lane { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="name" href="#">Animesh Singh</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="sign">
+        <div class="sign-inner">
+          <h1>Designing AI that keeps people safe on the road</h1>
+          <p>I lead design for driver monitoring and ADAS products at Sapience Automata, across in-vehicle hardware, driver alerts and fleet dashboards.</p>
+          <div class="exits">
+            <a class="exit" href="#work">See my work</a>
+            <!-- Export your resume as PDF, name it resume.pdf and upload it next to this file -->
+            <a class="exit ghost" href="resume.pdf">Download resume</a>
+          </div>
+        </div>
+      </div>
+      <div class="lane" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <p class="lede">I turn deep-tech AI into products people can understand and trust, then build the teams and systems that keep shipping them.</p>
+      <p>Nine years across mobility, fintech and SMB software. I went from VP of Marketing and Product Design to Chief Experience Officer at Sapience Automata within a year. Before that I designed for millions of small businesses at Khatabook. I'm now looking for a Head of Design role at an early or growth-stage company in mobility, automotive or AI.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <h2>Selected work</h2>
+      <div class="work">
+        <!-- Replace each project's text and result with real details, and point "Read the case study" to a page or PDF -->
+        <article class="project">
+          <div>
+            <h3>Fleet safety dashboard</h3>
+            <p class="where">Sapience Automata</p>
+          </div>
+          <div>
+            <p>Fleet managers were flooded with AI-detected events and couldn't tell which ones mattered. I redesigned how risk is ranked, reviewed and acted on, so a manager sees the few drivers who need attention today.</p>
+            <p class="result">Result: add your outcome, such as review time cut or alerts actioned.</p>
+            <a class="more" href="#">Read the case study</a>
+          </div>
+        </article>
+        <article class="project">
+          <div>
+            <h3>In-cab driver alerts</h3>
+            <p class="where">Sapience Automata</p>
+          </div>
+          <div>
+            <p>Alerts that a driver can understand in under a second, without looking away from the road. Designed sound, light and screen cues together, in multiple languages, and tested them in real vehicles.</p>
+            <p class="result">Result: add your outcome, such as driver acceptance or fewer risky events.</p>
+            <a class="more" href="#">Read the case study</a>
+          </div>
+        </article>
+        <article class="project">
+          <div>
+            <h3>Growth and activation</h3>
+            <p class="where">Khatabook</p>
+          </div>
+          <div>
+            <p>Research-led experiments to help first-time, often vernacular-first merchants get value from the app in their first week, designed for low-end Android phones.</p>
+            <p class="result">Result: add your outcome, such as activation or retention lift.</p>
+            <a class="more" href="#">Read the case study</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <div class="road">
+        <div class="stop">
+          <h3>Sapience Automata</h3>
+          <p class="role">Chief Experience Officer</p>
+          <p class="when">Aug 2025 to present, Bengaluru</p>
+          <ul>
+            <li>Lead product design, UX, brand and marketing for AI-powered ADAS and fleet safety products.</li>
+            <li>Built and mentor the design team; set up the design system and review process.</li>
+            <li>Take products from research to deployment with founders, engineering and sales, now running with commercial fleets and OEM partners.</li>
+          </ul>
+        </div>
+        <div class="stop">
+          <h3>Sapience Automata</h3>
+          <p class="role">VP, Marketing and Product Design</p>
+          <p class="when">Aug 2024 to Aug 2025</p>
+          <ul>
+            <li>Owned product UX, visual design and brand through the company's main growth phase.</li>
+            <li>Turned computer vision capabilities into product stories, demos and sales material.</li>
+          </ul>
+        </div>
+        <div class="stop">
+          <h3>Khatabook</h3>
+          <p class="role">Design Generalist</p>
+          <p class="when">Sep 2020 to Nov 2023, Bengaluru</p>
+          <ul>
+            <li>Designed core and growth experiences for a bookkeeping app used by millions of Indian SMBs.</li>
+            <li>Ran research-led experiments with PMs and engineers to improve activation and retention.</li>
+          </ul>
+        </div>
+        <div class="stop">
+          <h3>Instamojo</h3>
+          <p class="role">Communication Designer</p>
+          <p class="when">Dec 2017 to Jan 2020, Bengaluru</p>
+          <ul>
+            <li>Built brand and product communication systems for a fast-growing fintech platform.</li>
+          </ul>
+        </div>
+        <div class="stop">
+          <h3>Ogilvy &amp; Mather</h3>
+          <p class="role">Design Intern</p>
+          <p class="when">Dec 2016 to Jul 2017, Kolkata</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="strengths">
+    <div class="wrap">
+      <h2>What I bring</h2>
+      <div class="strengths">
+        <div>
+          <h3>Design leadership</h3>
+          <p>Hiring and mentoring, design systems, critique rituals, and a seat at the table with founders.</p>
+        </div>
+        <div>
+          <h3>Hardware + software</h3>
+          <p>Experiences that span in-vehicle devices, driver-facing UI and B2B fleet dashboards.</p>
+        </div>
+        <div>
+          <h3>Designing for AI</h3>
+          <p>Making model confidence, alerts and human review clear enough to act on.</p>
+        </div>
+        <div>
+          <h3>Brand and go-to-market</h3>
+          <p>Product marketing, storytelling and demos that help deep tech sell.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="big">Building something in mobility or AI? I'd like to hear about it.</p>
+      <ul>
+        <li><a href="mailto:animeshkarnsingh@gmail.com">animeshkarnsingh@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/animeshkarnsingh">LinkedIn</a></li>
+        <li><a href="resume.pdf">Resume (PDF)</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Animesh Singh, Bengaluru</div>
+</footer>
+
+</body>
+</html>
