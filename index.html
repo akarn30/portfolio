@@ -3,353 +3,243 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animesh Singh, Design Leader</title>
-<meta name="description" content="Animesh Singh leads design for AI products that make roads safer.">
+<title>Animesh Singh, Design Leader, Bengaluru</title>
+<meta name="description" content="Animesh Singh, Chief Experience Officer at Sapience Automata. Design leader for AI, ADAS and fleet safety products. Open to Head of Design roles.">
 <meta property="og:title" content="Animesh Singh, Design Leader">
 <meta property="og:description" content="Design for AI that keeps every journey safe.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231d1d1f'/><text x='50' y='67' font-size='54' text-anchor='middle' fill='white' font-family='-apple-system,sans-serif' font-weight='600'>A</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='78' font-size='88' text-anchor='middle' font-family='Georgia,serif'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Animesh Singh","jobTitle":"Chief Experience Officer","worksFor":{"@type":"Organization","name":"Sapience Automata"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"email":"mailto:animeshkarnsingh@gmail.com","sameAs":["https://www.linkedin.com/in/animeshkarnsingh"],"alumniOf":"National Institute of Fashion Technology, Kolkata","knowsAbout":["Design leadership","UX design","ADAS","Driver monitoring","Fleet technology","AI products","Brand"]}
+</script>
 <style>
   :root {
-    --bg: #FFFFFF;
-    --bg-alt: #F5F5F7;
-    --tile: #FFFFFF;
-    --ink: #1D1D1F;
-    --muted: #6E6E73;
-    --blue: #0071E3;
-    --link: #0066CC;
-    --hair: #D2D2D7;
-    --nav: rgba(255,255,255,0.72);
-    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --bg: #FFFFFF; --ink: #17191C; --muted: #6B7076; --hair: #E4E5E7;
+    --mark: #F4C430; --mark-soft: #FDF3CF; --safe: #1F9D55; --link: #17191C;
+    --font: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #000000;
-      --bg-alt: #161617;
-      --tile: #1D1D1F;
-      --ink: #F5F5F7;
-      --muted: #A1A1A6;
-      --link: #2997FF;
-      --hair: #424245;
-      --nav: rgba(22,22,23,0.72);
-    }
+    :root { --bg: #121314; --ink: #ECEDEE; --muted: #9A9FA5; --hair: #2A2C2F; --mark: #E8B10A; --mark-soft: #3A3016; --safe: #3DD47F; color-scheme: dark; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 60px; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font);
-    font-size: 17px;
-    line-height: 1.47;
-    letter-spacing: -0.022em;
-    -webkit-font-smoothing: antialiased;
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 19px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--link); text-decoration: underline; text-decoration-color: var(--hair); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  a:hover { text-decoration-color: var(--ink); }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--mark); outline-offset: 3px; border-radius: 3px; }
+  .col { width: min(100% - 40px, 720px); margin-inline: auto; }
+
+  header.top { padding: 40px 0 0; }
+  header.top .col { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; font-size: 16px; }
+  .me { font-weight: 700; text-decoration: none; }
+  .status { color: var(--muted); }
+  .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--safe); margin-right: 8px; vertical-align: 1px; }
+
+  /* Intro: stretchtext. Highlighted phrases open more detail in place. */
+  .intro { padding: 18vh 0 10vh; }
+  .intro .lead { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.28; letter-spacing: -0.02em; font-weight: 500; }
+  .x { cursor: pointer; -webkit-box-decoration-break: clone; box-decoration-break: clone; background: linear-gradient(var(--mark-soft), var(--mark-soft)) 0 88% / 100% 0.32em no-repeat; padding: 0 2px; border-radius: 2px; transition: background-size .2s; }
+  .x:hover, .x[aria-expanded="true"] { background-size: 100% 100%; }
+  .x::after { content: "+"; font-size: 0.55em; vertical-align: super; color: var(--muted); margin-left: 2px; }
+  .x[aria-expanded="true"]::after { content: "\2212"; }
+  .more { display: none; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.55; letter-spacing: -0.005em; font-weight: 400; color: var(--muted); border-left: 3px solid var(--mark); padding: 2px 0 2px 16px; margin: 12px 0 16px; }
+  .more.open { display: block; }
+  .more strong { color: var(--ink); font-weight: 500; }
+  .reader { margin-top: 40px; display: flex; gap: 6px; font-size: 15px; color: var(--muted); align-items: center; flex-wrap: wrap; }
+  .reader button { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--hair); }
+  .reader button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  section { padding: 72px 0; border-top: 1px solid var(--hair); }
+  h2 { font-size: 15px; font-weight: 500; color: var(--muted); margin-bottom: 28px; }
+  h3 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+  p + p { margin-top: 14px; }
+
+  /* Work as short written case notes */
+  .case + .case { margin-top: 56px; }
+  .case .where { color: var(--muted); font-size: 16px; margin-top: 4px; }
+  .case dl { margin-top: 18px; display: grid; grid-template-columns: 110px 1fr; gap: 10px 20px; }
+  .case dt { color: var(--muted); font-size: 16px; padding-top: 2px; }
+  .case dd.result { font-weight: 500; }
+
+  /* How I lead */
+  .principles { list-style: none; counter-reset: none; }
+  .principles li + li { margin-top: 30px; }
+  .principles b { display: block; font-size: 22px; letter-spacing: -0.015em; line-height: 1.3; margin-bottom: 6px; }
+  .principles span { color: var(--muted); }
+
+  /* Experience as plain lines */
+  .jobs { list-style: none; }
+  .jobs li { display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+  .jobs li:first-child { padding-top: 0; }
+  .jobs .when { color: var(--muted); font-size: 16px; white-space: nowrap; }
+  .jobs .what { color: var(--muted); font-size: 17px; grid-column: 1 / -1; }
+
+  .contact .big { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.25; letter-spacing: -0.02em; font-weight: 500; }
+  .contact ul { list-style: none; margin-top: 28px; }
+  .contact li { padding: 10px 0; border-bottom: 1px solid var(--hair); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .contact li span { color: var(--muted); }
+  .copy { text-decoration: underline; text-decoration-color: var(--hair); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .copy:hover { text-decoration-color: var(--ink); }
+  footer { color: var(--muted); font-size: 15px; padding: 40px 0 64px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 18px; }
+    .intro { padding: 12vh 0 8vh; }
+    .case dl { grid-template-columns: 1fr; gap: 2px; }
+    .case dd + dt { margin-top: 10px; }
   }
-  a { color: var(--link); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
-  .wrap { width: min(100% - 44px, 980px); margin-inline: auto; }
-
-  /* Glass nav */
-  .nav {
-    position: sticky; top: 0; z-index: 10;
-    background: var(--nav);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid color-mix(in srgb, var(--hair) 60%, transparent);
-  }
-  .nav .wrap { height: 48px; display: flex; align-items: center; justify-content: space-between; }
-  .nav .name { color: var(--ink); font-weight: 600; font-size: 15px; }
-  .nav ul { list-style: none; display: flex; gap: 28px; font-size: 13px; }
-  .nav ul a { color: var(--ink); opacity: 0.8; }
-  .nav ul a:hover { opacity: 1; text-decoration: none; }
-
-  /* Hero */
-  .hero { text-align: center; padding: 96px 0 0; overflow: hidden; }
-  .hero h1 { font-size: clamp(48px, 9vw, 96px); font-weight: 700; letter-spacing: -0.045em; line-height: 1.02; }
-  .hero .sub { font-size: clamp(22px, 3.2vw, 32px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; margin: 14px auto 0; max-width: 28ch; }
-  .hero .intro { color: var(--muted); font-size: clamp(17px, 1.8vw, 21px); max-width: 46ch; margin: 18px auto 0; }
-  .ctas { margin-top: 32px; display: flex; justify-content: center; align-items: center; gap: 28px; flex-wrap: wrap; }
-  .btn { background: var(--blue); color: #fff; padding: 12px 24px; border-radius: 980px; font-size: 17px; }
-  .btn:hover { text-decoration: none; filter: brightness(1.08); }
-  .chev::after { content: "\00a0\203A"; }
-
-  /* Hero visual: driver-monitoring view of the road */
-  .stage { margin: 64px auto 0; width: min(100%, 980px); }
-  .stage svg { display: block; width: 100%; height: auto; border-radius: 28px 28px 0 0; }
-  .box { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 1.4s 0.4s cubic-bezier(.4,0,.2,1) forwards; }
-  .tag { opacity: 0; animation: show 0.5s 1.6s ease forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-  @keyframes show { to { opacity: 1; } }
-
-  /* Sections */
-  section { padding: 110px 0; }
-  .alt { background: var(--bg-alt); }
-  .head { text-align: center; margin-bottom: 56px; }
-  .head h2 { font-size: clamp(36px, 5.5vw, 56px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.07; }
-  .head p { color: var(--muted); font-size: 21px; max-width: 40ch; margin: 14px auto 0; }
-
-  /* Numbers */
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
-  .facts strong { display: block; font-size: clamp(40px, 6vw, 64px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
-  .facts span { color: var(--muted); font-size: 17px; display: block; margin-top: 8px; max-width: 22ch; margin-inline: auto; }
-
-  /* Work tiles */
-  .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .tile { background: var(--tile); border-radius: 28px; padding: 44px 40px; display: flex; flex-direction: column; min-height: 380px; }
-  .tile.wide { grid-column: 1 / -1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .tile .co { color: var(--muted); font-size: 14px; font-weight: 600; }
-  .tile h3 { font-size: 32px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; margin-top: 6px; }
-  .tile p { color: var(--muted); margin-top: 14px; }
-  .tile .result { color: var(--ink); font-weight: 600; }
-  .tile .more { margin-top: auto; padding-top: 24px; }
-  .tile.wide .more { margin-top: 0; }
-
-  /* Mini dashboard illustration in the wide tile */
-  .mini { background: var(--bg-alt); border-radius: 18px; padding: 20px; font-size: 14px; }
-  .mini .row { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid var(--hair); }
-  .mini .row:last-child { border-bottom: 0; }
-  .pill { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 980px; }
-  .hi { background: #FFE1DE; color: #B42318; }
-  .md { background: #FFF1D6; color: #93590B; }
-  .lo { background: #DDF5E5; color: #1A7F37; }
-
-  /* Experience */
-  .jobs { max-width: 760px; margin-inline: auto; }
-  .job { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 32px 0; border-top: 1px solid var(--hair); }
-  .job:first-child { border-top: 0; }
-  .job .when { color: var(--muted); font-size: 15px; padding-top: 4px; }
-  .job h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.03em; }
-  .job .role { color: var(--muted); }
-  .job p.desc { margin-top: 10px; }
-
-  /* Strengths */
-  .grid4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .card { background: var(--tile); border-radius: 22px; padding: 32px; }
-  .card h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.025em; }
-  .card p { color: var(--muted); margin-top: 8px; }
-
-  /* Contact */
-  .contact { text-align: center; }
-  .contact .ctas { margin-top: 36px; }
-
-  footer { background: var(--bg-alt); color: var(--muted); font-size: 12px; padding: 20px 0 28px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--hair); padding-top: 16px; }
-
-  @media (max-width: 760px) {
-    section { padding: 80px 0; }
-    .nav ul { gap: 18px; }
-    .facts { grid-template-columns: 1fr; gap: 40px; }
-    .tiles, .grid4 { grid-template-columns: 1fr; }
-    .tile.wide { grid-template-columns: 1fr; }
-    .tile { min-height: 0; padding: 36px 28px; }
-    .job { grid-template-columns: 1fr; gap: 6px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .box { animation: none; stroke-dashoffset: 0; }
-    .tag { animation: none; opacity: 1; }
+  @media print {
+    .reader, .status::before { display: none; }
+    .more { display: block; }
+    .x::after { content: ""; }
+    .x { background: none; }
   }
 </style>
 </head>
 <body>
 
-<nav class="nav" aria-label="Main">
-  <div class="wrap">
-    <a class="name" href="#">Animesh Singh</a>
-    <ul>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+<header class="top">
+  <div class="col">
+    <a class="me" href="#">Animesh Singh</a>
+    <span class="status">Open to Head of Design roles</span>
   </div>
-</nav>
+</header>
 
 <main>
-  <header class="hero">
-    <div class="wrap">
-      <h1>Safer by design.</h1>
-      <p class="sub">AI products that see the road, and the people who drive it.</p>
-      <p class="intro">I'm Animesh Singh, Chief Experience Officer at Sapience Automata. I lead design for driver monitoring and ADAS, from the device in the cab to the dashboard in the fleet office.</p>
-      <div class="ctas">
-        <a class="btn" href="#work">See the work</a>
-        <!-- Upload your resume as resume.pdf next to this file -->
-        <a class="chev" href="resume.pdf">Download resume</a>
+  <div class="intro">
+    <div class="col">
+      <p class="lead">
+        I'm Animesh. I lead design for
+        <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m1">AI that watches the road</span>
+        <span class="more" id="m1">At Sapience Automata, we build driver monitoring and ADAS for commercial fleets and OEMs. A camera in the cab tracks the road ahead and the driver's attention, and warns before something goes wrong. I own how that feels for <strong>three very different people</strong>: the driver who needs an alert they understand in under a second, the fleet manager who needs to know which drivers to call today, and the OEM partner who needs it to fit their vehicle.</span>
+        as
+        <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m2">Chief Experience Officer</span>
+        <span class="more" id="m2">I joined as VP of Marketing and Product Design in August 2024 and was <strong>promoted to CXO within a year</strong>. I lead product design, UX, brand, marketing and customer experience, hire and mentor the design team, and work with the founders, engineering and sales to take products from research to deployment.</span>
+        at Sapience Automata. Before that, I designed for
+        <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m3">millions of small businesses</span>
+        <span class="more" id="m3">At Khatabook, from 2020 to 2023, I worked across UX, UI and growth design for a bookkeeping app used by <strong>millions of Indian SMBs</strong>, many of them first-time smartphone users reading in their own language. That taught me to design for people under pressure, on cheap phones, with no patience for confusion. It's the same discipline a driver-facing screen demands.</span>
+        and
+        <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m4">built brands</span>
+        <span class="more" id="m4">At Instamojo, from 2017 to 2020, I built brand and product communication systems for a fast-growing fintech. Before that I trained at Ogilvy &amp; Mather and studied Design and Visual Communication at <strong>NIFT Kolkata</strong>.</span>
+        in fintech. Now I'm looking for
+        <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m5">my next team</span><span class="more" id="m5">I want to lead design at an <strong>early or growth-stage company in mobility, automotive or AI</strong>, where design shapes what gets built, not just how it looks. If that's you, <a href="#contact">get in touch</a>.</span>.
+      </p>
+      <div class="reader" role="group" aria-label="Reading length">
+        <span>Read the</span>
+        <button aria-pressed="true" data-mode="short">short version</button>
+        <button aria-pressed="false" data-mode="full">full version</button>
       </div>
     </div>
-    <div class="stage" aria-hidden="true">
-      <svg viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#1B2A3A"/><stop offset="1" stop-color="#3A4B5C"/>
-          </linearGradient>
-          <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#2C3036"/><stop offset="1" stop-color="#15171A"/>
-          </linearGradient>
-        </defs>
-        <rect width="980" height="420" fill="url(#sky)"/>
-        <path d="M0 230 L980 230 L980 420 L0 420 Z" fill="#20262B"/>
-        <path d="M455 230 L525 230 L900 420 L80 420 Z" fill="url(#asphalt)"/>
-        <g stroke="#F5F5F7" stroke-width="5" stroke-linecap="round" opacity="0.85">
-          <line x1="490" y1="240" x2="490" y2="256"/>
-          <line x1="490" y1="272" x2="490" y2="296"/>
-          <line x1="490" y1="320" x2="490" y2="356"/>
-          <line x1="490" y1="386" x2="490" y2="420"/>
-        </g>
-        <!-- vehicle ahead -->
-        <rect x="520" y="262" width="74" height="46" rx="9" fill="#C9CED6"/>
-        <rect x="528" y="268" width="58" height="16" rx="4" fill="#4A5563"/>
-        <rect x="524" y="294" width="12" height="6" rx="2" fill="#FF5A4E"/>
-        <rect x="578" y="294" width="12" height="6" rx="2" fill="#FF5A4E"/>
-        <!-- detection -->
-        <rect class="box" x="508" y="250" width="98" height="70" rx="10" fill="none" stroke="#30D158" stroke-width="3"/>
-        <g class="tag">
-          <rect x="508" y="214" width="196" height="28" rx="14" fill="#30D158"/>
-          <text x="522" y="233" font-family="-apple-system, Inter, sans-serif" font-size="14" font-weight="600" fill="#0B2A14">Vehicle ahead, 2.4 s gap</text>
-          <rect x="40" y="40" width="184" height="34" rx="17" fill="rgba(255,255,255,0.14)"/>
-          <circle cx="62" cy="57" r="6" fill="#30D158"/>
-          <text x="78" y="62" font-family="-apple-system, Inter, sans-serif" font-size="15" font-weight="500" fill="#F5F5F7">Driver attentive</text>
-        </g>
-      </svg>
-    </div>
-  </header>
+  </div>
 
-  <section class="alt">
-    <div class="wrap">
-      <div class="facts">
-        <div><strong>9 years</strong><span>designing products, from fintech to fleets</span></div>
-        <div><strong>12 months</strong><span>from VP to Chief Experience Officer</span></div>
-        <div><strong>Millions</strong><span>of small businesses used what I designed at Khatabook</span></div>
-      </div>
+  <section id="work">
+    <div class="col">
+      <h2>Selected work</h2>
+      <!-- Replace each Result with a real number, and link each title to a case study -->
+      <article class="case">
+        <h3>A fleet dashboard that ranks risk, not noise</h3>
+        <p class="where">Sapience Automata</p>
+        <dl>
+          <dt>Problem</dt><dd>Fleet managers were flooded with AI-detected events and couldn't tell which ones mattered.</dd>
+          <dt>What I did</dt><dd>Redesigned how risk is ranked, reviewed and acted on, so a manager sees the few drivers who need attention today.</dd>
+          <dt>Result</dt><dd class="result">Add your outcome, such as review time saved or alerts actioned.</dd>
+        </dl>
+      </article>
+      <article class="case">
+        <h3>Alerts a driver gets in under a second</h3>
+        <p class="where">Sapience Automata</p>
+        <dl>
+          <dt>Problem</dt><dd>A warning that makes a driver look away from the road is a hazard of its own.</dd>
+          <dt>What I did</dt><dd>Designed sound, light and screen cues together, in multiple languages, and tested them in real vehicles.</dd>
+          <dt>Result</dt><dd class="result">Add your outcome, such as driver acceptance or fewer risky events.</dd>
+        </dl>
+      </article>
+      <article class="case">
+        <h3>A first week that sticks</h3>
+        <p class="where">Khatabook</p>
+        <dl>
+          <dt>Problem</dt><dd>New merchants signed up but didn't reach the moment the app became useful.</dd>
+          <dt>What I did</dt><dd>Ran research-led experiments with PMs and engineers to get first-time, vernacular-first users to value faster, on low-end Android phones.</dd>
+          <dt>Result</dt><dd class="result">Add your outcome, such as activation or retention lift.</dd>
+        </dl>
+      </article>
     </div>
   </section>
 
-  <section id="work" class="alt" style="padding-top:0">
-    <div class="wrap">
-      <div class="head">
-        <h2>Selected work.</h2>
-        <p>Hard problems where good design has a real-world result.</p>
-      </div>
-      <!-- Replace each "Result" line with a real number, and point each link to a case study -->
-      <div class="tiles">
-        <article class="tile wide">
-          <div>
-            <p class="co">Sapience Automata</p>
-            <h3>The fleet safety dashboard.</h3>
-            <p>Fleet managers were flooded with AI-detected events. I redesigned how risk is ranked and reviewed, so they see the few drivers who need attention today.</p>
-            <p class="result">Result: add your outcome here.</p>
-            <p class="more"><a class="chev" href="#">Read the case study</a></p>
-          </div>
-          <div class="mini" aria-hidden="true">
-            <div class="row"><span>Driver 0142, drowsiness</span><span class="pill hi">High</span></div>
-            <div class="row"><span>Driver 0087, phone use</span><span class="pill md">Medium</span></div>
-            <div class="row"><span>Driver 0211, close following</span><span class="pill md">Medium</span></div>
-            <div class="row"><span>Driver 0034, harsh braking</span><span class="pill lo">Low</span></div>
-          </div>
-        </article>
-        <article class="tile">
-          <p class="co">Sapience Automata</p>
-          <h3>Alerts in under a second.</h3>
-          <p>In-cab warnings a driver understands without looking away from the road. Sound, light and screen cues designed together, in multiple languages, tested in real vehicles.</p>
-          <p class="result">Result: add your outcome here.</p>
-          <p class="more"><a class="chev" href="#">Read the case study</a></p>
-        </article>
-        <article class="tile">
-          <p class="co">Khatabook</p>
-          <h3>A first week that sticks.</h3>
-          <p>Research-led experiments to help first-time, vernacular-first merchants find value quickly, designed for low-end Android phones.</p>
-          <p class="result">Result: add your outcome here.</p>
-          <p class="more"><a class="chev" href="#">Read the case study</a></p>
-        </article>
-      </div>
+  <section id="lead">
+    <div class="col">
+      <h2>How I lead</h2>
+      <ul class="principles">
+        <li><b>Start with the person on the hardest day.</b><span>A tired driver at night. A fleet manager after an incident. If the product works for them then, it works.</span></li>
+        <li><b>Let evidence settle arguments.</b><span>Research and data decide what the user actually needs, not the loudest opinion in the room, including mine.</span></li>
+        <li><b>Teach design to the whole company.</b><span>In an engineering-led company, my job is to make everyone ask how it feels from the user's side, even when I'm not in the room.</span></li>
+        <li><b>Build the team and the system.</b><span>Hire well, mentor closely, and set up the design system and review rituals that let a small team ship consistently.</span></li>
+        <li><b>Hold the whole experience.</b><span>Device, app, dashboard, brand, sales demo and support are one experience to the customer, so I treat them as one.</span></li>
+      </ul>
     </div>
   </section>
 
   <section id="experience">
-    <div class="wrap">
-      <div class="head">
-        <h2>Experience.</h2>
-      </div>
-      <div class="jobs">
-        <div class="job">
-          <p class="when">2025 to now</p>
-          <div>
-            <h3>Sapience Automata</h3>
-            <p class="role">Chief Experience Officer</p>
-            <p class="desc">Lead product design, UX, brand and marketing for AI-powered ADAS and fleet safety. Built the design team and system. Products now run with commercial fleets and OEM partners.</p>
-          </div>
-        </div>
-        <div class="job">
-          <p class="when">2024 to 2025</p>
-          <div>
-            <h3>Sapience Automata</h3>
-            <p class="role">VP, Marketing and Product Design</p>
-            <p class="desc">Owned product UX, visual design and brand through the main growth phase. Turned computer vision into stories, demos and sales material.</p>
-          </div>
-        </div>
-        <div class="job">
-          <p class="when">2020 to 2023</p>
-          <div>
-            <h3>Khatabook</h3>
-            <p class="role">Design Generalist</p>
-            <p class="desc">Core and growth design for a bookkeeping app used by millions of Indian SMBs, shipped through fast, research-led experiments.</p>
-          </div>
-        </div>
-        <div class="job">
-          <p class="when">2017 to 2020</p>
-          <div>
-            <h3>Instamojo</h3>
-            <p class="role">Communication Designer</p>
-            <p class="desc">Brand and product communication systems for a fast-growing fintech platform.</p>
-          </div>
-        </div>
-        <div class="job">
-          <p class="when">2016 to 2017</p>
-          <div>
-            <h3>Ogilvy &amp; Mather</h3>
-            <p class="role">Design Intern</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="alt">
-    <div class="wrap">
-      <div class="head">
-        <h2>What I bring.</h2>
-      </div>
-      <div class="grid4">
-        <div class="card"><h3>Design leadership</h3><p>Hiring, mentoring, design systems, and a seat at the table with founders.</p></div>
-        <div class="card"><h3>Hardware and software</h3><p>One experience across in-vehicle devices, driver UI and fleet dashboards.</p></div>
-        <div class="card"><h3>Designing for AI</h3><p>Making model confidence, alerts and human review clear enough to act on.</p></div>
-        <div class="card"><h3>Brand and go-to-market</h3><p>Storytelling, demos and product marketing that help deep tech sell.</p></div>
-      </div>
+    <div class="col">
+      <h2>Experience</h2>
+      <ul class="jobs">
+        <li><strong>Chief Experience Officer, Sapience Automata</strong><span class="when">2025 to now</span><span class="what">Design, UX, brand, marketing and customer experience for ADAS and fleet safety.</span></li>
+        <li><strong>VP, Marketing and Product Design, Sapience Automata</strong><span class="when">2024 to 2025</span><span class="what">Product UX, visual design and brand through the main growth phase.</span></li>
+        <li><strong>Design Generalist, Khatabook</strong><span class="when">2020 to 2023</span><span class="what">Core and growth design for millions of Indian small businesses.</span></li>
+        <li><strong>Communication Designer, Instamojo</strong><span class="when">2017 to 2020</span><span class="what">Brand and product communication for a fintech platform.</span></li>
+        <li><strong>Design Intern, Ogilvy &amp; Mather</strong><span class="when">2016 to 2017</span></li>
+        <li><strong>B.Des, Design and Visual Communication, NIFT Kolkata</strong><span class="when">2013 to 2017</span></li>
+      </ul>
     </div>
   </section>
 
   <section id="contact" class="contact">
-    <div class="wrap">
-      <div class="head" style="margin-bottom:0">
-        <h2>Let's make every journey safer.</h2>
-        <p>Looking to lead design at an early or growth-stage company in mobility, automotive or AI.</p>
-      </div>
-      <div class="ctas">
-        <a class="btn" href="mailto:animeshkarnsingh@gmail.com">Email me</a>
-        <a class="chev" href="https://www.linkedin.com/in/animeshkarnsingh">Connect on LinkedIn</a>
-      </div>
+    <div class="col">
+      <h2>Contact</h2>
+      <p class="big">Hiring a Head of Design for something that moves? I'd like to hear about it.</p>
+      <ul>
+        <li><button class="copy" data-email="animeshkarnsingh@gmail.com">animeshkarnsingh@gmail.com</button><span id="copied">Copy</span></li>
+        <li><a href="https://www.linkedin.com/in/animeshkarnsingh">LinkedIn</a><span>Message me</span></li>
+        <!-- Upload your resume as resume.pdf next to this file -->
+        <li><a href="resume.pdf">Resume</a><span>PDF</span></li>
+      </ul>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>Designed and built by Animesh Singh in Bengaluru.</span>
-    <a href="resume.pdf">Resume (PDF)</a>
-  </div>
+  <div class="col">Animesh Singh, Bengaluru. Set in Schibsted Grotesk.</div>
 </footer>
 
+<script>
+(() => {
+  const toggles = [...document.querySelectorAll('.x')];
+  const modeBtns = document.querySelectorAll('.reader button');
+  const setOne = (b, open) => {
+    b.setAttribute('aria-expanded', open);
+    document.getElementById(b.getAttribute('aria-controls')).classList.toggle('open', open);
+  };
+  const syncMode = () => {
+    const all = toggles.every(b => b.getAttribute('aria-expanded') === 'true');
+    modeBtns.forEach(m => m.setAttribute('aria-pressed', (m.dataset.mode === 'full') === all));
+  };
+  toggles.forEach(b => {
+    const flip = () => { setOne(b, b.getAttribute('aria-expanded') !== 'true'); syncMode(); };
+    b.addEventListener('click', flip);
+    b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+  });
+  modeBtns.forEach(m => m.addEventListener('click', () => { toggles.forEach(b => setOne(b, m.dataset.mode === 'full')); syncMode(); }));
+
+  const copyBtn = document.querySelector('.copy'), label = document.getElementById('copied');
+  copyBtn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(copyBtn.dataset.email); label.textContent = 'Copied'; }
+    catch { label.textContent = 'Select and copy'; }
+    setTimeout(() => label.textContent = 'Copy', 2000);
+  });
+})();
+</script>
 </body>
 </html>
