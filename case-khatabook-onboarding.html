@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0A0A'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23FFFFFF' font-family='Helvetica,Arial,sans-serif' font-weight='500'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 /* Animesh Singh, portfolio styles. Shared by every page. */
 
@@ -207,7 +207,7 @@
   /* ---- Case study ---- */
   .cs-hero { padding: 10vh 0 48px; }
   .back { font-size: 14px; color: var(--soft); display: inline-flex; gap: 8px; }
-  .back::before { content: "\2190"; }
+  
   .cs-hero .kicker { margin-top: 40px; font-size: 14px; color: var(--muted); }
   .cs-hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.06; letter-spacing: -0.045em; font-weight: 450; margin-top: 10px; }
   .cs-hero .sum { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.5; letter-spacing: -0.02em; color: var(--soft); margin-top: 20px; max-width: 34em; }
@@ -263,13 +263,172 @@
   }
 .pair .media.sample { aspect-ratio: 4 / 3 !important; }
 
+
+  /* ==== Minimal system (matches homepage) ==== */
+  :root { --bg: #FFFFFF; --ink: #111111; --soft: #6F6F6F; --muted: #A3A3A3; --tile: #F5F5F5; --hl: #EDEDED;
+          --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0A0A0A; --ink: #EDEDED; --soft: #8F8F8F; --muted: #5C5C5C; --tile: #161616; --hl: #1F1F1F; } }
+  body { font-size: 15px; color: var(--soft); letter-spacing: -0.006em; }
+  .col { width: min(100% - 48px, 580px); }
+  .wide { width: min(100% - 48px, 920px); }
+  header.top .bar { height: 60px; padding: 0; }
+  .me { font-weight: 500; color: var(--ink); }
+  .nav { gap: 20px; font-size: 14px; }
+  .nav a, .nav a.cta { padding: 0; margin: 0; background: none !important; color: var(--muted); border-radius: 0; }
+  .nav a:hover, .nav a[aria-current="true"], .nav a.cta:hover { color: var(--ink); opacity: 1; }
+  .menu, .sheet { display: none !important; }
+  @media (max-width: 680px) { .nav { display: flex !important; gap: 14px; } .nav a.cta { display: none; } }
+  .cs-hero { padding: 72px 0 40px; }
+  .back { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .cs-hero .kicker { font-family: var(--mono); font-size: 12px; margin-top: 32px; }
+  .cs-hero h1 { font-size: clamp(26px, 4vw, 34px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.15; color: var(--ink); }
+  .cs-hero .sum { font-size: 17px; line-height: 1.6; letter-spacing: -0.012em; margin-top: 14px; }
+  .meta { gap: 20px 24px; margin-top: 32px; }
+  .meta div { background: none; padding: 0; border-radius: 0; }
+  .meta dt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .meta dd { font-size: 14px; font-weight: 400; color: var(--ink); }
+  .media, .media.sample { border-radius: 12px; }
+  .fig figcaption, .pair figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: left; }
+  section { padding: 44px 0; }
+  h2 { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+  .cs .h { font-size: 20px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.35; color: var(--ink); margin-bottom: 12px; }
+  .cs .h em { color: var(--muted); }
+  .cs p b { font-weight: 400; }
+  .tldr { gap: 20px 24px; }
+  .tldr div { background: none; padding: 0; border-radius: 0; }
+  .tldr b { font-size: 26px; font-weight: 400; letter-spacing: -0.04em; color: var(--ink); }
+  .tldr span { font-size: 13px; margin-top: 4px; }
+  .cards { gap: 8px; }
+  .cards div { padding: 16px; border-radius: 12px; }
+  .cards b { font-size: 15px; color: var(--ink); }
+  .cards span, .cards q { font-size: 14px; }
+  .steps li { grid-template-columns: 32px 1fr; padding: 8px 0; }
+  .steps li::before { content: counter(s, decimal-leading-zero); background: none; color: var(--muted); width: auto; height: auto; display: block; font-family: var(--mono); font-size: 12px; padding-top: 3px; }
+  .steps b { color: var(--ink); }
+  .steps span { font-size: 15px; }
+  .decision h3 { font-size: 17px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
+  .decision + .decision { margin-top: 40px; }
+  .pull { font-size: 20px !important; letter-spacing: -0.02em; }
+  .pull + p { font-family: var(--mono); font-size: 12px !important; }
+  .next { padding: 20px; border-radius: 12px; }
+  .next small { font-family: var(--mono); font-size: 12px; }
+  .next b { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
+  footer .col { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .js .rv { filter: none !important; transform: translateY(8px); }
+  .js .rv.in { transform: none; }
+  @media (max-width: 680px) { .meta { grid-template-columns: 1fr 1fr; } .tldr { grid-template-columns: repeat(3, 1fr); } .tldr b { font-size: 22px; } }
+
+  /* ==== Colour: one accent, used sparingly ==== */
+  :root { --accent: #FF4F00; --accent-soft: rgba(255, 79, 0, .12); }
+  @media (prefers-color-scheme: dark) { :root { --accent: #FF6A26; --accent-soft: rgba(255, 106, 38, .16); } }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline-color: var(--accent); }
+  .status i { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .x:hover, .x[aria-expanded="true"] { background: var(--accent-soft); }
+  .more { box-shadow: inset 2px 0 0 var(--accent); }
+  nav a[aria-current="true"], .nav a[aria-current="true"] { position: relative; }
+  nav a[aria-current="true"]::before, .nav a[aria-current="true"]::before { content: ""; position: absolute; left: 50%; bottom: -8px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--accent); }
+  .work a:hover .t { color: var(--accent); }
+  .work .t { transition: color .25s; }
+  .work .d b, .facts b:first-letter { color: inherit; }
+  #copied { color: var(--accent); }
+  .steps li::before { color: var(--accent) !important; }
+  .next:hover b { color: var(--accent); }
+  .next b { transition: color .25s; }
+  .m-acc { fill: var(--accent); }
+  .s-acc { stroke: var(--accent); }
+
+  /* ==== Animated cursor (mouse and trackpad only) ==== */
+  .cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 100; border-radius: 50%; opacity: 0; will-change: transform; }
+  .cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--accent); transition: opacity .2s, width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease); }
+  .cursor-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+                 transition: opacity .2s, width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background .3s, border-color .3s; }
+  .has-cursor .cursor-dot, .has-cursor .cursor-ring { opacity: 1; }
+  .has-cursor.c-link .cursor-ring { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: var(--accent-soft); border-color: transparent; }
+  .has-cursor.c-link .cursor-dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; }
+  .has-cursor.c-text .cursor-ring { width: 2px; height: 22px; margin: -11px 0 0 -1px; border-radius: 2px; background: var(--accent); border-color: transparent; }
+  .has-cursor.c-text .cursor-dot { opacity: 0; }
+  .has-cursor.c-hide .cursor-ring, .has-cursor.c-hide .cursor-dot { opacity: 0; }
+  .has-cursor.c-down .cursor-ring { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+  @media (hover: hover) and (pointer: fine) { html.has-cursor, html.has-cursor * { cursor: none !important; } }
+  @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+  /* ==== AS-1 system (Teenage Engineering inspired) ==== */
+  :root { --body: #E6E6E3; --body-2: #DADAD6; --k-orange: #FF4F00; --k-blue: #2F6BFF; --k-green: #19B36B; }
+  @media (prefers-color-scheme: dark) { :root { --body: #1C1C1B; --body-2: #262625; } }
+  .me { font-family: var(--mono); font-size: 12px; text-transform: lowercase; display: inline-flex; gap: 10px; align-items: center; }
+  .me::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .nav { font-family: var(--mono); font-size: 12px; text-transform: lowercase; gap: 18px; }
+  .nav a[aria-current="true"]::before { content: "\25CF\00a0"; position: static; width: auto; height: auto; margin: 0; background: none; color: var(--accent); }
+  h2, .back, .cs-hero .kicker, .meta dt, figcaption, .next small, footer .col { text-transform: lowercase; letter-spacing: .02em; font-size: 11px !important; }
+  .cs-hero .kicker::before { content: attr(data-no) "  "; color: var(--accent); }
+  .tldr b { font-family: var(--mono); font-size: 24px !important; letter-spacing: -.02em; }
+  .meta { background: var(--body); border-radius: 16px; padding: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
+  .cards div { background: var(--body); }
+  .steps li::before { content: "s-" counter(s, decimal-leading-zero) !important; color: var(--muted) !important; }
+  .next { background: var(--body); box-shadow: 0 2px 0 var(--body-2), inset 0 1px 0 rgba(255,255,255,.55); }
+  .next:active { transform: translateY(2px); box-shadow: none; }
+  .more, .cursor-dot, .cursor-ring { }
+  .cursor-dot, .cursor-ring { display: none !important; }
+  .xh { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; opacity: 0; transition: opacity .2s; }
+  .has-cursor .xh { opacity: 1; }
+  .xh .h, .xh .v { position: absolute; background: var(--ink); transition: transform .35s var(--ease); }
+  .xh .h { width: 17px; height: 1px; left: -8px; top: 0; }
+  .xh .v { width: 1px; height: 17px; left: 0; top: -8px; }
+  .xh .c { position: absolute; width: 5px; height: 5px; left: -2px; top: -2px; border-radius: 50%; background: var(--accent); transition: transform .35s var(--ease); }
+  .xh .r { position: absolute; left: 14px; top: 10px; font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .c-link .xh .h { transform: rotate(45deg) scaleX(1.3); } .c-link .xh .v { transform: rotate(45deg) scaleY(1.3); }
+  .c-link .xh .c { transform: scale(2.2); } .c-link .xh .r { color: var(--accent); } .c-down .xh .c { transform: scale(3.2); }
+  @media (hover: hover) and (pointer: fine) { html.has-cursor, html.has-cursor * { cursor: none !important; } }
+  @media (hover: none), (pointer: coarse) { .xh { display: none; } }
+  @media (max-width: 400px) { .nav { gap: 11px !important; font-size: 11px; } .me { font-size: 11px; } }
+
+  /* ==== Artist-minimal system (matches homepage) ==== */
+  :root { --bg: #FAFAF9; --ink: #121212; --soft: #737373; --muted: #ABABAB; --tile: #F1F1EF; --body: transparent; --accent: #FF4F00; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0B0B0B; --ink: #E8E8E6; --soft: #8A8A88; --muted: #575755; --tile: #151514; --accent: #FF6A26; } }
+  body { font-size: 13px !important; line-height: 1.6; }
+  .col { width: min(100% - 48px, 480px) !important; }
+  .wide { width: min(100% - 48px, 860px) !important; }
+  header.top { background: color-mix(in srgb, var(--bg) 92%, transparent); }
+  .me { font-family: var(--sans) !important; font-size: 12px !important; text-transform: none !important; }
+  .me::before { display: none !important; }
+  .nav { font-family: var(--sans) !important; font-size: 12px !important; }
+  .nav a[aria-current="true"]::before { content: none !important; }
+  .cs-hero { padding: 64px 0 32px !important; }
+  .cs-hero h1 { font-size: 20px !important; font-weight: 400 !important; letter-spacing: -0.02em !important; line-height: 1.3 !important; }
+  .cs-hero .sum { font-size: 13px !important; color: var(--soft); }
+  .cs-hero .kicker::before { color: var(--accent); }
+  .meta { background: none !important; padding: 0 !important; box-shadow: none !important; }
+  .meta dd { font-size: 13px !important; }
+  .cs .h { font-size: 13px !important; font-weight: 400 !important; color: var(--ink) !important; letter-spacing: 0 !important; margin-bottom: 8px !important; }
+  .cs p { font-size: 13px; }
+  section { padding: 36px 0 !important; }
+  h2::before { content: "\25CF\00a0"; color: var(--accent); }
+  .tldr b { font-family: var(--sans) !important; font-size: 13px !important; color: var(--ink); }
+  .tldr span { font-size: 12px !important; color: var(--muted); }
+  .cards div { background: none !important; padding: 0 !important; }
+  .cards b { font-size: 13px !important; font-weight: 400 !important; }
+  .cards span, .cards q, .steps span { font-size: 13px !important; }
+  .steps li { grid-template-columns: 34px 1fr !important; padding: 4px 0 !important; }
+  .steps li::before { content: counter(s, decimal-leading-zero) !important; font-size: 11px !important; }
+  .steps b { font-weight: 400 !important; }
+  .decision h3 { font-size: 13px !important; font-weight: 400 !important; }
+  .pull { font-size: 13px !important; color: var(--ink) !important; }
+  .next { background: none !important; box-shadow: none !important; padding: 0 !important; }
+  .next b { font-size: 13px !important; font-weight: 400 !important; }
+  .media, .media.sample { border-radius: 0 !important; }
+  .xh { display: none !important; }
+  .dot { position: fixed; left: 0; top: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 100; opacity: 0; transition: opacity .3s, width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease); }
+  .has-cursor .dot { opacity: 1; }
+  .c-link .dot { width: 22px; height: 22px; margin: -11px 0 0 -11px; opacity: .85; }
+  @media (hover: none), (pointer: coarse) { .dot { display: none; } }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="col bar">
-    <a class="me" href="index.html">Animesh Singh</a>
+    <a class="me" href="index.html">animesh singh</a>
     <nav class="nav" aria-label="Case study">
       <a href="#problem" data-spy="problem">Problem</a>
       <a href="#process" data-spy="process">Process</a>
@@ -290,8 +449,8 @@
   <!-- Case study: Khatabook onboarding. Open with ?check to see placeholders and writing guidance. -->
   <div class="cs-hero" id="top">
     <div class="col">
-      <a class="back rv" href="index.html#work">All work</a>
-      <p class="kicker rv">Khatabook, <span class="ph">2021 to 2022</span></p>
+      <a class="back rv" href="index.html#work">&larr; index</a>
+      <p class="kicker rv" data-no="w-03">Khatabook, <span class="ph">2021 to 2022</span></p>
       <h1 class="rv">A first week that sticks</h1>
       <p class="sum rv">New merchants signed up but rarely reached the moment Khatabook became useful. I redesigned the first week around one goal, the first payment collected, and lifted day-7 activation by <span class="ph">18%</span>.</p>
       <dl class="meta rv">
@@ -316,12 +475,12 @@
   </g>
   <g transform="translate(880 130)">
     <rect width="320" height="800" rx="46" class="m-ink"/><rect x="12" y="12" width="296" height="776" rx="36" class="m-card"/>
-    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-ink"/>
+    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-acc"/>
     <text x="40" y="160" class="t-px">2 of 3 done</text>
-    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
-    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
+    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
+    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
     <g transform="translate(40 412)"><rect width="240" height="92" rx="18" class="m-card" stroke="var(--m-ink)" stroke-width="2"/><circle cx="36" cy="46" r="15" fill="none" stroke="var(--m-ink)" stroke-width="2"/><text x="66" y="42" class="t-q">Collect a payment</text><text x="66" y="66" class="t-px">Next</text></g>
-    <rect x="40" y="690" width="240" height="56" rx="16" class="m-ink"/><text x="160" y="726" text-anchor="middle" class="t-btn">Collect payment</text>
+    <rect x="40" y="690" width="240" height="56" rx="16" class="m-acc"/><text x="160" y="726" text-anchor="middle" class="t-btn" style="fill:#fff">Collect payment</text>
   </g>
 </svg></div>
     <figcaption>Before and after: from an empty screen to a guided first week.</figcaption>
@@ -386,12 +545,12 @@
   </g>
   <g transform="translate(880 130)">
     <rect width="320" height="800" rx="46" class="m-ink"/><rect x="12" y="12" width="296" height="776" rx="36" class="m-card"/>
-    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-ink"/>
+    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-acc"/>
     <text x="40" y="160" class="t-px">2 of 3 done</text>
-    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
-    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
+    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
+    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
     <g transform="translate(40 412)"><rect width="240" height="92" rx="18" class="m-card" stroke="var(--m-ink)" stroke-width="2"/><circle cx="36" cy="46" r="15" fill="none" stroke="var(--m-ink)" stroke-width="2"/><text x="66" y="42" class="t-q">Collect a payment</text><text x="66" y="66" class="t-px">Next</text></g>
-    <rect x="40" y="690" width="240" height="56" rx="16" class="m-ink"/><text x="160" y="726" text-anchor="middle" class="t-btn">Collect payment</text>
+    <rect x="40" y="690" width="240" height="56" rx="16" class="m-acc"/><text x="160" y="726" text-anchor="middle" class="t-btn" style="fill:#fff">Collect payment</text>
   </g>
 </svg></div><figcaption>Before and after the guided first week</figcaption></figure><figure><div class="media">Image: progress checklist detail</div><figcaption>Progress made the next step obvious</figcaption></figure></div>
       </article>
@@ -430,7 +589,7 @@
 </main>
 
 <footer>
-  <div class="col">Animesh Singh, Bengaluru. Set in Geist.</div>
+  <div class="col">Animesh Singh, Bengaluru</div>
 </footer>
 <div class="check-bar" role="status">Placeholders and writing guidance shown. Replace before sharing.</div>
 <script>
@@ -502,6 +661,27 @@
   });
 })();
 
+</script>
+
+<div class="dot" aria-hidden="true"></div>
+<script>
+(() => {
+  const root = document.documentElement, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const dot = document.querySelector('.dot'); let x = -100, y = -100, tx = -100, ty = -100;
+    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; root.classList.add('has-cursor'); root.classList.toggle('c-link', !!e.target.closest('a, button')); }, { passive: true });
+    document.addEventListener('mouseleave', () => root.classList.remove('has-cursor'));
+    const loop = () => { x += (tx - x) * (reduce ? 1 : .22); y += (ty - y) * (reduce ? 1 : .22); dot.style.transform = `translate3d(${x}px, ${y}px, 0)`; requestAnimationFrame(loop); }; loop();
+  }
+  const glyphs = 'abcdefghijklmnopqrstuvwxyz0123456789/-+';
+  document.querySelectorAll('.nav a, .back, .next b, .me').forEach(el => {
+    const node = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim()); if (!node || reduce) return;
+    const orig = node.textContent; let busy = false;
+    el.addEventListener('mouseenter', () => { if (busy) return; busy = true; let f = 0; const total = Math.min(18, orig.length + 6);
+      const step = () => { node.textContent = [...orig].map((c, i) => c === ' ' || i < (f / total) * orig.length ? c : glyphs[(Math.random() * glyphs.length) | 0]).join('');
+        if (++f <= total) setTimeout(step, 28); else { node.textContent = orig; busy = false; } }; step(); });
+  });
+})();
 </script>
 </body>
 </html>

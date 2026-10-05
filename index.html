@@ -3,184 +3,160 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animesh Singh, Design Leader, Bengaluru</title>
+<title>Animesh Singh, Design Leader</title>
 <meta name="description" content="Animesh Singh, Chief Experience Officer at Sapience Automata. Design leader for AI, ADAS and fleet safety products. Open to Head of Design roles.">
 <meta property="og:title" content="Animesh Singh, Design Leader">
 <meta property="og:description" content="Design for AI that keeps every journey safe.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0A0A'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23FFFFFF' font-family='Helvetica,Arial,sans-serif' font-weight='500'>A</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='16' fill='%23FF4F00'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Animesh Singh","jobTitle":"Chief Experience Officer","worksFor":{"@type":"Organization","name":"Sapience Automata"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"email":"mailto:animeshkarnsingh@gmail.com","sameAs":["https://www.linkedin.com/in/animeshkarnsingh"],"alumniOf":"National Institute of Fashion Technology, Kolkata","knowsAbout":["Design leadership","UX design","ADAS","Driver monitoring","Fleet technology","AI products","Brand"]}
+{"@context":"https://schema.org","@type":"Person","name":"Animesh Singh","jobTitle":"Chief Experience Officer","worksFor":{"@type":"Organization","name":"Sapience Automata"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"email":"mailto:animeshkarnsingh@gmail.com","sameAs":["https://www.linkedin.com/in/animeshkarnsingh"],"alumniOf":"National Institute of Fashion Technology, Kolkata"}
 </script>
 <style>
-/* Animesh Singh, portfolio styles. Shared by every page. */
-
   :root {
-    --bg: #FFFFFF; --tile: #F4F4F4; --ink: #0A0A0A; --soft: #4A4A4A; --muted: #8A8A8A;
-    --font: "Geist", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --bg: #FAFAF9; --ink: #121212; --soft: #737373; --muted: #ABABAB; --faint: #D9D9D6; --tile: #F1F1EF; --accent: #FF4F00;
+    --sans: "Geist", "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
     --ease: cubic-bezier(.16, 1, .3, 1);
+    --edge: max(24px, 8vw);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #000000; --tile: #141414; --ink: #F5F5F5; --soft: #BDBDBD; --muted: #858585; color-scheme: dark; }
+    :root { --bg: #0B0B0B; --ink: #E8E8E6; --soft: #8A8A88; --muted: #575755; --faint: #262625; --tile: #151514; --accent: #FF6A26; color-scheme: dark; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 18px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; text-decoration: none; transition: opacity .25s; }
-  a:hover { opacity: .55; }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-  :focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
-  ::selection { background: var(--ink); color: var(--bg); }
-  .col { width: min(100% - 48px, 760px); margin-inline: auto; }
+  body { background: var(--bg); color: var(--soft); font-family: var(--sans); font-size: 13px; line-height: 1.6; letter-spacing: -0.003em; -webkit-font-smoothing: antialiased; }
+  a, button { color: var(--ink); text-decoration: none; background: none; border: 0; font: inherit; cursor: pointer; }
+  :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  ::selection { background: var(--accent); color: #fff; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: .01em; }
 
-  /* Header */
-  header.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-  header.top .col { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 15px; }
-  .me { font-weight: 500; letter-spacing: -0.02em; }
-  .status { color: var(--soft); display: inline-flex; align-items: center; gap: 9px; }
-  .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); animation: breathe 2.8s ease-in-out infinite; }
-  @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  /* corners */
+  .corner { position: fixed; z-index: 20; font-size: 12px; }
+  .tl { top: 22px; left: var(--edge); color: var(--ink); }
+  .tr { top: 22px; right: var(--edge); display: flex; gap: 18px; }
+  .tr a { color: var(--muted); transition: color .3s; }
+  .tr a:hover, .tr a[aria-current="true"] { color: var(--ink); }
+  .bl { bottom: 22px; left: var(--edge); color: var(--muted); }
+  .br { bottom: 22px; right: var(--edge); color: var(--muted); display: flex; gap: 8px; align-items: center; }
+  .br i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .2; } }
+  .fade { position: fixed; left: 0; right: 0; height: 80px; z-index: 15; pointer-events: none; }
+  .fade.top { top: 0; background: linear-gradient(var(--bg) 58%, color-mix(in srgb, var(--bg) 0%, transparent)); }
+  .fade.bot { bottom: 0; background: linear-gradient(color-mix(in srgb, var(--bg) 0%, transparent), var(--bg) 55%); }
+  @media (max-width: 600px) { .fade.bot { display: none; } .fade.top { position: absolute; } }
 
-  /* Intro */
-  .intro { padding: 14vh 0 10vh; }
-  .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: linear-gradient(160deg, #EDEDED, #D2D2D2); }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .lead { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.22; letter-spacing: -0.035em; font-weight: 400; margin-top: 28px; }
-  .lead > em { font-style: normal; color: var(--muted); }
-  .x { cursor: pointer; font-weight: 500; transition: opacity .25s; }
-  .x:hover { opacity: .65; }
-  .x .lw { white-space: nowrap; }
-  .x .pl { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; margin-left: .3em; font-size: .4em; font-weight: 500; line-height: 1;
-              border-radius: 50%; background: var(--ink); color: var(--bg); vertical-align: .85em; transition: transform .4s var(--ease); }
-  .x[aria-expanded="true"] .pl { transform: rotate(45deg); }
-  .more { display: none; font-size: 17px; line-height: 1.7; letter-spacing: -0.005em; font-weight: 400; color: var(--soft); background: var(--tile); border-radius: 14px; padding: 18px 22px; margin: 16px 0 22px; }
+  /* artwork */
+  .art { position: relative; height: min(58vh, 520px); margin-top: 72px; }
+  .art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .art .cap { position: absolute; right: var(--edge); bottom: 6px; color: var(--muted); }
+
+  /* text column */
+  .page { padding: 0 var(--edge); }
+  .text { max-width: 460px; }
+  .intro { padding: 48px 0 24px; }
+  .intro p { color: var(--soft); }
+  .intro p + p, .intro .more ~ p { margin-top: 12px; }
+  .intro .name { color: var(--ink); }
+  .x { color: var(--ink); cursor: pointer; background-image: linear-gradient(var(--accent), var(--accent)); background-size: 0 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .5s var(--ease); }
+  .x:hover, .x[aria-expanded="true"] { background-size: 100% 1px; }
+  .more { display: none; color: var(--soft); padding: 2px 0 2px 14px; margin: 10px 0; position: relative; }
+  .more::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: var(--accent); transform-origin: top; animation: grow .6s var(--ease) both; }
+  .more b { color: var(--ink); font-weight: 400; }
   .more.open { display: block; animation: unfold .6s var(--ease) both; }
-  @keyframes unfold { from { opacity: 0; transform: translateY(-8px); filter: blur(3px); } }
-  .more b { color: var(--ink); font-weight: 500; }
-  .reader { margin-top: 36px; display: inline-flex; padding: 4px; background: var(--tile); border-radius: 999px; font-size: 14px; }
-  .reader button { padding: 7px 16px; border-radius: 999px; color: var(--muted); transition: background .3s, color .3s; }
-  .reader button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  @keyframes unfold { from { opacity: 0; transform: translateY(-3px); } }
+  @keyframes grow { from { transform: scaleY(0); } }
+  .hint { margin-top: 18px; color: var(--muted); }
+  .hint button { color: var(--muted); font-family: var(--mono); font-size: 11px; transition: color .3s; }
+  .hint button:hover { color: var(--ink); }
 
-  /* Sections */
-  section { padding: 64px 0; }
-  h2 { font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 28px; }
-  h3 { font-size: 26px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.22; }
+  section { padding: 56px 0 8px; }
+  h2 { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--muted); margin-bottom: 14px; }
+  h2 span { color: var(--accent); }
 
-  /* At a glance */
-  .glance { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .glance div { background: var(--tile); border-radius: 16px; padding: 20px 20px 22px; }
-  .glance b { display: block; font-size: 36px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
-  .glance span { display: block; font-size: 14px; color: var(--soft); margin-top: 10px; line-height: 1.4; }
+  /* facts */
+  .facts { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 6px 36px; }
+  .facts b { display: block; color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .facts span { display: block; color: var(--muted); font-size: 12px; }
 
-  /* Work */
-  .case + .case { margin-top: 72px; }
-  .case .where { color: var(--muted); font-size: 15px; margin-top: 6px; }
-  .media { margin-top: 24px; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; display: grid; place-items: center; text-align: center; padding: 20px;
-           font-size: 13px; color: var(--muted); background: linear-gradient(160deg, #F2F2F2, #DEDEDE); }
-  .media video, .media img { width: 100%; height: 100%; object-fit: cover; }
-  .case dl { margin-top: 24px; display: grid; grid-template-columns: 120px 1fr; gap: 12px 24px; }
-  .case dt { color: var(--muted); font-size: 15px; padding-top: 2px; }
-  .case dd { color: var(--soft); }
-  .case dd.result { color: var(--ink); }
-  .case dd.result b { font-size: 34px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; margin-right: 10px; vertical-align: -3px; font-variant-numeric: tabular-nums; }
-  .case .read { display: inline-block; margin-top: 18px; font-size: 15px; font-weight: 500; }
-  .case .read::after { content: "\00a0\2192"; }
+  /* work */
+  .work { list-style: none; }
+  .work li + li { margin-top: 2px; }
+  .work a { display: grid; grid-template-columns: 28px 1fr auto; gap: 0 10px; padding: 8px 0; }
+  .work .n { color: var(--muted); padding-top: 1px; transition: color .3s; }
+  .work .t { color: var(--ink); }
+  .work .y { color: var(--muted); padding-top: 1px; }
+  .work .d { grid-column: 2 / -1; color: var(--soft); }
+  .work a:hover .n { color: var(--accent); }
+  .work .thumb { display: none; }
+  .preview { position: fixed; left: 0; top: 0; width: 300px; aspect-ratio: 16 / 10; overflow: hidden; pointer-events: none; z-index: 30;
+              opacity: 0; clip-path: inset(50% 0 50% 0); transform: translate3d(var(--px,0), var(--py,0), 0); transition: opacity .2s, clip-path .55s var(--ease); }
+  .preview.on { opacity: 1; clip-path: inset(0 0 0 0); }
+  .preview > div { display: none; width: 100%; height: 100%; }
+  .preview > div.show { display: block; }
+  .preview svg, .work .thumb svg { display: block; width: 100%; height: 100%; }
 
-  /* Principles */
-  .principles { list-style: none; }
-  .principles li + li { margin-top: 28px; }
-  .principles b { display: block; font-size: 21px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.3; margin-bottom: 6px; }
-  .principles span { color: var(--soft); }
-
-  /* Quote */
-  blockquote { font-size: clamp(24px, 3.2vw, 30px); line-height: 1.35; letter-spacing: -0.03em; font-weight: 400; }
-  blockquote + p { margin-top: 18px; font-size: 15px; color: var(--muted); }
-  blockquote + p b { color: var(--ink); font-weight: 500; }
-
-  /* Lists */
+  /* lists */
   .rows { list-style: none; }
-  .rows li { display: grid; grid-template-columns: 1fr auto; gap: 2px 20px; padding: 10px 0; }
-  .rows strong { font-weight: 500; }
-  .rows .when { color: var(--muted); font-size: 15px; white-space: nowrap; padding-top: 2px; }
-  .rows .what { color: var(--soft); font-size: 16px; grid-column: 1 / -1; }
+  .rows li { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 3px 0; }
+  .rows li > span:first-child { color: var(--ink); }
+  .rows em { font-style: normal; color: var(--muted); }
+  .rows .mono { color: var(--muted); padding-top: 1px; }
+  .principles { list-style: none; counter-reset: p; }
+  .principles li { counter-increment: p; display: grid; grid-template-columns: 28px 1fr; gap: 0 10px; padding: 5px 0; }
+  .principles li::before { content: counter(p, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--muted); padding-top: 1px; }
+  .principles b { color: var(--ink); font-weight: 400; }
+  .quote p { color: var(--ink); }
+  .quote .by { color: var(--muted); margin-top: 6px; }
+  .contact p { color: var(--soft); }
+  .contact p + p { margin-top: 8px; }
+  #copied { color: var(--accent); margin-left: 8px; opacity: 0; transition: opacity .3s; }
+  #copied.on { opacity: 1; }
+  .end { height: 30vh; }
 
-  /* Contact */
-  .contact { padding: 96px 0 72px; }
-  .contact .big { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.2; letter-spacing: -0.035em; }
-  .contact .big em { font-style: normal; color: var(--muted); }
-  .ways { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; font-size: 15px; font-weight: 500; }
-  .pill { padding: 12px 20px; border-radius: 999px; background: var(--tile); transition: background .3s var(--ease), color .3s, transform .3s var(--ease); }
-  .pill:hover { opacity: 1; transform: translateY(-1px); }
-  .pill.solid { background: var(--ink); color: var(--bg); }
-  footer { color: var(--muted); font-size: 14px; padding: 24px 0 56px; }
+  /* motion */
+  .js .rv { opacity: 0; transform: translateY(6px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  .js .rv.in { opacity: 1; transform: none; }
 
-  /* Motion: reveal once */
-  .js .rv { opacity: 0; transform: translateY(16px); filter: blur(4px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
-  .js .rv.in { opacity: 1; transform: none; filter: none; }
+  /* cursor: one small dot */
+  .dot { position: fixed; left: 0; top: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 100; opacity: 0;
+          transition: opacity .3s, width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease); }
+  .has-cursor .dot { opacity: 1; }
+  .c-link .dot { width: 22px; height: 22px; margin: -11px 0 0 -11px; opacity: .85; }
+  .c-hide .dot { opacity: 0; }
+  @media (hover: hover) and (pointer: fine) { html.has-cursor, html.has-cursor * { cursor: none !important; } }
+  @media (hover: none), (pointer: coarse) { .dot { display: none; } }
 
-  /* Placeholder check: add ?check to the URL */
+  /* check mode */
   .check .ph { background: #FFE3E3 !important; color: #9B1C1C !important; outline: 1px dashed #D64545; }
-  .check .media, .check .avatar, .check .sample { outline: 2px dashed #D64545; outline-offset: 4px; }
-  .check-bar { display: none; position: fixed; left: 16px; bottom: 16px; z-index: 20; background: #9B1C1C; color: #fff; font-size: 13px; padding: 8px 12px; border-radius: 8px; }
+  .check .sample { outline: 2px dashed #D64545; }
+  .check-bar { display: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; z-index: 40; background: #9B1C1C; color: #fff; font-size: 11px; padding: 5px 9px; border-radius: 4px; }
   .check .check-bar { display: block; }
 
-  @media (prefers-color-scheme: dark) {
-    .avatar { background: linear-gradient(160deg, #262626, #141414); }
-    .media { background: linear-gradient(160deg, #1C1C1C, #111111); }
+  @media (hover: none), (max-width: 760px) {
+    .preview { display: none; }
+    .work .thumb { display: block; grid-column: 1 / -1; aspect-ratio: 16 / 10; overflow: hidden; margin-bottom: 10px; }
+    .work li + li { margin-top: 20px; }
   }
   @media (max-width: 600px) {
-    body { font-size: 17px; }
-    .col { width: min(100% - 40px, 760px); }
-    .intro { padding: 8vh 0 6vh; }
-    section { padding: 52px 0; }
-    .glance { grid-template-columns: 1fr 1fr; }
-    .glance b { font-size: 32px; }
-    .media { aspect-ratio: 4 / 3; }
-    .case dl { grid-template-columns: 1fr; gap: 2px; }
-    .case dd + dt { margin-top: 14px; }
-    .ways .pill { flex: 1 1 100%; text-align: center; }
+    .corner.bl, .corner.br { position: static; display: block; margin: 0; }
+    .tr { gap: 12px; }
+    .tl { position: absolute; } .tr { position: absolute; }
+    .art { height: 44vh; margin-top: 60px; }
+    .facts { grid-template-columns: repeat(2, auto); }
+    .foot { display: flex; justify-content: space-between; padding: 0 var(--edge) 28px; }
+    .end { height: 8vh; }
   }
+  @media (min-width: 601px) { .foot { display: contents; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .js .rv { opacity: 1; transform: none; filter: none; transition: none; }
-    .more.open { animation: none; } .status i { animation: none; } .x .pl { transition: none; }
+    .js .rv { opacity: 1; transform: none; transition: none; }
+    .br i, .more.open, .more::before { animation: none; }
+    .preview { transition: none; }
   }
-  @media print { .x .pl { display: none; } .more { display: block; } .reader, header.top { display: none; } }
-
-  /* ---- Navbar ---- */
-  html { scroll-padding-top: 84px; }
-  header.top .bar { padding: 16px 0; }
-  .nav { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; }
-  .nav a { padding: 8px 14px; border-radius: 999px; color: var(--soft); transition: background .3s var(--ease), color .3s; }
-  .nav a:hover { opacity: 1; color: var(--ink); background: var(--tile); }
-  .nav a[aria-current="true"] { color: var(--ink); background: var(--tile); }
-  .nav a.cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
-  .nav a.cta:hover, .nav a.cta[aria-current="true"] { background: var(--ink); color: var(--bg); opacity: .8; }
-  .menu { display: none; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px; background: var(--tile); }
-  .menu i { position: relative; width: 14px; height: 8px; }
-  .menu i::before, .menu i::after { content: ""; position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform .35s var(--ease), top .35s var(--ease); }
-  .menu i::before { top: 0; } .menu i::after { top: 6.5px; }
-  .menu[aria-expanded="true"] i::before { top: 3.25px; transform: rotate(45deg); }
-  .menu[aria-expanded="true"] i::after { top: 3.25px; transform: rotate(-45deg); }
-  .sheet { display: none; }
-  .hello { display: flex; align-items: center; gap: 16px; }
-  .hello .status { font-size: 14px; }
-  @media (max-width: 680px) {
-    .nav { display: none; }
-    .menu { display: inline-flex; }
-    .sheet { display: block; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); box-shadow: 0 24px 40px -24px rgba(0,0,0,.18); overflow: hidden; max-height: 0; opacity: 0; transition: max-height .5s var(--ease), opacity .35s; }
-    .sheet.open { max-height: 420px; opacity: 1; }
-    header.top .sheet .col { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 0; text-align: left; padding: 8px 0 28px; }
-    .sheet a { font-size: 30px; letter-spacing: -0.035em; padding: 6px 0; transform: translateY(-6px); opacity: 0; transition: transform .5s var(--ease), opacity .4s; }
-    .sheet.open a { transform: none; opacity: 1; }
-    .sheet.open a:nth-child(2) { transition-delay: .04s; } .sheet.open a:nth-child(3) { transition-delay: .08s; }
-    .sheet.open a:nth-child(4) { transition-delay: .12s; } .sheet.open a:nth-child(5) { transition-delay: .16s; }
-    .hello { gap: 14px; } .avatar { width: 52px; height: 52px; flex: none; } .hello .status { font-size: 13px; line-height: 1.4; }
-  }
-  @media (prefers-reduced-motion: reduce) { .sheet, .sheet a, .menu i::before, .menu i::after { transition: none !important; } }
 
   /* ---- Sample mockups (replace with real work) ---- */
   :root { --m-bg: #EDEDED; --m-card: #FFFFFF; --m-side: #F7F7F7; --m-pill: #F2F2F2; --m-line: #E0E0E0; --m-ink: #0A0A0A; --m-soft: #A6A6A6; }
@@ -203,140 +179,53 @@
   .t-w { font-size: 22px; font-weight: 500; fill: #FFFFFF; }
   .t-a { font-size: 30px; font-weight: 600; fill: #0A0A0A; letter-spacing: -.5px; }
   .t-ax { font-size: 20px; fill: #6E6E6E; }
-  .avatar.sample { display: grid; place-items: center; background: var(--ink) !important; color: var(--bg); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
-  @media (max-width: 680px) { .avatar.sample { font-size: 17px; } }
-
-
-  /* ---- Case study ---- */
-  .cs-hero { padding: 10vh 0 48px; }
-  .back { font-size: 14px; color: var(--soft); display: inline-flex; gap: 8px; }
-  .back::before { content: "\2190"; }
-  .cs-hero .kicker { margin-top: 40px; font-size: 14px; color: var(--muted); }
-  .cs-hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.06; letter-spacing: -0.045em; font-weight: 450; margin-top: 10px; }
-  .cs-hero .sum { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.5; letter-spacing: -0.02em; color: var(--soft); margin-top: 20px; max-width: 34em; }
-  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 40px; }
-  .meta div { background: var(--tile); border-radius: 14px; padding: 16px 18px; }
-  .meta dt { font-size: 13px; color: var(--muted); }
-  .meta dd { font-size: 15px; font-weight: 500; margin-top: 4px; line-height: 1.45; }
-  .wide { width: min(100% - 48px, 1080px); margin-inline: auto; }
-  .fig { margin-top: 8px; }
-  .fig figcaption { font-size: 14px; color: var(--muted); margin-top: 12px; text-align: center; }
-  .fig .media { margin-top: 0; }
-  .tldr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .tldr div { background: var(--tile); border-radius: 16px; padding: 22px 20px; }
-  .tldr b { display: block; font-size: 44px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
-  .tldr span { display: block; font-size: 14px; color: var(--soft); margin-top: 12px; line-height: 1.4; }
-  .cs h2 { margin-bottom: 14px; }
-  .cs .h { font-size: clamp(26px, 3.4vw, 34px); line-height: 1.18; letter-spacing: -0.035em; font-weight: 450; margin-bottom: 18px; }
-  .cs .h em { font-style: normal; color: var(--muted); }
-  .cs p { color: var(--soft); }
-  .cs p + p { margin-top: 14px; }
-  .cs p b { color: var(--ink); font-weight: 500; }
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 28px; }
-  .cards div { background: var(--tile); border-radius: 16px; padding: 20px; }
-  .cards b { display: block; font-weight: 500; font-size: 16px; letter-spacing: -0.01em; }
-  .cards span { display: block; font-size: 15px; color: var(--soft); margin-top: 8px; line-height: 1.5; }
-  .cards q { display: block; font-size: 15px; color: var(--ink); margin-top: 12px; line-height: 1.5; quotes: "\201C" "\201D"; }
-  .steps { list-style: none; counter-reset: s; margin-top: 28px; }
-  .steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 4px 16px; padding: 12px 0; }
-  .steps li::before { content: counter(s); grid-row: span 2; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 14px; font-weight: 500; }
-  .steps b { font-weight: 500; }
-  .steps span { color: var(--soft); font-size: 16px; }
-  .decision + .decision { margin-top: 56px; }
-  .decision h3 { font-size: 22px; }
-  .decision p { margin-top: 10px; }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
-  .pair .media { margin-top: 0; aspect-ratio: 4 / 3; }
-  .pair figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
-  .pull { font-size: clamp(24px, 3.2vw, 30px); line-height: 1.35; letter-spacing: -0.03em; color: var(--ink) !important; margin-top: 32px; }
-  .pull + p { font-size: 15px; color: var(--muted) !important; margin-top: 14px; }
-  .next { display: block; background: var(--tile); border-radius: 20px; padding: 32px; transition: transform .4s var(--ease), opacity .25s; }
-  .next:hover { opacity: 1; transform: translateY(-2px); }
-  .next small { font-size: 14px; color: var(--muted); }
-  .next b { display: block; font-size: clamp(24px, 3.4vw, 32px); font-weight: 450; letter-spacing: -0.035em; margin-top: 6px; }
-  .next b::after { content: "\00a0\2192"; }
-  .guide { display: none; }
-  .check .guide { display: block; background: #FFF4D6; color: #6B4E00; font-size: 14px; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
-  @media (max-width: 680px) {
-    .meta { grid-template-columns: 1fr 1fr; }
-    .tldr, .cards { grid-template-columns: 1fr; }
-    .tldr b { font-size: 40px; }
-    .pair { grid-template-columns: 1fr; }
-    .wide { width: min(100% - 40px, 1080px); }
-  }
-.pair .media.sample { aspect-ratio: 4 / 3 !important; }
-
+  .m-acc { fill: var(--accent); } .s-acc { stroke: var(--accent); }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="col bar">
-    <a class="me" href="#top">Animesh Singh</a>
-    <nav class="nav" aria-label="Main">
-      <a href="#work" data-spy="work">Work</a>
-      <a href="#approach" data-spy="approach">Approach</a>
-      <a href="#experience" data-spy="experience">Experience</a>
-      <a href="#contact" class="cta" data-spy="contact">Contact</a>
-    </nav>
-    <button class="menu" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
-  </div>
-  <nav class="sheet" id="sheet" aria-label="Main, mobile">
-    <div class="col">
-      <a href="#work">Work</a>
-      <a href="#approach">Approach</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <a href="resume.pdf">Résumé</a>
-    </div>
-  </nav>
-</header>
+<div class="fade top" aria-hidden="true"></div><div class="fade bot" aria-hidden="true"></div>
+<a class="corner tl" href="#top" data-scramble>animesh singh</a>
+<nav class="corner tr" aria-label="Main">
+  <a href="#work" data-spy="work" data-scramble>work</a>
+  <a href="#approach" data-spy="approach" data-scramble>approach</a>
+  <a href="#notes" data-spy="notes" data-scramble>notes</a>
+  <a href="#contact" data-spy="contact" data-scramble>contact</a>
+</nav>
 
-<main>
-  <div class="intro" id="top">
-    <div class="col">
-      <!-- Your photo: save as portrait.jpg next to this file, then put <img src="portrait.jpg" alt="Animesh Singh"> inside this div -->
-      <div class="hello rv">
-        <div class="avatar sample" aria-hidden="true"><span>AS</span></div>
-        <p class="status"><i></i><span>Open to Head of Design roles from <span class="ph">January 2027</span></span></p>
-      </div>
-      <p class="lead rv">
-        I'm Animesh. I lead design for <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m1">AI that watches the <span class="lw">road<span class="pl" aria-hidden="true">+</span></span></span><span class="more" id="m1">At Sapience Automata we build driver monitoring and ADAS for commercial fleets and carmakers. A camera in the cab reads the road ahead and the driver's attention, and speaks up before something goes wrong. I own how that feels for three very different people: <b>the driver</b>, who needs an alert understood in under a second; <b>the fleet manager</b>, who needs to know which drivers to call today; and <b>the OEM partner</b>, who needs it to belong in their vehicle.</span>
-        as <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m2">Chief Experience <span class="lw">Officer<span class="pl" aria-hidden="true">+</span></span></span><span class="more" id="m2">I joined as VP of Marketing and Product Design in August 2024 and was <b>promoted to CXO within twelve months</b>. I lead product design, UX, brand, marketing and customer experience, run a team of <b><span class="ph">six</span> designers</b>, and work with the founders, engineering and sales from research to deployment.</span>
-        at Sapience Automata. Before that, I designed for <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m3">millions of small <span class="lw">businesses<span class="pl" aria-hidden="true">+</span></span></span><span class="more" id="m3">At Khatabook, from 2020 to 2023, I worked across UX, UI and growth for a bookkeeping app used by <b><span class="ph">over 10 million</span> Indian merchants</b>, many of them first-time smartphone users reading in their own language. It taught me to design for people under pressure, on modest phones, with no patience for confusion. A driver-facing screen demands the same discipline.</span>
-        and <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m4">built a fintech <span class="lw">brand<span class="pl" aria-hidden="true">+</span></span></span><span class="more" id="m4">At Instamojo, from 2017 to 2020, I built the brand and product communication systems for a payments platform serving <b><span class="ph">over 1.5 million</span> small businesses</b>. I trained at Ogilvy &amp; Mather and studied Design and Visual Communication at <b>NIFT Kolkata</b>.</span>.
-        <em>Next, I'd like to lead yours.</em>
-      </p>
-      <div class="reader rv" role="group" aria-label="Reading length">
-        <button aria-pressed="true" data-mode="short">Short version</button>
-        <button aria-pressed="false" data-mode="full">Full version</button>
-      </div>
-    </div>
+<main id="top">
+  <div class="art" aria-hidden="true">
+    <canvas id="field"></canvas>
+    <span class="cap mono">lanes, 2026. move to steer</span>
   </div>
 
-  <section aria-labelledby="g-h">
-    <div class="col">
-      <h2 id="g-h" class="rv">At a glance</h2>
-      <div class="glance rv">
-        <div><b class="ph">12,000+</b><span>vehicles running our product</span></div>
-        <div><b class="ph">40+</b><span>fleet customers</span></div>
-        <div><b class="ph">3</b><span>OEM partnerships</span></div>
-        <div><b class="ph">6</b><span>designers hired and led</span></div>
-        <div><b>12</b><span>months from VP to CXO</span></div>
-        <div><b class="ph">10M+</b><span>merchants designed for at Khatabook</span></div>
+  <div class="page">
+    <div class="text">
+      <div class="intro">
+        <p class="rv"><span class="name">Animesh Singh</span> is a design leader in Bengaluru. He leads design for <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m1">AI that watches the road</span> as <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m2">Chief Experience Officer</span> at Sapience Automata. Before that he designed for <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m3">millions of small businesses</span> at Khatabook and <span class="x" role="button" tabindex="0" aria-expanded="false" aria-controls="m4">built a fintech brand</span> at Instamojo.</p>
+        <div class="more" id="m1">Driver monitoring and ADAS for commercial fleets and carmakers. A camera in the cab reads the road and the driver's attention, and speaks up before something goes wrong. He designs for three people at once: <b>the driver</b>, who has under a second; <b>the fleet manager</b>, who needs to know who to call today; and <b>the carmaker</b>, who needs it to belong in their vehicle.</div>
+        <div class="more" id="m2">Joined as VP of Marketing and Product Design in August 2024, <b>promoted to CXO within twelve months</b>. Leads product design, UX, brand, marketing and customer experience, and a team of <b><span class="ph">six</span> designers</b>.</div>
+        <div class="more" id="m3">2020 to 2023. Core and growth design for a bookkeeping app used by <b><span class="ph">over 10 million</span> merchants</b>, many of them first-time smartphone users reading in their own language.</div>
+        <div class="more" id="m4">2017 to 2020. Brand and product communication for a payments platform serving <b><span class="ph">over 1.5 million</span> small businesses</b>. Trained at Ogilvy &amp; Mather. Studied visual communication at <b>NIFT Kolkata</b>.</div>
+        <p class="rv">He believes design is how a company decides what matters to people, and then makes it obvious. He is looking to lead a design team, from <span class="ph">January 2027</span>.</p>
+        <p class="hint rv mono">phrases in black open. <button id="all" aria-pressed="false">open all</button></p>
       </div>
-    </div>
-  </section>
 
-  <section id="work" aria-labelledby="w-h">
-    <div class="col">
-      <h2 id="w-h" class="rv">Selected work</h2>
-      <!-- Each project links to its own case study page (case-*.html).
-           To add media, put <video src="file.mp4" autoplay muted loop playsinline></video> or <img src="file.jpg" alt="..."> inside each .media div -->
-      <article class="case rv">
-        <h3>A fleet dashboard that ranks risk, not noise</h3>
-        <p class="where">Sapience Automata, <span class="ph">2025</span></p>
-        <div class="media sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: fleet safety dashboard listing drivers ranked by risk">
+      <section aria-labelledby="f-h">
+        <h2 id="f-h" class="rv"><span>●</span> in numbers</h2>
+        <div class="facts rv">
+          <div><b class="ph">12,000+</b><span>vehicles</span></div>
+          <div><b class="ph">40+</b><span>fleets</span></div>
+          <div><b class="ph">6</b><span>designers led</span></div>
+          <div><b>9</b><span>years</span></div>
+        </div>
+      </section>
+
+      <section id="work" aria-labelledby="w-h">
+        <h2 id="w-h" class="rv"><span>●</span> work</h2>
+        <ul class="work rv">
+          <li><a href="case-fleet-dashboard.html" data-preview="p1">
+            <span class="thumb sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: fleet safety dashboard listing drivers ranked by risk">
   <rect width="1600" height="1000" class="m-bg"/>
   <rect x="110" y="90" width="1380" height="820" rx="26" class="m-card"/>
   <rect x="110" y="90" width="270" height="820" rx="26" class="m-side"/><rect x="354" y="90" width="26" height="820" class="m-side"/>
@@ -351,51 +240,37 @@
   </g>
   <text x="430" y="456" class="t-s">Ranked by risk</text>
   <g>
-    <g transform="translate(430 480)"><rect width="1000" height="76" rx="16" class="m-pill"/><circle cx="44" cy="38" r="20" class="m-ink"/><text x="82" y="34" class="t-r">Driver 0142</text><text x="82" y="58" class="t-x">Drowsiness, 3 events today</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="230" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">92</text></g>
+    <g transform="translate(430 480)"><rect width="1000" height="76" rx="16" class="m-pill"/><circle cx="44" cy="38" r="20" class="m-acc"/><text x="82" y="34" class="t-r">Driver 0142</text><text x="82" y="58" class="t-x">Drowsiness, 3 events today</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="230" height="12" rx="6" class="m-acc"/><text x="900" y="46" class="t-r">92</text></g>
     <g transform="translate(430 568)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0087</text><text x="82" y="58" class="t-x">Phone use while moving</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="170" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">71</text></g>
     <g transform="translate(430 656)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0211</text><text x="82" y="58" class="t-x">Close following, NH 44</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="150" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">64</text></g>
     <g transform="translate(430 744)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0034</text><text x="82" y="58" class="t-x">One harsh brake</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="60" height="12" rx="6" class="m-soft"/><text x="900" y="46" class="t-r">22</text></g>
   </g>
-</svg></div>
-        <dl>
-          <dt>Problem</dt><dd>Fleet managers were flooded with AI-detected events and couldn't tell which ones mattered.</dd>
-          <dt>What I did</dt><dd>Redesigned how risk is ranked, reviewed and acted on, so a manager sees the few drivers who need attention today.</dd>
-          <dt>Result</dt><dd class="result"><b class="ph">45%</b>less time to review an incident</dd>
-        </dl>
-        <a class="read" href="case-fleet-dashboard.html">Read the case study</a>
-      </article>
-      <article class="case rv">
-        <h3>Alerts a driver understands in under a second</h3>
-        <p class="where">Sapience Automata, <span class="ph">2024 to 2025</span></p>
-        <div class="media sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: in-cab camera view with a too-close alert">
+</svg></span>
+            <span class="n mono">01</span><span class="t" data-scramble>A fleet dashboard that ranks risk</span><span class="y mono ph">2025</span>
+            <span class="d">Sapience Automata. <span class="ph">45%</span> faster incident review.</span></a></li>
+          <li><a href="case-driver-alerts.html" data-preview="p2">
+            <span class="thumb sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: in-cab camera view with a too-close alert">
   <defs>
-    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0E0E"/><stop offset="1" stop-color="#3A3A3A"/></linearGradient>
-    <linearGradient id="rd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A2A"/><stop offset="1" stop-color="#080808"/></linearGradient>
+    <linearGradient id="ska" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0E0E"/><stop offset="1" stop-color="#3A3A3A"/></linearGradient>
+    <linearGradient id="rda" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A2A"/><stop offset="1" stop-color="#080808"/></linearGradient>
   </defs>
-  <rect width="1600" height="1000" fill="url(#sk)"/>
+  <rect width="1600" height="1000" fill="url(#ska)"/>
   <rect y="520" width="1600" height="480" fill="#111"/>
-  <path d="M770 520 H830 L1460 1000 H140 Z" fill="url(#rd)"/>
+  <path d="M770 520 H830 L1460 1000 H140 Z" fill="url(#rda)"/>
   <g stroke="#EDEDED" stroke-width="7" stroke-linecap="round" opacity=".8"><line x1="800" y1="532" x2="800" y2="556"/><line x1="800" y1="590" x2="800" y2="636"/><line x1="800" y1="690" x2="800" y2="770"/><line x1="800" y1="840" x2="800" y2="1000"/></g>
   <g transform="translate(912 660) scale(.7)">
     <rect x="-120" y="-80" width="240" height="160" rx="26" fill="#CFCFCF"/><rect x="-96" y="-60" width="192" height="52" rx="10" fill="#5A5A5A"/>
     <rect x="-108" y="28" width="40" height="18" rx="5" fill="#F5F5F5"/><rect x="68" y="28" width="40" height="18" rx="5" fill="#F5F5F5"/>
-    <rect x="-150" y="-110" width="300" height="220" rx="22" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+    <rect x="-150" y="-110" width="300" height="220" rx="22" fill="none" class="s-acc" stroke-width="6"/>
   </g>
   <rect x="787" y="512" width="250" height="54" rx="27" fill="#FFFFFF"/><text x="912" y="548" text-anchor="middle" class="t-c">0.9 s gap</text>
   <g transform="translate(70 70)"><rect width="300" height="64" rx="32" fill="rgba(255,255,255,.14)"/><circle cx="36" cy="32" r="9" fill="#FFF"/><text x="58" y="41" class="t-w">Driver attentive</text></g>
-  <g transform="translate(560 800)"><rect width="480" height="120" rx="28" fill="#FFFFFF"/><rect x="24" y="24" width="72" height="72" rx="18" fill="#0A0A0A"/><text x="60" y="76" text-anchor="middle" fill="#FFF" font-size="46" font-weight="600">!</text><text x="122" y="58" class="t-a">Too close. Ease off.</text><text x="122" y="92" class="t-ax">Keep a 2-second gap</text></g>
-</svg></div>
-        <dl>
-          <dt>Problem</dt><dd>A warning that makes a driver look away from the road is a hazard of its own.</dd>
-          <dt>What I did</dt><dd>Designed sound, light and screen cues as one language, in <span class="ph">four</span> Indian languages, and tested them in real vehicles.</dd>
-          <dt>Result</dt><dd class="result"><b class="ph">22%</b>fewer high-risk events after rollout</dd>
-        </dl>
-        <a class="read" href="case-driver-alerts.html">Read the case study</a>
-      </article>
-      <article class="case rv">
-        <h3>A first week that sticks</h3>
-        <p class="where">Khatabook, <span class="ph">2021 to 2022</span></p>
-        <div class="media sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: onboarding screens before and after the redesign">
+  <g transform="translate(560 800)"><rect width="480" height="120" rx="28" fill="#FFFFFF"/><rect x="24" y="24" width="72" height="72" rx="18" class="m-acc"/><text x="60" y="76" text-anchor="middle" fill="#FFF" font-size="46" font-weight="600">!</text><text x="122" y="58" class="t-a">Too close. Ease off.</text><text x="122" y="92" class="t-ax">Keep a 2-second gap</text></g>
+</svg></span>
+            <span class="n mono">02</span><span class="t" data-scramble>Alerts understood in a second</span><span class="y mono ph">2024</span>
+            <span class="d">Sapience Automata. <span class="ph">22%</span> fewer high-risk events.</span></a></li>
+          <li><a href="case-khatabook-onboarding.html" data-preview="p3">
+            <span class="thumb sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: onboarding screens before and after the redesign">
   <rect width="1600" height="1000" class="m-bg"/>
   <text x="560" y="96" text-anchor="middle" class="t-s">Before</text><text x="1040" y="96" text-anchor="middle" class="t-s">After</text>
   <g transform="translate(400 130)">
@@ -406,158 +281,257 @@
   </g>
   <g transform="translate(880 130)">
     <rect width="320" height="800" rx="46" class="m-ink"/><rect x="12" y="12" width="296" height="776" rx="36" class="m-card"/>
-    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-ink"/>
+    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-acc"/>
     <text x="40" y="160" class="t-px">2 of 3 done</text>
-    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
-    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-ink"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
+    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
+    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
     <g transform="translate(40 412)"><rect width="240" height="92" rx="18" class="m-card" stroke="var(--m-ink)" stroke-width="2"/><circle cx="36" cy="46" r="15" fill="none" stroke="var(--m-ink)" stroke-width="2"/><text x="66" y="42" class="t-q">Collect a payment</text><text x="66" y="66" class="t-px">Next</text></g>
-    <rect x="40" y="690" width="240" height="56" rx="16" class="m-ink"/><text x="160" y="726" text-anchor="middle" class="t-btn">Collect payment</text>
+    <rect x="40" y="690" width="240" height="56" rx="16" class="m-acc"/><text x="160" y="726" text-anchor="middle" class="t-btn" style="fill:#fff">Collect payment</text>
   </g>
-</svg></div>
-        <dl>
-          <dt>Problem</dt><dd>New merchants signed up but rarely reached the moment the app became useful.</dd>
-          <dt>What I did</dt><dd>Ran research-led experiments with PMs and engineers to get first-time, vernacular-first users to value faster, on low-end Android phones.</dd>
-          <dt>Result</dt><dd class="result"><b class="ph">+18%</b>day-7 activation</dd>
-        </dl>
-        <a class="read" href="case-khatabook-onboarding.html">Read the case study</a>
-      </article>
-    </div>
-  </section>
+</svg></span>
+            <span class="n mono">03</span><span class="t" data-scramble>A first week that sticks</span><span class="y mono ph">2021</span>
+            <span class="d">Khatabook. <span class="ph">+18%</span> day-7 activation.</span></a></li>
+        </ul>
+      </section>
 
-  <section id="approach" aria-labelledby="l-h">
-    <div class="col">
-      <h2 id="l-h" class="rv">How I lead</h2>
-      <ul class="principles">
-        <li class="rv"><b>Start with the person on the hardest day.</b><span>A tired driver at night. A fleet manager after an incident. If the product works for them then, it works.</span></li>
-        <li class="rv"><b>Let evidence settle arguments.</b><span>Research and data decide what users need, not the loudest opinion in the room, including mine.</span></li>
-        <li class="rv"><b>Teach design to the whole company.</b><span>In an engineering-led company, everyone should ask how it feels from the user's side, even when design isn't in the room.</span></li>
-        <li class="rv"><b>Build the team and the system.</b><span>Hire well, mentor closely, and set up the design system and rituals that let a small team ship consistently.</span></li>
-        <li class="rv"><b>Hold the whole experience.</b><span>Device, app, dashboard, brand, sales demo and support are one product to the customer, so I design them as one.</span></li>
-      </ul>
-    </div>
-  </section>
+      <section id="approach" aria-labelledby="a-h">
+        <h2 id="a-h" class="rv"><span>●</span> approach</h2>
+        <ol class="principles rv">
+          <li><span><b>Start with the person on the hardest day.</b> A tired driver at night. If it works then, it works.</span></li>
+          <li><span><b>Let evidence settle the argument.</b> Not the loudest voice in the room, including his.</span></li>
+          <li><span><b>Teach design to the whole company.</b> Everyone asks how it feels, even when design isn't there.</span></li>
+          <li><span><b>Build the team and the system.</b> Hire well, mentor closely, keep the rituals small.</span></li>
+          <li><span><b>Hold the whole experience.</b> Device, app, dashboard and support are one product.</span></li>
+        </ol>
+      </section>
 
-  <section aria-labelledby="q-h">
-    <div class="col">
-      <h2 id="q-h" class="rv">In their words</h2>
-      <blockquote class="rv ph">"He made a deep-tech product feel simple to the people who matter most: drivers and the fleets who depend on them."</blockquote>
-      <p class="rv ph"><b>Name Surname</b>, Co-founder, Sapience Automata</p>
-    </div>
-  </section>
+      <section class="quote" aria-labelledby="q-h">
+        <h2 id="q-h" class="rv"><span>●</span> said</h2>
+        <p class="rv ph">"He made a deep-tech product feel simple to the people who matter most."</p>
+        <p class="by mono rv ph">name surname, co-founder, sapience automata</p>
+      </section>
 
-  <section id="experience" aria-labelledby="e-h">
-    <div class="col">
-      <h2 id="e-h" class="rv">Experience</h2>
-      <ul class="rows rv">
-        <li><strong>Chief Experience Officer, Sapience Automata</strong><span class="when">2025 to now</span><span class="what">Design, UX, brand, marketing and customer experience for ADAS and fleet safety.</span></li>
-        <li><strong>VP, Marketing and Product Design, Sapience Automata</strong><span class="when">2024 to 2025</span><span class="what">Product UX, visual design and brand through the main growth phase.</span></li>
-        <li><strong>Design Generalist, Khatabook</strong><span class="when">2020 to 2023</span><span class="what">Core and growth design for millions of Indian small businesses.</span></li>
-        <li><strong>Communication Designer, Instamojo</strong><span class="when">2017 to 2020</span><span class="what">Brand and product communication for a fintech platform.</span></li>
-        <li><strong>Design Intern, Ogilvy &amp; Mather</strong><span class="when">2016 to 2017</span></li>
-        <li><strong>B.Des, Design and Visual Communication, NIFT Kolkata</strong><span class="when">2013 to 2017</span></li>
-      </ul>
-    </div>
-  </section>
+      <section id="notes" aria-labelledby="n-h">
+        <h2 id="n-h" class="rv"><span>●</span> notes</h2>
+        <ul class="rows rv">
+          <li class="ph"><span><a href="#" data-scramble>Every alert is a conversation</a></span><span class="mono">2026</span></li>
+          <li class="ph"><span><a href="#" data-scramble>The person on the hardest day</a></span><span class="mono">2026</span></li>
+          <li class="ph"><span><a href="#" data-scramble>What fintech taught me about the road</a> <em>talk</em></span><span class="mono">2025</span></li>
+        </ul>
+      </section>
 
-  <section aria-labelledby="t-h">
-    <div class="col">
-      <h2 id="t-h" class="rv">Writing and talks</h2>
-      <ul class="rows rv">
-        <li class="ph"><strong><a href="#">Designing alerts drivers don't ignore</a></strong><span class="when">Talk, 2026</span></li>
-        <li class="ph"><strong><a href="#">What fintech taught me about the road</a></strong><span class="when">Essay, 2025</span></li>
-      </ul>
-    </div>
-  </section>
+      <section aria-labelledby="e-h">
+        <h2 id="e-h" class="rv"><span>●</span> before</h2>
+        <ul class="rows rv">
+          <li><span>Chief Experience Officer <em>Sapience Automata</em></span><span class="mono">2025–</span></li>
+          <li><span>VP, Marketing and Product Design <em>Sapience</em></span><span class="mono">2024</span></li>
+          <li><span>Design Generalist <em>Khatabook</em></span><span class="mono">2020</span></li>
+          <li><span>Communication Designer <em>Instamojo</em></span><span class="mono">2017</span></li>
+          <li><span>Intern <em>Ogilvy &amp; Mather</em></span><span class="mono">2016</span></li>
+          <li><span>Visual Communication <em>NIFT Kolkata</em></span><span class="mono">2013</span></li>
+        </ul>
+      </section>
 
-  <section id="contact" class="contact" aria-labelledby="c-h">
-    <div class="col">
-      <h2 id="c-h" class="rv">Contact</h2>
-      <p class="big rv">Hiring a Head of Design for something that moves? <em>I'd like to hear about it.</em></p>
-      <div class="ways rv">
-        <button class="pill solid" id="copy" data-email="animeshkarnsingh@gmail.com">Copy email address</button>
-        <a class="pill" href="mailto:animeshkarnsingh@gmail.com">Write to me</a>
-        <a class="pill" href="https://www.linkedin.com/in/animeshkarnsingh">LinkedIn</a>
-        <!-- Upload your resume as resume.pdf next to this file -->
-        <a class="pill" href="resume.pdf">Résumé</a>
-      </div>
+      <section id="contact" class="contact" aria-labelledby="c-h">
+        <h2 id="c-h" class="rv"><span>●</span> contact</h2>
+        <p class="rv">Hiring a head of design for something that moves? <button id="copy" data-email="animeshkarnsingh@gmail.com" data-scramble>animeshkarnsingh@gmail.com</button><span id="copied" class="mono">copied</span></p>
+        <p class="rv"><a href="https://www.linkedin.com/in/animeshkarnsingh" data-scramble>linkedin</a>, <a href="resume.pdf" data-scramble>résumé</a></p>
+      </section>
+      <div class="end"></div>
     </div>
-  </section>
+  </div>
 </main>
 
-<footer>
-  <div class="col">Animesh Singh, Bengaluru. Set in Geist.</div>
-</footer>
-<div class="check-bar" role="status">Placeholders highlighted. Replace before sharing.</div>
+<div class="foot">
+  <span class="corner bl mono">blr <span id="clock">--:--</span></span>
+  <span class="corner br mono"><i></i>open to roles</span>
+</div>
+
+<div class="preview" aria-hidden="true">
+  <div class="sample" data-id="p1"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: fleet safety dashboard listing drivers ranked by risk">
+  <rect width="1600" height="1000" class="m-bg"/>
+  <rect x="110" y="90" width="1380" height="820" rx="26" class="m-card"/>
+  <rect x="110" y="90" width="270" height="820" rx="26" class="m-side"/><rect x="354" y="90" width="26" height="820" class="m-side"/>
+  <circle cx="160" cy="150" r="16" class="m-ink"/><rect x="190" y="142" width="120" height="16" rx="8" class="m-soft"/>
+  <g class="m-line"><rect x="150" y="220" width="190" height="40" rx="12" class="m-pill"/><rect x="170" y="234" width="110" height="12" rx="6" class="m-ink"/>
+  <rect x="170" y="294" width="130" height="12" rx="6"/><rect x="170" y="344" width="96" height="12" rx="6"/><rect x="170" y="394" width="120" height="12" rx="6"/><rect x="170" y="444" width="84" height="12" rx="6"/></g>
+  <text x="430" y="180" class="t-h">Fleet safety</text><text x="430" y="216" class="t-s">Today, 1,284 vehicles on the road</text>
+  <g>
+    <rect x="430" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="458" y="300" class="t-s">Drivers to call today</text><text x="458" y="366" class="t-n">7</text>
+    <rect x="770" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="798" y="300" class="t-s">High-risk events</text><text x="798" y="366" class="t-n">23</text>
+    <rect x="1110" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="1138" y="300" class="t-s">Avg. review time</text><text x="1138" y="366" class="t-n">1m 40s</text>
+  </g>
+  <text x="430" y="456" class="t-s">Ranked by risk</text>
+  <g>
+    <g transform="translate(430 480)"><rect width="1000" height="76" rx="16" class="m-pill"/><circle cx="44" cy="38" r="20" class="m-acc"/><text x="82" y="34" class="t-r">Driver 0142</text><text x="82" y="58" class="t-x">Drowsiness, 3 events today</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="230" height="12" rx="6" class="m-acc"/><text x="900" y="46" class="t-r">92</text></g>
+    <g transform="translate(430 568)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0087</text><text x="82" y="58" class="t-x">Phone use while moving</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="170" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">71</text></g>
+    <g transform="translate(430 656)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0211</text><text x="82" y="58" class="t-x">Close following, NH 44</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="150" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">64</text></g>
+    <g transform="translate(430 744)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0034</text><text x="82" y="58" class="t-x">One harsh brake</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="60" height="12" rx="6" class="m-soft"/><text x="900" y="46" class="t-r">22</text></g>
+  </g>
+</svg></div>
+  <div class="sample" data-id="p2"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: in-cab camera view with a too-close alert">
+  <defs>
+    <linearGradient id="skb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0E0E"/><stop offset="1" stop-color="#3A3A3A"/></linearGradient>
+    <linearGradient id="rdb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A2A"/><stop offset="1" stop-color="#080808"/></linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#skb)"/>
+  <rect y="520" width="1600" height="480" fill="#111"/>
+  <path d="M770 520 H830 L1460 1000 H140 Z" fill="url(#rdb)"/>
+  <g stroke="#EDEDED" stroke-width="7" stroke-linecap="round" opacity=".8"><line x1="800" y1="532" x2="800" y2="556"/><line x1="800" y1="590" x2="800" y2="636"/><line x1="800" y1="690" x2="800" y2="770"/><line x1="800" y1="840" x2="800" y2="1000"/></g>
+  <g transform="translate(912 660) scale(.7)">
+    <rect x="-120" y="-80" width="240" height="160" rx="26" fill="#CFCFCF"/><rect x="-96" y="-60" width="192" height="52" rx="10" fill="#5A5A5A"/>
+    <rect x="-108" y="28" width="40" height="18" rx="5" fill="#F5F5F5"/><rect x="68" y="28" width="40" height="18" rx="5" fill="#F5F5F5"/>
+    <rect x="-150" y="-110" width="300" height="220" rx="22" fill="none" class="s-acc" stroke-width="6"/>
+  </g>
+  <rect x="787" y="512" width="250" height="54" rx="27" fill="#FFFFFF"/><text x="912" y="548" text-anchor="middle" class="t-c">0.9 s gap</text>
+  <g transform="translate(70 70)"><rect width="300" height="64" rx="32" fill="rgba(255,255,255,.14)"/><circle cx="36" cy="32" r="9" fill="#FFF"/><text x="58" y="41" class="t-w">Driver attentive</text></g>
+  <g transform="translate(560 800)"><rect width="480" height="120" rx="28" fill="#FFFFFF"/><rect x="24" y="24" width="72" height="72" rx="18" class="m-acc"/><text x="60" y="76" text-anchor="middle" fill="#FFF" font-size="46" font-weight="600">!</text><text x="122" y="58" class="t-a">Too close. Ease off.</text><text x="122" y="92" class="t-ax">Keep a 2-second gap</text></g>
+</svg></div>
+  <div class="sample" data-id="p3"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: onboarding screens before and after the redesign">
+  <rect width="1600" height="1000" class="m-bg"/>
+  <text x="560" y="96" text-anchor="middle" class="t-s">Before</text><text x="1040" y="96" text-anchor="middle" class="t-s">After</text>
+  <g transform="translate(400 130)">
+    <rect width="320" height="800" rx="46" class="m-ink"/><rect x="12" y="12" width="296" height="776" rx="36" class="m-card"/>
+    <rect x="40" y="70" width="140" height="18" rx="9" class="m-soft"/><rect x="40" y="110" width="240" height="44" rx="12" class="m-pill"/>
+    <circle cx="160" cy="360" r="60" class="m-pill"/><rect x="80" y="450" width="160" height="16" rx="8" class="m-soft"/><rect x="100" y="480" width="120" height="12" rx="6" class="m-line"/>
+    <rect x="40" y="690" width="240" height="56" rx="16" class="m-line"/>
+  </g>
+  <g transform="translate(880 130)">
+    <rect width="320" height="800" rx="46" class="m-ink"/><rect x="12" y="12" width="296" height="776" rx="36" class="m-card"/>
+    <text x="40" y="96" class="t-p">Your first week</text><rect x="40" y="120" width="240" height="10" rx="5" class="m-line"/><rect x="40" y="120" width="160" height="10" rx="5" class="m-acc"/>
+    <text x="40" y="160" class="t-px">2 of 3 done</text>
+    <g transform="translate(40 200)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Add a customer</text><text x="66" y="66" class="t-px">Day 1</text></g>
+    <g transform="translate(40 306)"><rect width="240" height="92" rx="18" class="m-pill"/><circle cx="36" cy="46" r="16" class="m-acc"/><path d="M28 46 l6 6 l11 -12" stroke="var(--m-card)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="66" y="42" class="t-q">Send a reminder</text><text x="66" y="66" class="t-px">Day 2</text></g>
+    <g transform="translate(40 412)"><rect width="240" height="92" rx="18" class="m-card" stroke="var(--m-ink)" stroke-width="2"/><circle cx="36" cy="46" r="15" fill="none" stroke="var(--m-ink)" stroke-width="2"/><text x="66" y="42" class="t-q">Collect a payment</text><text x="66" y="66" class="t-px">Next</text></g>
+    <rect x="40" y="690" width="240" height="56" rx="16" class="m-acc"/><text x="160" y="726" text-anchor="middle" class="t-btn" style="fill:#fff">Collect payment</text>
+  </g>
+</svg></div>
+</div>
+<div class="dot" aria-hidden="true"></div>
+<div class="check-bar" role="status">placeholders highlighted</div>
 
 <script>
-/* Animesh Singh, portfolio behaviour. Shared by every page. */
 (() => {
   const $ = (q, el = document) => el.querySelector(q), $$ = (q, el = document) => [...el.querySelectorAll(q)];
+  const root = document.documentElement;
   if (/[?&]check\b/.test(location.search)) document.body.classList.add('check');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  let mouse = { x: -9999, y: -9999 };
 
-  // Expandable phrases in the homepage intro, with short/full switch
-  const toggles = $$('.x'), modes = $$('.reader button');
-  if (toggles.length) {
-    const setOne = (b, open) => { b.setAttribute('aria-expanded', open); document.getElementById(b.getAttribute('aria-controls')).classList.toggle('open', open); };
-    const sync = () => { const all = toggles.every(b => b.getAttribute('aria-expanded') === 'true'); modes.forEach(m => m.setAttribute('aria-pressed', (m.dataset.mode === 'full') === all)); };
-    toggles.forEach(b => {
-      const flip = () => { setOne(b, b.getAttribute('aria-expanded') !== 'true'); sync(); };
-      b.addEventListener('click', flip);
-      b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
-    });
-    modes.forEach(m => m.addEventListener('click', () => { toggles.forEach(b => setOne(b, m.dataset.mode === 'full')); sync(); }));
+  /* ---- Artwork: a dot field with flowing lanes that bend around the pointer ---- */
+  const cv = $('#field'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1, t = 0, running = true, last = 0;
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  let C = {};
+  const colours = () => C = { faint: css('--faint'), ink: css('--ink'), soft: css('--muted'), acc: css('--accent') };
+  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  const GAP = 13, LANES = 4;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const r = cv.getBoundingClientRect(), mx = mouse.x - r.left, my = mouse.y - r.top;
+    for (let x = GAP / 2; x < W; x += GAP) {
+      for (let y = GAP / 2; y < H; y += GAP) {
+        let near = 0;
+        for (let k = 0; k < LANES; k++) {
+          const base = H * (0.2 + k * 0.2);
+          const ly = base + Math.sin(x * 0.006 + t * (0.5 + k * 0.12) + k * 1.7) * H * 0.09 + Math.sin(x * 0.013 - t * 0.7) * 6;
+          const d = Math.abs(y - ly);
+          if (d < GAP * 0.8) near = Math.max(near, 1 - d / (GAP * 0.8));
+        }
+        const dx = x - mx, dy = y - my, dist = Math.hypot(dx, dy), R = 130;
+        let px = x, py = y, hot = 0;
+        if (dist < R) { const f = (1 - dist / R); hot = f; px += dx / (dist || 1) * f * 14; py += dy / (dist || 1) * f * 14; }
+        let rad = 0.7 + near * 0.9, col = near > 0.15 ? C.ink : C.faint;
+        if (hot > 0.25 && near > 0.15) { col = C.acc; rad += hot * 1.2; }
+        else if (hot > 0.5) { col = C.soft; }
+        ctx.fillStyle = col; ctx.beginPath(); ctx.arc(px, py, rad, 0, 6.283); ctx.fill();
+      }
+    }
+  };
+  const loop = now => { if (running) { t += Math.min(50, now - (last || now)) / 1000; last = now; draw(); } requestAnimationFrame(loop); };
+  colours(); size(); draw();
+  addEventListener('resize', () => { size(); draw(); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { colours(); draw(); });
+  if (!reduce) {
+    new IntersectionObserver(es => running = es[0].isIntersecting).observe(cv);
+    requestAnimationFrame(loop);
   }
 
-  // Staggered entrance for the first screen
-  $$('.intro .rv, .cs-hero .rv').forEach((e, i) => e.style.setProperty('--d', (0.06 + i * 0.1) + 's'));
-  $$('.principles .rv').forEach((e, i) => e.style.setProperty('--d', (i * 0.06) + 's'));
+  /* ---- Text scramble on hover ---- */
+  const glyphs = 'abcdefghijklmnopqrstuvwxyz0123456789/-+';
+  $$('[data-scramble]').forEach(el => {
+    const node = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim()); if (!node) return;
+    const orig = node.textContent; let busy = false;
+    el.addEventListener('mouseenter', () => {
+      if (busy || reduce) return; busy = true; let f = 0; const total = Math.min(18, orig.length + 6);
+      const step = () => { node.textContent = [...orig].map((ch, i) => ch === ' ' || i < (f / total) * orig.length ? ch : glyphs[(Math.random() * glyphs.length) | 0]).join('');
+        if (++f <= total) setTimeout(step, 28); else { node.textContent = orig; busy = false; } };
+      step();
+    });
+  });
 
-  // Numbers count up once when seen
-  const countUp = el => {
-    const node = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent)); if (!node) return;
-    const m = node.textContent.match(/^(\D*)([\d,.]+)(.*)$/s); if (!m) return;
-    const target = parseFloat(m[2].replace(/,/g, '')), comma = m[2].includes(','), dec = (m[2].split('.')[1] || '').length, t0 = performance.now(), dur = 1300;
-    const step = now => {
-      const k = Math.min(1, (now - t0) / dur), v = target * (1 - Math.pow(1 - k, 4));
-      let t = dec ? v.toFixed(dec) : String(Math.round(v)); if (comma) t = Number(t).toLocaleString('en-US');
-      node.textContent = m[1] + t + m[3]; if (k < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const els = $$('.rv'), nums = $$('.glance b, .result b, .tldr b');
+  /* ---- Expandable phrases ---- */
+  const xs = $$('.x'), all = $('#all');
+  const set = (x, open) => { x.setAttribute('aria-expanded', open); document.getElementById(x.getAttribute('aria-controls')).classList.toggle('open', open); };
+  const sync = () => { const every = xs.every(x => x.getAttribute('aria-expanded') === 'true'); all.textContent = every ? 'close all' : 'open all'; all.setAttribute('aria-pressed', every); };
+  xs.forEach(x => { const flip = () => { set(x, x.getAttribute('aria-expanded') !== 'true'); sync(); };
+    x.addEventListener('click', flip); x.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } }); });
+  all.addEventListener('click', () => { const open = all.getAttribute('aria-pressed') !== 'true'; xs.forEach(x => set(x, open)); sync(); });
+
+  /* ---- Reveal ---- */
+  $$('.intro .rv').forEach((e, i) => e.style.setProperty('--d', (0.2 + i * 0.12) + 's'));
+  const els = $$('.rv');
   if (!reduce && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -5% 0px' });
     els.forEach(e => io.observe(e));
-    const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { countUp(e.target); co.unobserve(e.target); } }), { threshold: 0.6 });
-    nums.forEach(n => co.observe(n));
   } else els.forEach(e => e.classList.add('in'));
 
-  // Mobile menu
-  const menu = $('.menu'), sheet = $('#sheet');
-  if (menu && sheet) {
-    const setMenu = open => { menu.setAttribute('aria-expanded', open); sheet.classList.toggle('open', open); $('span', menu).textContent = open ? 'Close' : 'Menu'; };
-    menu.addEventListener('click', () => setMenu(menu.getAttribute('aria-expanded') !== 'true'));
-    $$('a', sheet).forEach(a => a.addEventListener('click', () => setMenu(false)));
-    addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  /* ---- Work preview ---- */
+  const pv = $('.preview');
+  if (matchMedia('(hover: hover) and (min-width: 761px)').matches) {
+    $$('.work a').forEach(a => {
+      a.addEventListener('mouseenter', () => { $$('.preview > div').forEach(d => d.classList.toggle('show', d.dataset.id === a.dataset.preview)); pv.classList.add('on'); });
+      a.addEventListener('mouseleave', () => pv.classList.remove('on'));
+    });
   }
 
-  // Highlight the nav link for the section in view
-  const links = $$('.nav [data-spy]');
-  if (links.length && 'IntersectionObserver' in window) {
-    const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.setAttribute('aria-current', a.dataset.spy === e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
-    [...links.map(a => a.dataset.spy), 'top'].forEach(id => { const t = document.getElementById(id); if (t) spy.observe(t); });
-  }
+  /* ---- Cursor, preview position ---- */
+  const dot = $('.dot'), textCol = $('.text');
+  let dx = -100, dy = -100, px = 0, py = 0;
+  addEventListener('mousemove', e => {
+    mouse = { x: e.clientX, y: e.clientY };
+    if (!fine) return;
+    root.classList.add('has-cursor');
+    const t = e.target;
+    root.classList.toggle('c-link', !!t.closest('a, button, [role="button"]') && !t.closest('.work a'));
+    root.classList.toggle('c-hide', false);
+    root.classList.toggle('c-link', !!t.closest('a, button, [role="button"]'));
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { root.classList.remove('has-cursor'); mouse = { x: -9999, y: -9999 }; });
+  addEventListener('touchmove', e => { const p = e.touches[0]; mouse = { x: p.clientX, y: p.clientY }; }, { passive: true });
+  addEventListener('touchend', () => setTimeout(() => mouse = { x: -9999, y: -9999 }, 600), { passive: true });
+  const follow = () => {
+    const k = reduce ? 1 : .22; dx += (mouse.x - dx) * k; dy += (mouse.y - dy) * k;
+    dot.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+    const tr = textCol.getBoundingClientRect().right; px += (Math.min(Math.max(tr + 56, mouse.x + 40), innerWidth - 320) - px) * (reduce ? 1 : .14); py += (mouse.y - 90 - py) * (reduce ? 1 : .14);
+    pv.style.setProperty('--px', px + 'px'); pv.style.setProperty('--py', py + 'px');
+    if (reduce && !running) draw();
+    requestAnimationFrame(follow);
+  };
+  follow();
+  if (reduce) addEventListener('mousemove', () => draw(), { passive: true });
 
-  // Copy email
-  const copy = $('#copy');
-  if (copy) copy.addEventListener('click', async () => {
-    const label = copy.textContent;
-    try { await navigator.clipboard.writeText(copy.dataset.email); copy.textContent = 'Copied'; } catch { copy.textContent = copy.dataset.email; }
-    setTimeout(() => copy.textContent = label, 2000);
-  });
+  /* ---- Nav, clock, copy ---- */
+  const links = $$('[data-spy]');
+  const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.setAttribute('aria-current', a.dataset.spy === e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  ['work', 'approach', 'notes', 'contact'].forEach(id => spy.observe(document.getElementById(id)));
+  const clock = $('#clock');
+  const tick = () => clock.textContent = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }).format(new Date());
+  tick(); setInterval(tick, 30000);
+  const copy = $('#copy'), done = $('#copied');
+  copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(copy.dataset.email); done.textContent = 'copied'; } catch { done.textContent = 'select to copy'; } done.classList.add('on'); setTimeout(() => done.classList.remove('on'), 1600); });
 })();
-
 </script>
 </body>
 </html>
