@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleet safety dashboard, case study, Animesh Singh</title>
+<meta name="description" content="Case study: redesigning a fleet safety dashboard to rank driver risk, by Animesh Singh.">
+<meta property="og:title" content="Animesh Singh, Design Leader">
+<meta property="og:description" content="Design for AI that keeps every journey safe.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0A0A'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23FFFFFF' font-family='Helvetica,Arial,sans-serif' font-weight='500'>A</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF; --tile: #F4F4F4; --ink: #0A0A0A; --soft: #4A4A4A; --muted: #8A8A8A;
+    --font: "Geist", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #000000; --tile: #141414; --ink: #F5F5F5; --soft: #BDBDBD; --muted: #858585; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 18px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; transition: opacity .25s; }
+  a:hover { opacity: .55; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+  ::selection { background: var(--ink); color: var(--bg); }
+  .col { width: min(100% - 48px, 760px); margin-inline: auto; }
+
+  /* Header */
+  header.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  header.top .col { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 15px; }
+  .me { font-weight: 500; letter-spacing: -0.02em; }
+  .status { color: var(--soft); display: inline-flex; align-items: center; gap: 9px; }
+  .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); animation: breathe 2.8s ease-in-out infinite; }
+  @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+  /* Intro */
+  .intro { padding: 14vh 0 10vh; }
+  .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: linear-gradient(160deg, #EDEDED, #D2D2D2); }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .lead { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.22; letter-spacing: -0.035em; font-weight: 400; margin-top: 28px; }
+  .lead > em { font-style: normal; color: var(--muted); }
+  .x { cursor: pointer; font-weight: 500; transition: opacity .25s; }
+  .x:hover { opacity: .65; }
+  .x .lw { white-space: nowrap; }
+  .x .pl { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; margin-left: .3em; font-size: .4em; font-weight: 500; line-height: 1;
+              border-radius: 50%; background: var(--ink); color: var(--bg); vertical-align: .85em; transition: transform .4s var(--ease); }
+  .x[aria-expanded="true"] .pl { transform: rotate(45deg); }
+  .more { display: none; font-size: 17px; line-height: 1.7; letter-spacing: -0.005em; font-weight: 400; color: var(--soft); background: var(--tile); border-radius: 14px; padding: 18px 22px; margin: 16px 0 22px; }
+  .more.open { display: block; animation: unfold .6s var(--ease) both; }
+  @keyframes unfold { from { opacity: 0; transform: translateY(-8px); filter: blur(3px); } }
+  .more b { color: var(--ink); font-weight: 500; }
+  .reader { margin-top: 36px; display: inline-flex; padding: 4px; background: var(--tile); border-radius: 999px; font-size: 14px; }
+  .reader button { padding: 7px 16px; border-radius: 999px; color: var(--muted); transition: background .3s, color .3s; }
+  .reader button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  h2 { font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 28px; }
+  h3 { font-size: 26px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.22; }
+
+  /* At a glance */
+  .glance { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .glance div { background: var(--tile); border-radius: 16px; padding: 20px 20px 22px; }
+  .glance b { display: block; font-size: 36px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .glance span { display: block; font-size: 14px; color: var(--soft); margin-top: 10px; line-height: 1.4; }
+
+  /* Work */
+  .case + .case { margin-top: 72px; }
+  .case .where { color: var(--muted); font-size: 15px; margin-top: 6px; }
+  .media { margin-top: 24px; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; display: grid; place-items: center; text-align: center; padding: 20px;
+           font-size: 13px; color: var(--muted); background: linear-gradient(160deg, #F2F2F2, #DEDEDE); }
+  .media video, .media img { width: 100%; height: 100%; object-fit: cover; }
+  .case dl { margin-top: 24px; display: grid; grid-template-columns: 120px 1fr; gap: 12px 24px; }
+  .case dt { color: var(--muted); font-size: 15px; padding-top: 2px; }
+  .case dd { color: var(--soft); }
+  .case dd.result { color: var(--ink); }
+  .case dd.result b { font-size: 34px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; margin-right: 10px; vertical-align: -3px; font-variant-numeric: tabular-nums; }
+  .case .read { display: inline-block; margin-top: 18px; font-size: 15px; font-weight: 500; }
+  .case .read::after { content: "\00a0\2192"; }
+
+  /* Principles */
+  .principles { list-style: none; }
+  .principles li + li { margin-top: 28px; }
+  .principles b { display: block; font-size: 21px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.3; margin-bottom: 6px; }
+  .principles span { color: var(--soft); }
+
+  /* Quote */
+  blockquote { font-size: clamp(24px, 3.2vw, 30px); line-height: 1.35; letter-spacing: -0.03em; font-weight: 400; }
+  blockquote + p { margin-top: 18px; font-size: 15px; color: var(--muted); }
+  blockquote + p b { color: var(--ink); font-weight: 500; }
+
+  /* Lists */
+  .rows { list-style: none; }
+  .rows li { display: grid; grid-template-columns: 1fr auto; gap: 2px 20px; padding: 10px 0; }
+  .rows strong { font-weight: 500; }
+  .rows .when { color: var(--muted); font-size: 15px; white-space: nowrap; padding-top: 2px; }
+  .rows .what { color: var(--soft); font-size: 16px; grid-column: 1 / -1; }
+
+  /* Contact */
+  .contact { padding: 96px 0 72px; }
+  .contact .big { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.2; letter-spacing: -0.035em; }
+  .contact .big em { font-style: normal; color: var(--muted); }
+  .ways { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; font-size: 15px; font-weight: 500; }
+  .pill { padding: 12px 20px; border-radius: 999px; background: var(--tile); transition: background .3s var(--ease), color .3s, transform .3s var(--ease); }
+  .pill:hover { opacity: 1; transform: translateY(-1px); }
+  .pill.solid { background: var(--ink); color: var(--bg); }
+  footer { color: var(--muted); font-size: 14px; padding: 24px 0 56px; }
+
+  /* Motion: reveal once */
+  .js .rv { opacity: 0; transform: translateY(16px); filter: blur(4px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
+  .js .rv.in { opacity: 1; transform: none; filter: none; }
+
+  /* Placeholder check: add ?check to the URL */
+  .check .ph { background: #FFE3E3 !important; color: #9B1C1C !important; outline: 1px dashed #D64545; }
+  .check .media, .check .avatar, .check .sample { outline: 2px dashed #D64545; outline-offset: 4px; }
+  .check-bar { display: none; position: fixed; left: 16px; bottom: 16px; z-index: 20; background: #9B1C1C; color: #fff; font-size: 13px; padding: 8px 12px; border-radius: 8px; }
+  .check .check-bar { display: block; }
+
+  @media (prefers-color-scheme: dark) {
+    .avatar { background: linear-gradient(160deg, #262626, #141414); }
+    .media { background: linear-gradient(160deg, #1C1C1C, #111111); }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    .col { width: min(100% - 40px, 760px); }
+    .intro { padding: 8vh 0 6vh; }
+    section { padding: 52px 0; }
+    .glance { grid-template-columns: 1fr 1fr; }
+    .glance b { font-size: 32px; }
+    .media { aspect-ratio: 4 / 3; }
+    .case dl { grid-template-columns: 1fr; gap: 2px; }
+    .case dd + dt { margin-top: 14px; }
+    .ways .pill { flex: 1 1 100%; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .rv { opacity: 1; transform: none; filter: none; transition: none; }
+    .more.open { animation: none; } .status i { animation: none; } .x .pl { transition: none; }
+  }
+  @media print { .x .pl { display: none; } .more { display: block; } .reader, header.top { display: none; } }
+
+  /* ---- Navbar ---- */
+  html { scroll-padding-top: 84px; }
+  header.top .bar { padding: 16px 0; }
+  .nav { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; }
+  .nav a { padding: 8px 14px; border-radius: 999px; color: var(--soft); transition: background .3s var(--ease), color .3s; }
+  .nav a:hover { opacity: 1; color: var(--ink); background: var(--tile); }
+  .nav a[aria-current="true"] { color: var(--ink); background: var(--tile); }
+  .nav a.cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
+  .nav a.cta:hover, .nav a.cta[aria-current="true"] { background: var(--ink); color: var(--bg); opacity: .8; }
+  .menu { display: none; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px; background: var(--tile); }
+  .menu i { position: relative; width: 14px; height: 8px; }
+  .menu i::before, .menu i::after { content: ""; position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform .35s var(--ease), top .35s var(--ease); }
+  .menu i::before { top: 0; } .menu i::after { top: 6.5px; }
+  .menu[aria-expanded="true"] i::before { top: 3.25px; transform: rotate(45deg); }
+  .menu[aria-expanded="true"] i::after { top: 3.25px; transform: rotate(-45deg); }
+  .sheet { display: none; }
+  .hello { display: flex; align-items: center; gap: 16px; }
+  .hello .status { font-size: 14px; }
+  @media (max-width: 680px) {
+    .nav { display: none; }
+    .menu { display: inline-flex; }
+    .sheet { display: block; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); box-shadow: 0 24px 40px -24px rgba(0,0,0,.18); overflow: hidden; max-height: 0; opacity: 0; transition: max-height .5s var(--ease), opacity .35s; }
+    .sheet.open { max-height: 420px; opacity: 1; }
+    header.top .sheet .col { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 0; text-align: left; padding: 8px 0 28px; }
+    .sheet a { font-size: 30px; letter-spacing: -0.035em; padding: 6px 0; transform: translateY(-6px); opacity: 0; transition: transform .5s var(--ease), opacity .4s; }
+    .sheet.open a { transform: none; opacity: 1; }
+    .sheet.open a:nth-child(2) { transition-delay: .04s; } .sheet.open a:nth-child(3) { transition-delay: .08s; }
+    .sheet.open a:nth-child(4) { transition-delay: .12s; } .sheet.open a:nth-child(5) { transition-delay: .16s; }
+    .hello { gap: 14px; } .avatar { width: 52px; height: 52px; flex: none; } .hello .status { font-size: 13px; line-height: 1.4; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sheet, .sheet a, .menu i::before, .menu i::after { transition: none !important; } }
+
+  /* ---- Sample mockups (replace with real work) ---- */
+  :root { --m-bg: #EDEDED; --m-card: #FFFFFF; --m-side: #F7F7F7; --m-pill: #F2F2F2; --m-line: #E0E0E0; --m-ink: #0A0A0A; --m-soft: #A6A6A6; }
+  @media (prefers-color-scheme: dark) { :root { --m-bg: #111111; --m-card: #1B1B1B; --m-side: #161616; --m-pill: #242424; --m-line: #2E2E2E; --m-ink: #F5F5F5; --m-soft: #5E5E5E; } }
+  .media.sample { padding: 0; background: var(--m-bg) !important; aspect-ratio: 16 / 10 !important; }
+  .media svg { display: block; width: 100%; height: 100%; }
+  .media svg text { font-family: var(--font); }
+  .m-bg { fill: var(--m-bg); } .m-card { fill: var(--m-card); } .m-side { fill: var(--m-side); } .m-pill { fill: var(--m-pill); }
+  .m-line, .m-line rect { fill: var(--m-line); } .m-line .m-ink, .m-ink { fill: var(--m-ink); } .m-soft { fill: var(--m-soft); }
+  .t-h { font-size: 36px; font-weight: 500; letter-spacing: -1px; fill: var(--m-ink); }
+  .t-s { font-size: 20px; fill: var(--m-soft); }
+  .t-n { font-size: 52px; font-weight: 300; letter-spacing: -2px; fill: var(--m-ink); }
+  .t-r { font-size: 21px; font-weight: 500; fill: var(--m-ink); }
+  .t-x { font-size: 17px; fill: var(--m-soft); }
+  .t-p { font-size: 24px; font-weight: 500; fill: var(--m-ink); letter-spacing: -.5px; }
+  .t-px { font-size: 15px; fill: var(--m-soft); }
+  .t-q { font-size: 17px; font-weight: 500; fill: var(--m-ink); }
+  .t-btn { font-size: 18px; font-weight: 500; fill: var(--m-card); }
+  .t-c { font-size: 26px; font-weight: 600; fill: #0A0A0A; }
+  .t-w { font-size: 22px; font-weight: 500; fill: #FFFFFF; }
+  .t-a { font-size: 30px; font-weight: 600; fill: #0A0A0A; letter-spacing: -.5px; }
+  .t-ax { font-size: 20px; fill: #6E6E6E; }
+  .avatar.sample { display: grid; place-items: center; background: var(--ink) !important; color: var(--bg); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
+  @media (max-width: 680px) { .avatar.sample { font-size: 17px; } }
+</style>
+<style>
+  /* ---- Case study ---- */
+  .cs-hero { padding: 10vh 0 48px; }
+  .back { font-size: 14px; color: var(--soft); display: inline-flex; gap: 8px; }
+  .back::before { content: "\2190"; }
+  .cs-hero .kicker { margin-top: 40px; font-size: 14px; color: var(--muted); }
+  .cs-hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.06; letter-spacing: -0.045em; font-weight: 450; margin-top: 10px; }
+  .cs-hero .sum { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.5; letter-spacing: -0.02em; color: var(--soft); margin-top: 20px; max-width: 34em; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 40px; }
+  .meta div { background: var(--tile); border-radius: 14px; padding: 16px 18px; }
+  .meta dt { font-size: 13px; color: var(--muted); }
+  .meta dd { font-size: 15px; font-weight: 500; margin-top: 4px; line-height: 1.45; }
+  .wide { width: min(100% - 48px, 1080px); margin-inline: auto; }
+  .fig { margin-top: 8px; }
+  .fig figcaption { font-size: 14px; color: var(--muted); margin-top: 12px; text-align: center; }
+  .fig .media { margin-top: 0; }
+  .tldr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .tldr div { background: var(--tile); border-radius: 16px; padding: 22px 20px; }
+  .tldr b { display: block; font-size: 44px; font-weight: 300; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .tldr span { display: block; font-size: 14px; color: var(--soft); margin-top: 12px; line-height: 1.4; }
+  .cs h2 { margin-bottom: 14px; }
+  .cs .h { font-size: clamp(26px, 3.4vw, 34px); line-height: 1.18; letter-spacing: -0.035em; font-weight: 450; margin-bottom: 18px; }
+  .cs .h em { font-style: normal; color: var(--muted); }
+  .cs p { color: var(--soft); }
+  .cs p + p { margin-top: 14px; }
+  .cs p b { color: var(--ink); font-weight: 500; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 28px; }
+  .cards div { background: var(--tile); border-radius: 16px; padding: 20px; }
+  .cards b { display: block; font-weight: 500; font-size: 16px; letter-spacing: -0.01em; }
+  .cards span { display: block; font-size: 15px; color: var(--soft); margin-top: 8px; line-height: 1.5; }
+  .cards q { display: block; font-size: 15px; color: var(--ink); margin-top: 12px; line-height: 1.5; quotes: "\201C" "\201D"; }
+  .steps { list-style: none; counter-reset: s; margin-top: 28px; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 4px 16px; padding: 12px 0; }
+  .steps li::before { content: counter(s); grid-row: span 2; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 14px; font-weight: 500; }
+  .steps b { font-weight: 500; }
+  .steps span { color: var(--soft); font-size: 16px; }
+  .decision + .decision { margin-top: 56px; }
+  .decision h3 { font-size: 22px; }
+  .decision p { margin-top: 10px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+  .pair .media { margin-top: 0; aspect-ratio: 4 / 3; }
+  .pair figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .pull { font-size: clamp(24px, 3.2vw, 30px); line-height: 1.35; letter-spacing: -0.03em; color: var(--ink) !important; margin-top: 32px; }
+  .pull + p { font-size: 15px; color: var(--muted) !important; margin-top: 14px; }
+  .next { display: block; background: var(--tile); border-radius: 20px; padding: 32px; transition: transform .4s var(--ease), opacity .25s; }
+  .next:hover { opacity: 1; transform: translateY(-2px); }
+  .next small { font-size: 14px; color: var(--muted); }
+  .next b { display: block; font-size: clamp(24px, 3.4vw, 32px); font-weight: 450; letter-spacing: -0.035em; margin-top: 6px; }
+  .next b::after { content: "\00a0\2192"; }
+  .guide { display: none; }
+  .check .guide { display: block; background: #FFF4D6; color: #6B4E00; font-size: 14px; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
+  @media (max-width: 680px) {
+    .meta { grid-template-columns: 1fr 1fr; }
+    .tldr, .cards { grid-template-columns: 1fr; }
+    .tldr b { font-size: 40px; }
+    .pair { grid-template-columns: 1fr; }
+    .wide { width: min(100% - 40px, 1080px); }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="col bar">
+    <a class="me" href="index.html">Animesh Singh</a>
+    <nav class="nav" aria-label="Case study">
+      <a href="#problem" data-spy="problem">Problem</a>
+      <a href="#process" data-spy="process">Process</a>
+      <a href="#solution" data-spy="solution">Solution</a>
+      <a href="#impact" data-spy="impact">Impact</a>
+      <a href="index.html#contact" class="cta">Contact</a>
+    </nav>
+    <button class="menu" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
+  </div>
+  <nav class="sheet" id="sheet" aria-label="Case study, mobile">
+    <div class="col">
+      <a href="#problem">Problem</a><a href="#process">Process</a><a href="#solution">Solution</a><a href="#impact">Impact</a><a href="index.html#work">All work</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!--
+    CASE STUDY TEMPLATE
+    Duplicate this file for each project (e.g. alerts.html, khatabook.html) and replace the content.
+    Open with ?check to see every placeholder and the writing guidance for each section.
+    Keep it short: a hiring manager should get the story from headings, numbers and images alone.
+  -->
+  <div class="cs-hero" id="top">
+    <div class="col">
+      <a class="back rv" href="index.html#work">All work</a>
+      <p class="kicker rv">Sapience Automata, <span class="ph">2025</span></p>
+      <h1 class="rv">A fleet dashboard that ranks risk, not noise</h1>
+      <p class="sum rv">Fleet managers were drowning in AI-detected events. I led the redesign that turned thousands of alerts into a short list of drivers to call today, and cut incident review time by <span class="ph">45%</span>.</p>
+      <dl class="meta rv">
+        <div><dt>My role</dt><dd>Design lead, strategy, research, UX</dd></div>
+        <div><dt>Team</dt><dd class="ph">2 designers, 1 PM, 5 engineers</dd></div>
+        <div><dt>Timeline</dt><dd class="ph">14 weeks, 2025</dd></div>
+        <div><dt>Platform</dt><dd>Web dashboard, B2B SaaS</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <figure class="wide fig rv">
+    <!-- Replace with a real screenshot or a short muted video: <img src="img/fleet-hero.jpg" alt="..."> -->
+    <div class="media sample"><svg viewBox="0 0 1600 1000" role="img" aria-label="Sample: fleet safety dashboard listing drivers ranked by risk">
+  <rect width="1600" height="1000" class="m-bg"/>
+  <rect x="110" y="90" width="1380" height="820" rx="26" class="m-card"/>
+  <rect x="110" y="90" width="270" height="820" rx="26" class="m-side"/><rect x="354" y="90" width="26" height="820" class="m-side"/>
+  <circle cx="160" cy="150" r="16" class="m-ink"/><rect x="190" y="142" width="120" height="16" rx="8" class="m-soft"/>
+  <g class="m-line"><rect x="150" y="220" width="190" height="40" rx="12" class="m-pill"/><rect x="170" y="234" width="110" height="12" rx="6" class="m-ink"/>
+  <rect x="170" y="294" width="130" height="12" rx="6"/><rect x="170" y="344" width="96" height="12" rx="6"/><rect x="170" y="394" width="120" height="12" rx="6"/><rect x="170" y="444" width="84" height="12" rx="6"/></g>
+  <text x="430" y="180" class="t-h">Fleet safety</text><text x="430" y="216" class="t-s">Today, 1,284 vehicles on the road</text>
+  <g>
+    <rect x="430" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="458" y="300" class="t-s">Drivers to call today</text><text x="458" y="366" class="t-n">7</text>
+    <rect x="770" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="798" y="300" class="t-s">High-risk events</text><text x="798" y="366" class="t-n">23</text>
+    <rect x="1110" y="256" width="320" height="140" rx="18" class="m-pill"/><text x="1138" y="300" class="t-s">Avg. review time</text><text x="1138" y="366" class="t-n">1m 40s</text>
+  </g>
+  <text x="430" y="456" class="t-s">Ranked by risk</text>
+  <g>
+    <g transform="translate(430 480)"><rect width="1000" height="76" rx="16" class="m-pill"/><circle cx="44" cy="38" r="20" class="m-ink"/><text x="82" y="34" class="t-r">Driver 0142</text><text x="82" y="58" class="t-x">Drowsiness, 3 events today</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="230" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">92</text></g>
+    <g transform="translate(430 568)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0087</text><text x="82" y="58" class="t-x">Phone use while moving</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="170" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">71</text></g>
+    <g transform="translate(430 656)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0211</text><text x="82" y="58" class="t-x">Close following, NH 44</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="150" height="12" rx="6" class="m-ink"/><text x="900" y="46" class="t-r">64</text></g>
+    <g transform="translate(430 744)"><rect width="1000" height="76" rx="16" class="m-card"/><circle cx="44" cy="38" r="20" class="m-soft"/><text x="82" y="34" class="t-r">Driver 0034</text><text x="82" y="58" class="t-x">One harsh brake</text><rect x="620" y="32" width="250" height="12" rx="6" class="m-line"/><rect x="620" y="32" width="60" height="12" rx="6" class="m-soft"/><text x="900" y="46" class="t-r">22</text></g>
+  </g>
+</svg></div>
+    <figcaption>The redesigned dashboard: who to call today, ranked by risk.</figcaption>
+  </figure>
+
+  <section class="cs" aria-labelledby="tl-h">
+    <div class="col">
+      <p class="guide">Three numbers a hiring manager should remember. Business outcomes beat design metrics.</p>
+      <h2 id="tl-h" class="rv">Outcome at a glance</h2>
+      <div class="tldr rv">
+        <div><b class="ph">45%</b><span>less time to review an incident</span></div>
+        <div><b class="ph">3x</b><span>more drivers coached each week</span></div>
+        <div><b class="ph">92%</b><span>of fleet managers using it weekly</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs" id="problem" aria-labelledby="p-h">
+    <div class="col">
+      <p class="guide">Context and problem. Who is the user, what was broken, why it mattered to the business. Three short paragraphs at most.</p>
+      <h2 id="p-h" class="rv">The problem</h2>
+      <p class="h rv">Every event was treated as urgent, <em>so nothing was.</em></p>
+      <p class="rv ph">Our cameras flagged every risky moment on the road: drowsiness, phone use, harsh braking, close following. A mid-size fleet generated <b>thousands of events a week</b>, and the dashboard listed them in time order.</p>
+      <p class="rv ph">Fleet managers told us they had stopped opening it. The most dangerous drivers were buried under minor events, and some customers questioned renewing. <b>The product was detecting risk well and communicating it badly.</b></p>
+    </div>
+  </section>
+
+  <section class="cs" aria-labelledby="r-h">
+    <div class="col">
+      <p class="guide">Research: what you did and what you learned. Use real quotes from users if you have them.</p>
+      <h2 id="r-h" class="rv">What we learned</h2>
+      <p class="h rv">Managers don't want events. <em>They want to know who to call.</em></p>
+      <p class="rv ph">I ran <b>12 interviews</b> with fleet managers and safety officers, sat in on two morning briefings, and reviewed six months of usage data.</p>
+      <div class="cards rv ph">
+        <div><b>Time is the constraint</b><span>Managers had 20 minutes a day for safety, at best.</span><q>I need the five drivers to worry about, not five hundred clips.</q></div>
+        <div><b>Patterns beat moments</b><span>One harsh brake is noise. Three drowsy nights in a row is a call.</span><q>Tell me if it's getting worse.</q></div>
+        <div><b>Coaching, not blame</b><span>Good managers wanted to help drivers improve, not punish them.</span><q>If I just shout, they quit.</q></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs" id="process" aria-labelledby="pr-h">
+    <div class="col">
+      <p class="guide">Process: the 4 to 6 steps you actually took. Show how you led, not just what you drew.</p>
+      <h2 id="pr-h" class="rv">Process</h2>
+      <p class="h rv">From thousands of events <em>to one ranked list.</em></p>
+      <ol class="steps rv ph">
+        <li><b>Reframe the goal</b><span>Agreed with founders and sales that success meant drivers coached, not events shown.</span></li>
+        <li><b>Define a risk score</b><span>Worked with the ML team to combine event type, frequency and trend into one score per driver.</span></li>
+        <li><b>Prototype with real data</b><span>Tested three dashboard concepts with eight managers using their own fleet's data.</span></li>
+        <li><b>Ship in slices</b><span>Released ranking first, then review, then coaching, measuring each step.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <figure class="wide fig rv">
+    <div class="media sample" style="aspect-ratio: 16 / 5 !important"><svg viewBox="40 310 1520 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sample: how an event becomes a coaching conversation"><rect x="0" y="0" width="1600" height="1000" class="m-bg"/><rect x="90" y="430" width="230" height="140" rx="24" class="m-card"/><text x="205" y="510" text-anchor="middle" class="t-r">Events</text><path d="M328 500 h40" stroke="var(--m-soft)" stroke-width="4" stroke-linecap="round"/><path d="M360 490 l10 10 l-10 10" stroke="var(--m-soft)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="380" y="430" width="230" height="140" rx="24" class="m-card"/><text x="495" y="510" text-anchor="middle" class="t-r">Risk score</text><path d="M618 500 h40" stroke="var(--m-soft)" stroke-width="4" stroke-linecap="round"/><path d="M650 490 l10 10 l-10 10" stroke="var(--m-soft)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="670" y="430" width="230" height="140" rx="24" class="m-ink"/><text x="785" y="510" text-anchor="middle" class="t-btn" style="font-size:21px">Ranked list</text><path d="M908 500 h40" stroke="var(--m-soft)" stroke-width="4" stroke-linecap="round"/><path d="M940 490 l10 10 l-10 10" stroke="var(--m-soft)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="960" y="430" width="230" height="140" rx="24" class="m-card"/><text x="1075" y="510" text-anchor="middle" class="t-r">Review</text><path d="M1198 500 h40" stroke="var(--m-soft)" stroke-width="4" stroke-linecap="round"/><path d="M1230 490 l10 10 l-10 10" stroke="var(--m-soft)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="1250" y="430" width="230" height="140" rx="24" class="m-card"/><text x="1365" y="510" text-anchor="middle" class="t-r">Coaching</text></svg></div>
+    <figcaption>How an event becomes a coaching conversation.</figcaption>
+  </figure>
+
+  <section class="cs" id="solution" aria-labelledby="s-h">
+    <div class="col">
+      <p class="guide">Key decisions: 2 or 3 choices that shaped the outcome. For each, what you chose, what you rejected, and why. Before and after images help most here.</p>
+      <h2 id="s-h" class="rv">Key decisions</h2>
+      <article class="decision rv">
+        <h3>1. Rank drivers, not events</h3>
+        <p class="ph">We replaced the time-ordered event feed with a list of drivers sorted by risk score. We considered smarter filters instead, but filters still asked managers to do the work.</p>
+        <div class="pair">
+          <figure><div class="media sample"><svg viewBox="0 0 1200 900" role="img" aria-label="Sample: before: time-ordered event feed"><rect width="1200" height="900" class="m-bg"/><rect x="120" y="150" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="168" width="200" height="14" rx="7" class="m-soft"/><rect x="900" y="165" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="220" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="238" width="267" height="14" rx="7" class="m-soft"/><rect x="900" y="235" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="290" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="308" width="334" height="14" rx="7" class="m-soft"/><rect x="900" y="305" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="360" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="378" width="401" height="14" rx="7" class="m-soft"/><rect x="900" y="375" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="430" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="448" width="468" height="14" rx="7" class="m-soft"/><rect x="900" y="445" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="500" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="518" width="235" height="14" rx="7" class="m-soft"/><rect x="900" y="515" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="570" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="588" width="302" height="14" rx="7" class="m-soft"/><rect x="900" y="585" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="640" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="658" width="369" height="14" rx="7" class="m-soft"/><rect x="900" y="655" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="710" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="728" width="436" height="14" rx="7" class="m-soft"/><rect x="900" y="725" width="140" height="20" rx="10" class="m-line"/><rect x="120" y="780" width="960" height="50" rx="10" class="m-card"/><rect x="150" y="798" width="203" height="14" rx="7" class="m-soft"/><rect x="900" y="795" width="140" height="20" rx="10" class="m-line"/></svg></div><figcaption>Before: every event, in time order</figcaption></figure>
+          <figure><div class="media sample"><svg viewBox="0 0 1200 900" role="img" aria-label="Sample: after: drivers ranked by risk"><rect width="1200" height="900" class="m-bg"/><rect x="120" y="120" width="300" height="130" rx="20" class="m-card"/><text x="150" y="168" class="t-s">Drivers to call today</text><text x="150" y="226" class="t-n">7</text><rect x="120" y="300" width="960" height="90" rx="18" class="m-card"/><circle cx="175" cy="345" r="22" class="m-ink"/><rect x="220" y="335" width="220" height="18" rx="9" class="m-ink"/><rect x="720" y="338" width="260" height="14" rx="7" class="m-line"/><rect x="720" y="338" width="230" height="14" rx="7" class="m-ink"/><rect x="120" y="410" width="960" height="90" rx="18" class="m-pill"/><circle cx="175" cy="455" r="22" class="m-soft"/><rect x="220" y="445" width="220" height="18" rx="9" class="m-ink"/><rect x="720" y="448" width="260" height="14" rx="7" class="m-line"/><rect x="720" y="448" width="170" height="14" rx="7" class="m-ink"/><rect x="120" y="520" width="960" height="90" rx="18" class="m-pill"/><circle cx="175" cy="565" r="22" class="m-soft"/><rect x="220" y="555" width="220" height="18" rx="9" class="m-ink"/><rect x="720" y="558" width="260" height="14" rx="7" class="m-line"/><rect x="720" y="558" width="110" height="14" rx="7" class="m-ink"/><rect x="120" y="630" width="960" height="90" rx="18" class="m-pill"/><circle cx="175" cy="675" r="22" class="m-soft"/><rect x="220" y="665" width="220" height="18" rx="9" class="m-ink"/><rect x="720" y="668" width="260" height="14" rx="7" class="m-line"/><rect x="720" y="668" width="50" height="14" rx="7" class="m-ink"/></svg></div><figcaption>After: the drivers who need a call</figcaption></figure>
+        </div>
+      </article>
+      <article class="decision rv">
+        <h3>2. Review and coach in one view</h3>
+        <p class="ph">The clip, its context and a suggested coaching conversation sit together, so a manager can review and act without switching tabs. We kept the full event history one click away for audits.</p>
+        <figure class="fig" style="margin-top:22px"><div class="media sample"><svg viewBox="0 0 1200 900" role="img" aria-label="Sample: incident review with coaching suggestion"><rect width="1200" height="900" class="m-bg"/><rect x="100" y="100" width="640" height="420" rx="22" fill="#151515"/><path d="M380 520 L460 520 L700 520 Z" fill="#333"/><circle cx="420" cy="310" r="26" fill="#3a3a3a"/><polygon points="400,290 400,330 440,310" fill="#EDEDED"/><rect x="100" y="550" width="640" height="16" rx="8" class="m-line"/><rect x="100" y="550" width="260" height="16" rx="8" class="m-ink"/><rect x="780" y="100" width="320" height="200" rx="22" class="m-card"/><text x="810" y="150" class="t-s">Event</text><text x="810" y="196" class="t-r">Drowsiness, 2:14 am</text><text x="810" y="236" class="t-x">NH 44, 82 km/h</text><rect x="780" y="320" width="320" height="200" rx="22" class="m-card"/><text x="810" y="370" class="t-s">Suggested talk</text><rect x="810" y="396" width="240" height="14" rx="7" class="m-soft"/><rect x="810" y="424" width="200" height="14" rx="7" class="m-soft"/><rect x="780" y="680" width="320" height="64" rx="18" class="m-ink"/><text x="940" y="720" text-anchor="middle" class="t-btn">Mark as coached</text></svg></div></figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="cs" id="impact" aria-labelledby="i-h">
+    <div class="col">
+      <p class="guide">Impact: numbers first, then one quote from a customer or stakeholder.</p>
+      <h2 id="i-h" class="rv">Impact</h2>
+      <p class="h rv">Managers came back, <em>and drivers got safer.</em></p>
+      <p class="rv ph">Within <b>three months</b> of launch, incident review time fell by <b>45%</b>, coached drivers tripled, and high-risk events across pilot fleets dropped by <b>18%</b>. Two customers cited the new dashboard in their renewals.</p>
+      <p class="pull rv ph">"For the first time, I open this every morning. It tells me exactly who to talk to."</p>
+      <p class="rv ph">Fleet safety manager, logistics customer</p>
+    </div>
+  </section>
+
+  <section class="cs" aria-labelledby="re-h">
+    <div class="col">
+      <p class="guide">Reflection: what you'd do differently. Shows self-awareness, which hiring managers value in leaders.</p>
+      <h2 id="re-h" class="rv">Looking back</h2>
+      <p class="rv ph">I'd involve drivers earlier. We designed coaching for managers first, and only later learned how drivers felt about being scored. Their input reshaped the language we used, and would have saved us a release.</p>
+    </div>
+  </section>
+
+  <section aria-label="Next case study">
+    <div class="col">
+      <!-- Point this to your next case study file -->
+      <a class="next rv" href="index.html#work"><small>Next case study</small><b>Alerts a driver understands in under a second</b></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="col">Animesh Singh, Bengaluru. Set in Geist.</div>
+</footer>
+<div class="check-bar" role="status">Placeholders and writing guidance shown. Replace before sharing.</div>
+
+<script>
+(() => {
+  if (/[?&]check\b/.test(location.search)) document.body.classList.add('check');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.cs-hero .rv').forEach((e, i) => e.style.setProperty('--d', (0.06 + i * 0.1) + 's'));
+
+  const countUp = el => {
+    const node = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent)); if (!node) return;
+    const m = node.textContent.match(/^(\D*)([\d,.]+)(.*)$/s); if (!m) return;
+    const target = parseFloat(m[2].replace(/,/g, '')), t0 = performance.now(), dur = 1300;
+    const step = now => { const k = Math.min(1, (now - t0) / dur); node.textContent = m[1] + Math.round(target * (1 - Math.pow(1 - k, 4))) + m[3]; if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  const els = document.querySelectorAll('.rv');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    els.forEach(e => io.observe(e));
+    const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { countUp(e.target); co.unobserve(e.target); } }), { threshold: 0.6 });
+    document.querySelectorAll('.tldr b').forEach(n => co.observe(n));
+  } else els.forEach(e => e.classList.add('in'));
+
+  const menu = document.querySelector('.menu'), sheet = document.getElementById('sheet');
+  const setMenu = open => { menu.setAttribute('aria-expanded', open); sheet.classList.toggle('open', open); menu.querySelector('span').textContent = open ? 'Close' : 'Menu'; };
+  menu.addEventListener('click', () => setMenu(menu.getAttribute('aria-expanded') !== 'true'));
+  sheet.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  const links = document.querySelectorAll('.nav [data-spy]');
+  const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.setAttribute('aria-current', a.dataset.spy === e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  ['problem', 'process', 'solution', 'impact', 'top'].forEach(id => spy.observe(document.getElementById(id)));
+})();
+</script>
+</body>
+</html>
