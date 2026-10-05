@@ -11,6 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<script>
+/* Apply saved theme before paint */
+try { const t = localStorage.getItem('as-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
 /* Animesh Singh, portfolio styles. Shared by every page. */
 
@@ -422,6 +426,34 @@
   .has-cursor .dot { opacity: 1; }
   .c-link .dot { width: 22px; height: 22px; margin: -11px 0 0 -11px; opacity: .85; }
   @media (hover: none), (pointer: coarse) { .dot { display: none; } }
+
+  /* ==== Themes: light, dark, neon (overrides system preference when chosen) ==== */
+  :root { --lane: var(--ink); --hot: var(--accent); }
+  html[data-theme="light"] {
+    --bg: #FAFAF9; --ink: #121212; --soft: #737373; --muted: #ABABAB; --faint: #D9D9D6; --tile: #F1F1EF; --accent: #FF4F00; --lane: #121212; --hot: #FF4F00;
+    --m-bg: #EDEDED; --m-card: #FFFFFF; --m-side: #F7F7F7; --m-pill: #F2F2F2; --m-line: #E0E0E0; --m-ink: #0A0A0A; --m-soft: #A6A6A6; color-scheme: light; }
+  html[data-theme="dark"] {
+    --bg: #0B0B0B; --ink: #E8E8E6; --soft: #8A8A88; --muted: #575755; --faint: #262625; --tile: #151514; --accent: #FF6A26; --lane: #E8E8E6; --hot: #FF6A26;
+    --m-bg: #111111; --m-card: #1B1B1B; --m-side: #161616; --m-pill: #242424; --m-line: #2E2E2E; --m-ink: #F5F5F5; --m-soft: #5E5E5E; color-scheme: dark; }
+  html[data-theme="neon"] {
+    --bg: #050506; --ink: #F4F4F0; --soft: #8E8E92; --muted: #4E4E54; --faint: #18181C; --tile: #0E0E12; --accent: #C6FF00; --lane: #C6FF00; --hot: #FF2BD6;
+    --m-bg: #0A0A0D; --m-card: #121216; --m-side: #0E0E11; --m-pill: #1B1B21; --m-line: #26262E; --m-ink: #F4F4F0; --m-soft: #55555C; color-scheme: dark; }
+  html[data-theme="neon"] #field { filter: drop-shadow(0 0 2px rgba(198,255,0,.75)) drop-shadow(0 0 7px rgba(198,255,0,.25)); }
+  html[data-theme="neon"] h2 span, html[data-theme="neon"] h2::before, html[data-theme="neon"] #copied, html[data-theme="neon"] .work a:hover .n,
+  html[data-theme="neon"] .cs-hero .kicker::before { text-shadow: 0 0 8px var(--accent), 0 0 18px rgba(198,255,0,.35); }
+  html[data-theme="neon"] .br i, html[data-theme="neon"] .dot, html[data-theme="neon"] .status i { box-shadow: 0 0 10px var(--accent), 0 0 22px rgba(198,255,0,.45); }
+  html[data-theme="neon"] .x:hover, html[data-theme="neon"] .x[aria-expanded="true"] { text-shadow: 0 0 10px rgba(198,255,0,.45); }
+  html[data-theme="neon"] .more::before { box-shadow: 0 0 8px var(--accent); }
+  html[data-theme="neon"] ::selection { background: var(--hot); color: #000; }
+  html[data-theme="neon"] .preview, html[data-theme="neon"] .media { box-shadow: 0 0 0 1px rgba(198,255,0,.18), 0 0 40px -10px rgba(198,255,0,.35); }
+  html.theming, html.theming * { transition: background-color .5s ease, color .5s ease, fill .5s ease !important; }
+
+  /* toggle */
+  .theme { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 12px; }
+  .theme:hover { color: var(--ink); }
+  .theme i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ink); background: transparent; transition: background .4s, border-color .4s, box-shadow .4s; }
+  html[data-theme="dark"] .theme i { background: var(--ink); }
+  html[data-theme="neon"] .theme i { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(198,255,0,.5); }
 </style>
 </head>
 <body>
@@ -435,6 +467,7 @@
       <a href="#solution" data-spy="solution">Solution</a>
       <a href="#impact" data-spy="impact">Impact</a>
       <a href="index.html#contact" class="cta">Contact</a>
+      <button class="theme" type="button"><i aria-hidden="true"></i><span>light</span></button>
     </nav>
     <button class="menu" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
   </div>
@@ -661,6 +694,24 @@
     el.addEventListener('mouseenter', () => { if (busy) return; busy = true; let f = 0; const total = Math.min(18, orig.length + 6);
       const step = () => { node.textContent = [...orig].map((c, i) => c === ' ' || i < (f / total) * orig.length ? c : glyphs[(Math.random() * glyphs.length) | 0]).join('');
         if (++f <= total) setTimeout(step, 28); else { node.textContent = orig; busy = false; } }; step(); });
+  });
+})();
+</script>
+<script>
+/* Theme toggle: light, dark, neon */
+(() => {
+  const root = document.documentElement, btn = document.querySelector('.theme'), label = btn && btn.querySelector('span');
+  if (!btn) return;
+  const order = ['light', 'dark', 'neon'];
+  const current = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const paint = () => { const t = current(); label.textContent = t; btn.setAttribute('aria-label', 'Theme: ' + t + '. Switch theme'); };
+  paint();
+  btn.addEventListener('click', () => {
+    const next = order[(order.indexOf(current()) + 1) % order.length];
+    root.classList.add('theming'); root.dataset.theme = next;
+    try { localStorage.setItem('as-theme', next); } catch (e) {}
+    paint(); window.dispatchEvent(new Event('themechange'));
+    setTimeout(() => root.classList.remove('theming'), 600);
   });
 })();
 </script>
