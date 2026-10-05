@@ -132,6 +132,26 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   .coda .end-note { padding: 0 var(--edge); margin: 40px 0 24px; color: var(--soft); }
   .coda .end-note b { color: var(--ink); font-weight: 400; }
 
+
+  /* ==== Light plays deck: just dots ==== */
+  .art .cap { display: none; }
+  .art { margin-bottom: 18px; }
+  .deck { position: absolute; left: var(--edge); bottom: -8px; display: flex; align-items: center; gap: 4px; }
+  .deck button { width: 18px; height: 18px; display: grid; place-items: center; padding: 0; }
+  .deck button::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--faint); transition: background .3s, transform .4s var(--ease), box-shadow .3s; }
+  .deck button:hover::before { background: var(--muted); transform: scale(1.3); }
+  .deck button[aria-pressed="true"]::before { background: var(--accent); transform: scale(1.35); }
+  .deck .auto { margin-left: 8px; }
+  .deck .auto::before { background: transparent; box-shadow: inset 0 0 0 1px var(--muted); }
+  .deck .auto[aria-pressed="true"]::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--accent); animation: spin 1.4s linear infinite; border-radius: 50%; }
+  @keyframes spin { 50% { transform: scale(1.6); opacity: .5; } }
+  html[data-theme="neon"] .deck button[aria-pressed="true"]::before { box-shadow: 0 0 8px var(--accent); }
+  .deck-name { margin-left: 10px; color: var(--muted); min-width: 6ch; transition: opacity .3s; }
+  @media (max-width: 600px) { .deck { bottom: -26px; } .art { margin-bottom: 40px; } .deck button { width: 26px; height: 26px; } }
+  .art-hint { position: absolute; right: var(--edge); bottom: -8px; height: 18px; display: flex; align-items: center; color: var(--muted); margin: 0; }
+  .art-hint .touch { display: none; }
+  @media (hover: none), (pointer: coarse) { .art-hint .fine { display: none; } .art-hint .touch { display: inline; } }
+  @media (max-width: 600px) { .art-hint { left: var(--edge); right: auto; bottom: -50px; height: 20px; } .art { margin-bottom: 64px !important; } }
   /* motion */
   .js .rv { opacity: 0; transform: translateY(6px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
   .js .rv.in { opacity: 1; transform: none; }
@@ -248,9 +268,18 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
 </nav>
 
 <main id="top">
-  <div class="art" aria-hidden="true">
-    <canvas id="field"></canvas>
-    <span class="cap mono">lanes, 2026. move to steer</span>
+  <div class="art">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <p class="art-hint mono" aria-hidden="true"><span class="fine">move to steer, click to drop light</span><span class="touch">drag to steer, tap to drop light</span></p>
+    <div class="deck" role="group" aria-label="Light plays">
+      <button data-mode="lanes" aria-pressed="true" aria-label="Play 1, lanes" title="lanes"></button>
+      <button data-mode="rain" aria-pressed="false" aria-label="Play 2, rain" title="rain"></button>
+      <button data-mode="radar" aria-pressed="false" aria-label="Play 3, radar" title="radar"></button>
+      <button data-mode="pulse" aria-pressed="false" aria-label="Play 4, pulse" title="pulse"></button>
+      <button data-mode="signal" aria-pressed="false" aria-label="Play 5, signal" title="signal"></button>
+      <button class="auto" aria-pressed="false" aria-label="Auto play" title="auto"></button>
+      <span class="deck-name mono" aria-hidden="true">lanes</span>
+    </div>
   </div>
 
   <div class="page">
@@ -482,38 +511,100 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   let mouse = { x: -9999, y: -9999 };
 
-  /* ---- Artwork: a dot field with flowing lanes that bend around the pointer ---- */
+  /* ---- Artwork: one dot grid, several light plays ---- */
   const cv = $('#field'), ctx = cv.getContext('2d');
   let W = 0, H = 0, dpr = 1, t = 0, running = true, last = 0;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   let C = {};
   const colours = () => C = { faint: css('--faint'), ink: css('--lane'), soft: css('--muted'), acc: css('--hot') };
-  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-  const GAP = 13, LANES = 4;
+  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); buildText(); };
+  const GAP = 13;
+  const hash = n => { const v = Math.sin(n * 127.1) * 43758.5453; return v - Math.floor(v); };
+
+  // signal: a word rendered once into a tiny bitmap, scrolled across the grid
+  let txt = null, txtW = 0, txtH = 0;
+  const words = 'safer by design     hardware + software + service     hello     ';
+  const buildText = () => {
+    const rows = Math.floor(H / GAP); txtH = rows; const c = document.createElement('canvas'), g = c.getContext('2d');
+    const fs = Math.max(7, Math.floor(rows * .62)); g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`;
+    txtW = Math.ceil(g.measureText(words).width) + 4; c.width = txtW; c.height = rows;
+    g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`; g.fillStyle = '#000'; g.textBaseline = 'middle'; g.fillText(words, 0, rows / 2 + 1);
+    txt = g.getImageData(0, 0, txtW, rows).data;
+  };
+
+  // each play returns a brightness from 0 to 1 for the dot at column i, row j
+  const plays = {
+    lanes: (x, y) => { let n = 0; for (let k = 0; k < 4; k++) { const ly = H * (.2 + k * .2) + Math.sin(x * .006 + t * (.5 + k * .12) + k * 1.7) * H * .09 + Math.sin(x * .013 - t * .7) * 6;
+      const d = Math.abs(y - ly); if (d < GAP * .8) n = Math.max(n, 1 - d / (GAP * .8)); } return n; },
+    rain: (x, y, i) => { const sp = .35 + hash(i) * .5, ph = hash(i + 7), len = .12 + hash(i + 3) * .2;
+      const head = (t * sp + ph) % 1.25 - .1, p = y / H, d = head - p; return d >= 0 && d < len ? Math.pow(1 - d / len, 1.6) : 0; },
+    radar: (x, y, i, j) => { const cx = W * .5, cy = H * .55, dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy);
+      let a = Math.atan2(dy, dx) - t * 1.3; a = ((a % 6.283) + 6.283) % 6.283; const sweep = a > 5.4 ? (a - 5.4) / .883 : 0;
+      const rd = Math.abs(r - Math.round(r / 56) * 56), ring = r > 20 && rd < GAP * .45 ? .4 : 0; const blip = hash(i * 31 + j) > .992 && sweep > .35 ? 1 : 0;
+      return r > Math.min(W, H * 2) * .55 ? 0 : Math.max(sweep * .9, ring, blip); },
+    pulse: (x, y) => { const cx = W * .5, cy = H * .5, r = Math.hypot(x - cx, (y - cy) * 1.6);
+      const w = Math.sin(r * .045 - t * 3.2); return w > .82 ? (w - .82) / .18 : 0; },
+    signal: (x, y, i, j) => { if (!txt) return 0; const col = Math.floor(i + t * 9) % txtW, row = j;
+      return row < txtH && txt[(row * txtW + col) * 4 + 3] > 110 ? 1 : 0; }
+  };
+  const order = Object.keys(plays);
+  let mode = 'lanes', prev = null, mixT = 1;
+
+  // light dropped by clicking: expanding rings
+  const drops = [];
+  cv.addEventListener('pointerdown', e => { const r = cv.getBoundingClientRect(); drops.push({ x: e.clientX - r.left, y: e.clientY - r.top, t0: t }); if (drops.length > 6) drops.shift(); });
+
   const draw = () => {
     ctx.clearRect(0, 0, W, H);
     const r = cv.getBoundingClientRect(), mx = mouse.x - r.left, my = mouse.y - r.top;
-    for (let x = GAP / 2; x < W; x += GAP) {
-      for (let y = GAP / 2; y < H; y += GAP) {
-        let near = 0;
-        for (let k = 0; k < LANES; k++) {
-          const base = H * (0.2 + k * 0.2);
-          const ly = base + Math.sin(x * 0.006 + t * (0.5 + k * 0.12) + k * 1.7) * H * 0.09 + Math.sin(x * 0.013 - t * 0.7) * 6;
-          const d = Math.abs(y - ly);
-          if (d < GAP * 0.8) near = Math.max(near, 1 - d / (GAP * 0.8));
-        }
+    const f = plays[mode], g = prev && mixT < 1 ? plays[prev] : null;
+    let i = 0;
+    for (let x = GAP / 2; x < W; x += GAP, i++) {
+      let j = 0;
+      for (let y = GAP / 2; y < H; y += GAP, j++) {
+        let near = f(x, y, i, j);
+        if (g) near = near * mixT + g(x, y, i, j) * (1 - mixT);
+        for (const d of drops) { const age = t - d.t0, rr = age * 260, dist = Math.hypot(x - d.x, y - d.y), band = Math.abs(dist - rr);
+          if (band < 10 && age < 1.6) near = Math.max(near, (1 - band / 10) * (1 - age / 1.6)); }
         const dx = x - mx, dy = y - my, dist = Math.hypot(dx, dy), R = 130;
         let px = x, py = y, hot = 0;
-        if (dist < R) { const f = (1 - dist / R); hot = f; px += dx / (dist || 1) * f * 14; py += dy / (dist || 1) * f * 14; }
-        let rad = 0.7 + near * 0.9, col = near > 0.15 ? C.ink : C.faint;
-        if (hot > 0.25 && near > 0.15) { col = C.acc; rad += hot * 1.2; }
-        else if (hot > 0.5) { col = C.soft; }
+        if (dist < R) { const k = 1 - dist / R; hot = k; px += dx / (dist || 1) * k * 14; py += dy / (dist || 1) * k * 14; }
+        let rad = .7 + near * .9, col = near > .15 ? C.ink : C.faint;
+        if (hot > .25 && near > .15) { col = C.acc; rad += hot * 1.2; } else if (hot > .5) col = C.soft;
         ctx.fillStyle = col; ctx.beginPath(); ctx.arc(px, py, rad, 0, 6.283); ctx.fill();
       }
     }
+    while (drops.length && t - drops[0].t0 > 1.6) drops.shift();
   };
-  const loop = now => { if (running) { t += Math.min(50, now - (last || now)) / 1000; last = now; draw(); } requestAnimationFrame(loop); };
+
+  // deck controls
+  const btns = $$('.deck [data-mode]'), autoBtn = $('.deck .auto'); let autoTimer = 0, autoOn = false, nameEl = null;
+  const setMode = m => { if (m === mode) return; prev = mode; mode = m; mixT = 0; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m)); if (nameEl) nameEl.textContent = m; if (reduce) { mixT = 1; draw(); } };
+  nameEl = $('.deck-name'); const showName = n => nameEl.textContent = n;
+  btns.forEach(b => {
+    b.addEventListener('click', () => { setMode(b.dataset.mode); if (autoOn) autoTimer = 0; });
+    b.addEventListener('mouseenter', () => showName(b.dataset.mode)); b.addEventListener('focus', () => showName(b.dataset.mode));
+    b.addEventListener('mouseleave', () => showName(mode)); b.addEventListener('blur', () => showName(mode));
+  });
+  autoBtn.addEventListener('mouseenter', () => showName(autoOn ? 'auto on' : 'auto')); autoBtn.addEventListener('mouseleave', () => showName(mode));
+  autoBtn.addEventListener('click', () => { autoOn = !autoOn; autoBtn.setAttribute('aria-pressed', autoOn); autoTimer = 0; nameEl.textContent = autoOn ? 'auto on' : mode; });
+  addEventListener('keydown', e => {
+    if (e.target.closest && e.target.closest('input, textarea, [contenteditable]')) return;
+    const n = +e.key; if (n >= 1 && n <= order.length) setMode(order[n - 1]);
+    if (e.key === 'a' || e.key === 'A') autoBtn.click();
+  });
+
+  const loop = now => {
+    const dt = Math.min(50, now - (last || now)) / 1000; last = now;
+    if (running) {
+      t += dt; if (mixT < 1) mixT = Math.min(1, mixT + dt / .7);
+      if (autoOn) { autoTimer += dt; if (autoTimer > 7) { autoTimer = 0; setMode(order[(order.indexOf(mode) + 1) % order.length]); } }
+      draw();
+    }
+    requestAnimationFrame(loop);
+  };
   colours(); size(); draw();
+  if (document.fonts) document.fonts.ready.then(() => { buildText(); });
   addEventListener('resize', () => { size(); draw(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { colours(); draw(); });
   addEventListener('themechange', () => { colours(); draw(); });
