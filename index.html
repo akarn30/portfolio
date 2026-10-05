@@ -119,7 +119,18 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   .contact p + p { margin-top: 8px; }
   #copied { color: var(--accent); margin-left: 8px; opacity: 0; transition: opacity .3s; }
   #copied.on { opacity: 1; }
-  .end { height: 30vh; }
+  .end { height: 0; }
+
+
+  /* ==== Footer: the lanes come to rest ==== */
+  .coda { margin-top: 96px; }
+  .coda canvas { display: block; width: 100%; height: 72px; }
+  .coda .row { display: flex; justify-content: space-between; gap: 16px; padding: 14px var(--edge) 0; color: var(--muted); }
+  .coda .row a { color: var(--muted); transition: color .3s; }
+  .coda .row a:hover { color: var(--ink); }
+  .coda .row a::after { content: "\00a0\2191"; }
+  .coda .end-note { padding: 0 var(--edge); margin: 40px 0 24px; color: var(--soft); }
+  .coda .end-note b { color: var(--ink); font-weight: 400; }
 
   /* motion */
   .js .rv { opacity: 0; transform: translateY(6px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
@@ -212,6 +223,16 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   .theme i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ink); background: transparent; transition: background .4s, border-color .4s, box-shadow .4s; }
   html[data-theme="dark"] .theme i { background: var(--ink); }
   html[data-theme="neon"] .theme i { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(198,255,0,.5); }
+
+  /* ==== Microscopic grain ==== */
+  body::after { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 90;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 180px 180px; opacity: .085; mix-blend-mode: multiply; animation: grain 1.2s steps(6) infinite; }
+  @keyframes grain { 0% { transform: translate(0, 0); } 17% { transform: translate(-3%, 2%); } 33% { transform: translate(2%, -4%); }
+    50% { transform: translate(-4%, -1%); } 67% { transform: translate(3%, 3%); } 83% { transform: translate(-1%, 4%); } 100% { transform: translate(0, 0); } }
+  html[data-theme="dark"] body::after, html[data-theme="neon"] body::after { mix-blend-mode: screen; opacity: .05; }
+  @media (prefers-color-scheme: dark) { html:not([data-theme]) body::after { mix-blend-mode: screen; opacity: .05; } }
+  @media (prefers-reduced-motion: reduce) { body::after { animation: none; } }
+  @media print { body::after { display: none; } }
 </style>
 </head>
 <body>
@@ -370,10 +391,19 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
         <p class="rv">Hiring a head of design for something that moves? <button id="copy" data-email="animeshkarnsingh@gmail.com" data-scramble>animeshkarnsingh@gmail.com</button><span id="copied" class="mono">copied</span></p>
         <p class="rv"><a href="https://www.linkedin.com/in/animeshkarnsingh" data-scramble>linkedin</a>, <a href="resume.pdf" data-scramble>résumé</a></p>
       </section>
+
       <div class="end"></div>
     </div>
   </div>
 </main>
+
+<footer class="coda" aria-label="Footer">
+  <p class="end-note rv">That's the road so far. <b>The next stretch is yours to design.</b></p>
+  <canvas id="rest" aria-hidden="true"></canvas>
+  <div class="row mono"><span>made in bengaluru. no cookies.</span><a href="#top" data-scramble>back to top</a></div>
+  <div style="height: 64px"></div>
+</footer>
+
 
 <div class="foot">
   <span class="corner bl mono">blr <span id="clock">--:--</span></span>
@@ -583,6 +613,44 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
     paint(); window.dispatchEvent(new Event('themechange'));
     setTimeout(() => root.classList.remove('theming'), 600);
   });
+})();
+</script>
+<script>
+/* Footer: the lanes from the top of the page converge into one line and come to rest */
+(() => {
+  const cv = document.getElementById('rest'), ctx = cv.getContext('2d'), root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  let C = {}, W = 0, H = 0, t = 0, last = 0, on = false, mx = -9999, my = -9999;
+  const colours = () => C = { faint: css('--faint'), lane: css('--lane'), hot: css('--hot') };
+  const size = () => { const d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+  const G = 9;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const r = cv.getBoundingClientRect(), px = mx - r.left, py = my - r.top, mid = H / 2;
+    for (let x = G / 2; x < W; x += G) {
+      const k = x / W, amp = (1 - k) * (H * .38);              // lanes calm down from left to right
+      for (let y = G / 2; y < H; y += G) {
+        let near = 0;
+        for (let l = 0; l < 3; l++) {
+          const ly = mid + Math.sin(x * .02 + t * (.8 + l * .2) + l * 2.1) * amp * (l === 1 ? .5 : 1) * (l === 2 ? -1 : 1);
+          const dd = Math.abs(y - ly); if (dd < G * .75) near = Math.max(near, 1 - dd / (G * .75));
+        }
+        const dx = x - px, dy = y - py, dist = Math.hypot(dx, dy), R = 90;
+        let ox = x, oy = y, hot = 0;
+        if (dist < R) { hot = 1 - dist / R; ox += dx / (dist || 1) * hot * 8; oy += dy / (dist || 1) * hot * 8; }
+        ctx.fillStyle = near > .15 ? (hot > .3 ? C.hot : C.lane) : C.faint;
+        ctx.beginPath(); ctx.arc(ox, oy, .7 + near * .8 + (near > .15 ? hot : 0), 0, 6.283); ctx.fill();
+      }
+    }
+  };
+  const loop = now => { if (on) { t += Math.min(50, now - (last || now)) / 1000; draw(); } last = now; requestAnimationFrame(loop); };
+  colours(); size(); draw();
+  addEventListener('resize', () => { size(); draw(); });
+  addEventListener('themechange', () => { colours(); draw(); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { colours(); draw(); });
+  addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; if (reduce) draw(); }, { passive: true });
+  if (!reduce) { new IntersectionObserver(es => on = es[0].isIntersecting).observe(cv); requestAnimationFrame(loop); }
 })();
 </script>
 </body>
