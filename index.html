@@ -146,7 +146,10 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   .deck .auto[aria-pressed="true"]::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--accent); animation: spin 1.4s linear infinite; border-radius: 50%; }
   @keyframes spin { 50% { transform: scale(1.6); opacity: .5; } }
   html[data-theme="neon"] .deck button[aria-pressed="true"]::before { box-shadow: 0 0 8px var(--accent); }
-  .deck-name { margin-left: 10px; color: var(--muted); min-width: 6ch; transition: opacity .3s; }
+  .deck-name { margin-left: 10px; color: var(--muted); white-space: nowrap; }
+  .deck-name b { color: var(--ink); font-weight: 400; margin-right: 10px; }
+  @media (max-width: 900px) { .deck-name i { display: none; } }
+  .deck-name i { font-style: normal; }
   @media (max-width: 600px) { .deck { bottom: -26px; } .art { margin-bottom: 40px; } .deck button { width: 26px; height: 26px; } }
   .art-hint { position: absolute; right: var(--edge); bottom: -8px; height: 18px; display: flex; align-items: center; color: var(--muted); margin: 0; }
   .art-hint .touch { display: none; }
@@ -270,15 +273,15 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
 <main id="top">
   <div class="art">
     <canvas id="field" aria-hidden="true"></canvas>
-    <p class="art-hint mono" aria-hidden="true"><span class="fine">move to steer, click to drop light</span><span class="touch">drag to steer, tap to drop light</span></p>
+    <p class="art-hint mono" aria-hidden="true"><span class="fine">move, and click to drop light</span><span class="touch">drag, and tap to drop light</span></p>
     <div class="deck" role="group" aria-label="Light plays">
-      <button data-mode="lanes" aria-pressed="true" aria-label="Play 1, lanes" title="lanes"></button>
-      <button data-mode="rain" aria-pressed="false" aria-label="Play 2, rain" title="rain"></button>
-      <button data-mode="radar" aria-pressed="false" aria-label="Play 3, radar" title="radar"></button>
-      <button data-mode="pulse" aria-pressed="false" aria-label="Play 4, pulse" title="pulse"></button>
-      <button data-mode="signal" aria-pressed="false" aria-label="Play 5, signal" title="signal"></button>
-      <button class="auto" aria-pressed="false" aria-label="Auto play" title="auto"></button>
-      <span class="deck-name mono" aria-hidden="true">lanes</span>
+      <button data-mode="clarity" aria-pressed="true" aria-label="Play 1, clarity: noise becomes order where you look"></button>
+      <button data-mode="night" aria-pressed="false" aria-label="Play 2, night: design for the hardest day"></button>
+      <button data-mode="attention" aria-pressed="false" aria-label="Play 3, attention: everything turns toward the person"></button>
+      <button data-mode="together" aria-pressed="false" aria-label="Play 4, together: four parts, one experience"></button>
+      <button data-mode="sketch" aria-pressed="false" aria-label="Play 5, sketch: think by drawing"></button>
+      <button class="auto" aria-pressed="false" aria-label="Auto play"></button>
+      <span class="deck-name mono" aria-live="polite"></span>
     </div>
   </div>
 
@@ -511,100 +514,173 @@ try { const t = localStorage.getItem('as-theme'); if (t) document.documentElemen
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   let mouse = { x: -9999, y: -9999 };
 
-  /* ---- Artwork: one dot grid, several light plays ---- */
+  /* ---- Artwork: one dot grid, five ideas about design ---- */
   const cv = $('#field'), ctx = cv.getContext('2d');
-  let W = 0, H = 0, dpr = 1, t = 0, running = true, last = 0;
+  let W = 0, H = 0, dpr = 1, t = 0, running = true, last = 0, A = 1;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   let C = {};
   const colours = () => C = { faint: css('--faint'), ink: css('--lane'), soft: css('--muted'), acc: css('--hot') };
-  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); buildText(); };
-  const GAP = 13;
-  const hash = n => { const v = Math.sin(n * 127.1) * 43758.5453; return v - Math.floor(v); };
+  const GAP = 13, TAU = Math.PI * 2;
+  const hash = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+  const clamp = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  let pts = [], cols = 0, rows = 0, mask = null;
+  const size = () => {
+    dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(W / GAP); rows = Math.ceil(H / GAP); pts = [];
+    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) { const n = i * 977 + j * 131; pts.push({ x: GAP / 2 + i * GAP, y: GAP / 2 + j * GAP, i, j, a: hash(n), b: hash(n + 1), c: hash(n + 2) }); }
+    mask = null;
+  };
+  const spot = (x, y, r, col, a = 1) => { ctx.globalAlpha = A * a; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill(); };
 
-  // signal: a word rendered once into a tiny bitmap, scrolled across the grid
-  let txt = null, txtW = 0, txtH = 0;
-  const words = 'safer by design     hardware + software + service     hello     ';
-  const buildText = () => {
-    const rows = Math.floor(H / GAP); txtH = rows; const c = document.createElement('canvas'), g = c.getContext('2d');
-    const fs = Math.max(7, Math.floor(rows * .62)); g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`;
-    txtW = Math.ceil(g.measureText(words).width) + 4; c.width = txtW; c.height = rows;
-    g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`; g.fillStyle = '#000'; g.textBaseline = 'middle'; g.fillText(words, 0, rows / 2 + 1);
-    txt = g.getImageData(0, 0, txtW, rows).data;
+  // where attention is: the pointer, or a slow wandering point when nobody is here
+  const focus = () => {
+    const r = cv.getBoundingClientRect(), mx = mouse.x - r.left, my = mouse.y - r.top;
+    const inside = mx > 0 && my > 0 && mx < W && my < H;
+    return inside ? { x: mx, y: my, live: true } : { x: W * (.5 + .34 * Math.sin(t * .23)), y: H * (.5 + .3 * Math.sin(t * .37 + 1)), live: false };
   };
 
-  // each play returns a brightness from 0 to 1 for the dot at column i, row j
+  // a phrase rendered into the grid, revealed by light in "night"
+  const buildMask = () => {
+    const c = document.createElement('canvas'), g = c.getContext('2d'), fs = Math.max(8, Math.floor(rows * .2));
+    const phrase = W < 640 ? 'the hardest day' : 'design for the hardest day';
+    g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`; const w = Math.ceil(g.measureText(phrase).width);
+    c.width = cols; c.height = rows; g.font = `500 ${fs}px Geist, Helvetica, Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = '#000';
+    g.fillText(phrase, Math.max(1, (cols - w) / 2), rows / 2 + 1);
+    const d = g.getImageData(0, 0, cols, rows).data; mask = new Uint8Array(cols * rows);
+    for (let k = 0; k < cols * rows; k++) mask[k] = d[k * 4 + 3] > 100 ? 1 : 0;
+  };
+
+  const trail = []; let lastTrail = 0;
+
   const plays = {
-    lanes: (x, y) => { let n = 0; for (let k = 0; k < 4; k++) { const ly = H * (.2 + k * .2) + Math.sin(x * .006 + t * (.5 + k * .12) + k * 1.7) * H * .09 + Math.sin(x * .013 - t * .7) * 6;
-      const d = Math.abs(y - ly); if (d < GAP * .8) n = Math.max(n, 1 - d / (GAP * .8)); } return n; },
-    rain: (x, y, i) => { const sp = .35 + hash(i) * .5, ph = hash(i + 7), len = .12 + hash(i + 3) * .2;
-      const head = (t * sp + ph) % 1.25 - .1, p = y / H, d = head - p; return d >= 0 && d < len ? Math.pow(1 - d / len, 1.6) : 0; },
-    radar: (x, y, i, j) => { const cx = W * .5, cy = H * .55, dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy);
-      let a = Math.atan2(dy, dx) - t * 1.3; a = ((a % 6.283) + 6.283) % 6.283; const sweep = a > 5.4 ? (a - 5.4) / .883 : 0;
-      const rd = Math.abs(r - Math.round(r / 56) * 56), ring = r > 20 && rd < GAP * .45 ? .4 : 0; const blip = hash(i * 31 + j) > .992 && sweep > .35 ? 1 : 0;
-      return r > Math.min(W, H * 2) * .55 ? 0 : Math.max(sweep * .9, ring, blip); },
-    pulse: (x, y) => { const cx = W * .5, cy = H * .5, r = Math.hypot(x - cx, (y - cy) * 1.6);
-      const w = Math.sin(r * .045 - t * 3.2); return w > .82 ? (w - .82) / .18 : 0; },
-    signal: (x, y, i, j) => { if (!txt) return 0; const col = Math.floor(i + t * 9) % txtW, row = j;
-      return row < txtH && txt[(row * txtW + col) * 4 + 3] > 110 ? 1 : 0; }
+    // 01 clarity: noise becomes ranked order where you look
+    clarity() {
+      const f = focus(), wave = Math.pow(Math.max(0, Math.sin(t * .28)), 6), x0 = W * .1;
+      for (const p of pts) {
+        const d = Math.hypot(p.x - f.x, p.y - f.y), o = Math.max(wave, Math.pow(clamp(1 - d / (f.live ? 240 : 170)), .8));
+        const barLen = (W * .8) * Math.pow(1 - p.j / rows, 1.35) * (.92 + .08 * Math.sin(t * .6 + p.j));
+        const inBar = p.x > x0 && p.x < x0 + barLen && p.j % 2 === 0;
+        const flick = p.c > .82 ? .5 + .5 * Math.sin(t * (2 + p.a * 4) + p.b * 9) : 0;
+        const b = inBar ? o + flick * (1 - o) * .6 : flick * (1 - o);
+        const jx = (p.a - .5) * GAP * 2.4 + Math.sin(t * (1 + p.c) + p.a * 9) * 3, jy = (p.b - .5) * GAP * 2.4 + Math.cos(t * (1 + p.a) + p.b * 9) * 3;
+        const x = p.x + jx * (1 - o), y = p.y + jy * (1 - o);
+        if (b > .12) spot(x, y, .8 + b, inBar && p.j === 0 && o > .5 ? C.acc : C.ink, clamp(b + .2));
+        else spot(x, y, .7, C.faint);
+      }
+    },
+    // 02 night: only what you light up is seen. a message waits for the hardest day
+    night() {
+      if (!mask) buildMask();
+      const f = focus(), R = f.live ? 240 : 200;
+      for (const p of pts) {
+        const d = Math.hypot(p.x - f.x, (p.y - f.y) * 1.25), v = Math.pow(clamp(1 - d / R), 1.4);
+        if (v < .02) continue;
+        if (mask[p.j * cols + p.i]) spot(p.x, p.y, 1 + v * 1.1, v > .55 ? C.ink : C.soft, clamp(v * 1.4));
+        else spot(p.x, p.y, .8, C.faint, clamp(v * 1.6));
+      }
+      spot(f.x, f.y, 2.2, C.acc, .9);
+    },
+    // 03 attention: everything turns toward the person
+    attention() {
+      const f = focus(); ctx.lineCap = 'round';
+      for (const p of pts) {
+        const dx = f.x - p.x, dy = f.y - p.y, d = Math.hypot(dx, dy) || 1, k = clamp(1 - d / Math.max(W, H) * 1.3);
+        const len = 2 + k * 7, ux = dx / d, uy = dy / d;
+        ctx.globalAlpha = A * (.25 + k * .75); ctx.strokeStyle = d < 60 ? C.acc : k > .55 ? C.ink : C.soft; ctx.lineWidth = d < 60 ? 1.6 : 1.1;
+        ctx.beginPath(); ctx.moveTo(p.x - ux * len / 2, p.y - uy * len / 2); ctx.lineTo(p.x + ux * len / 2, p.y + uy * len / 2); ctx.stroke();
+      }
+    },
+    // 04 together: device, app, dashboard, service become one experience
+    together() {
+      const f = focus(), cx = W / 2, cy = H / 2;
+      const pull = f.live ? clamp(1 - Math.hypot(f.x - cx, f.y - cy) / (Math.min(W, H * 1.6) * .45)) : 0;
+      const c = Math.max(pull, Math.pow(.5 - .5 * Math.cos(t * .45), 2));
+      const names = ['device', 'app', 'dashboard', 'service'], spread = (1 - c) * Math.min(W * .3, H * .75);
+      const cs = names.map((n, k) => { const a = k * TAU / 4 + t * .15 + .4; return { x: cx + Math.cos(a) * spread * 1.4, y: cy + Math.sin(a) * spread * .55, r: 38 + c * 18 }; });
+      const big = 44 + c * 70;
+      for (const p of pts) {
+        let b = 0;
+        for (const q of cs) { const d = Math.hypot(p.x - q.x, p.y - q.y); if (Math.abs(d - q.r) < GAP * .55) b = Math.max(b, 1 - c * .9); else if (d < q.r) b = Math.max(b, .18 * (1 - c)); }
+        for (let k = 0; k < 4; k++) { const a = cs[k], z = cs[(k + 1) % 4], vx = z.x - a.x, vy = z.y - a.y, L = vx * vx + vy * vy || 1;
+          const u = clamp(((p.x - a.x) * vx + (p.y - a.y) * vy) / L), sx = a.x + vx * u - p.x, sy = a.y + vy * u - p.y;
+          if (sx * sx + sy * sy < 9 && u > .05 && u < .95) b = Math.max(b, .45 * (1 - c)); }
+        const dc = Math.hypot(p.x - cx, p.y - cy);
+        if (c > .35 && Math.abs(dc - big) < GAP * .55) b = Math.max(b, (c - .35) / .65 * 1.2);
+        if (b > .1) spot(p.x, p.y, .8 + b * .9, c > .8 && dc < big + GAP ? C.acc : C.ink, clamp(b + .15)); else spot(p.x, p.y, .7, C.faint);
+      }
+      ctx.font = '10px "Geist Mono", ui-monospace, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = C.soft;
+      if (c < .75) cs.forEach((q, k) => { ctx.globalAlpha = A * (1 - c / .75); ctx.fillText(names[k], q.x, q.y + 3); });
+      if (c > .75) { ctx.globalAlpha = A * (c - .75) / .25; ctx.fillStyle = C.ink; ctx.fillText('one experience', cx, cy + 3); }
+    },
+    // 05 sketch: thinking happens with the hands
+    sketch() {
+      const f = focus();
+      if (t - lastTrail > .016) { trail.push({ x: f.x, y: f.y, t0: t }); lastTrail = t; }
+      while (trail.length && t - trail[0].t0 > 2.6) trail.shift();
+      const lit = new Float32Array(cols * rows);
+      for (const q of trail) {
+        const s = 1 - (t - q.t0) / 2.6, ci = Math.round((q.x - GAP / 2) / GAP), cj = Math.round((q.y - GAP / 2) / GAP);
+        for (let i = ci - 1; i <= ci + 1; i++) for (let j = cj - 1; j <= cj + 1; j++) {
+          if (i < 0 || j < 0 || i >= cols || j >= rows) continue;
+          const v = s * clamp(1 - Math.hypot(GAP / 2 + i * GAP - q.x, GAP / 2 + j * GAP - q.y) / (GAP * 1.2)), k = i * rows + j;
+          if (v > lit[k]) lit[k] = v;
+        }
+      }
+      for (let k = 0; k < pts.length; k++) { const p = pts[k], v = lit[k];
+        if (v > .08) spot(p.x, p.y, .8 + v * 1.4, v > .85 ? C.acc : C.ink, clamp(v + .1)); else spot(p.x, p.y, .7, C.faint); }
+    }
   };
   const order = Object.keys(plays);
-  let mode = 'lanes', prev = null, mixT = 1;
+  const lines = { clarity: 'noise becomes order where you look', night: 'design for the hardest day', attention: 'everything turns toward the person', together: 'four parts, one experience', sketch: 'think by drawing' };
+  let mode = 'clarity', prev = null, mixT = 1;
 
-  // light dropped by clicking: expanding rings
+  // light dropped by clicking: a ring that travels outward
   const drops = [];
   cv.addEventListener('pointerdown', e => { const r = cv.getBoundingClientRect(); drops.push({ x: e.clientX - r.left, y: e.clientY - r.top, t0: t }); if (drops.length > 6) drops.shift(); });
-
-  const draw = () => {
-    ctx.clearRect(0, 0, W, H);
-    const r = cv.getBoundingClientRect(), mx = mouse.x - r.left, my = mouse.y - r.top;
-    const f = plays[mode], g = prev && mixT < 1 ? plays[prev] : null;
-    let i = 0;
-    for (let x = GAP / 2; x < W; x += GAP, i++) {
-      let j = 0;
-      for (let y = GAP / 2; y < H; y += GAP, j++) {
-        let near = f(x, y, i, j);
-        if (g) near = near * mixT + g(x, y, i, j) * (1 - mixT);
-        for (const d of drops) { const age = t - d.t0, rr = age * 260, dist = Math.hypot(x - d.x, y - d.y), band = Math.abs(dist - rr);
-          if (band < 10 && age < 1.6) near = Math.max(near, (1 - band / 10) * (1 - age / 1.6)); }
-        const dx = x - mx, dy = y - my, dist = Math.hypot(dx, dy), R = 130;
-        let px = x, py = y, hot = 0;
-        if (dist < R) { const k = 1 - dist / R; hot = k; px += dx / (dist || 1) * k * 14; py += dy / (dist || 1) * k * 14; }
-        let rad = .7 + near * .9, col = near > .15 ? C.ink : C.faint;
-        if (hot > .25 && near > .15) { col = C.acc; rad += hot * 1.2; } else if (hot > .5) col = C.soft;
-        ctx.fillStyle = col; ctx.beginPath(); ctx.arc(px, py, rad, 0, 6.283); ctx.fill();
-      }
-    }
+  const drawDrops = () => {
+    for (const d of drops) { const age = t - d.t0, rr = age * 260; if (age > 1.6) continue;
+      const i0 = Math.max(0, Math.floor((d.x - rr - 12) / GAP)), i1 = Math.min(cols - 1, Math.ceil((d.x + rr + 12) / GAP));
+      for (let i = i0; i <= i1; i++) for (let j = 0; j < rows; j++) { const p = pts[i * rows + j], band = Math.abs(Math.hypot(p.x - d.x, p.y - d.y) - rr);
+        if (band < 10) spot(p.x, p.y, 1.2, C.acc, (1 - band / 10) * (1 - age / 1.6)); } }
     while (drops.length && t - drops[0].t0 > 1.6) drops.shift();
   };
 
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    if (prev && mixT < 1) { A = 1 - mixT; plays[prev](); A = mixT; plays[mode](); } else { A = 1; plays[mode](); }
+    A = 1; drawDrops(); ctx.globalAlpha = 1;
+  };
+
   // deck controls
-  const btns = $$('.deck [data-mode]'), autoBtn = $('.deck .auto'); let autoTimer = 0, autoOn = false, nameEl = null;
-  const setMode = m => { if (m === mode) return; prev = mode; mode = m; mixT = 0; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m)); if (nameEl) nameEl.textContent = m; if (reduce) { mixT = 1; draw(); } };
-  nameEl = $('.deck-name'); const showName = n => nameEl.textContent = n;
+  const btns = $$('.deck [data-mode]'), autoBtn = $('.deck .auto'), nameEl = $('.deck-name'); let autoTimer = 0, autoOn = false;
+  const label = m => { nameEl.innerHTML = `<b>${m}</b><i>${lines[m] || ''}</i>`; };
+  const setMode = m => { if (m === mode) return; prev = mode; mode = m; mixT = 0; trail.length = 0; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m)); label(m); if (reduce) { mixT = 1; draw(); } };
   btns.forEach(b => {
-    b.addEventListener('click', () => { setMode(b.dataset.mode); if (autoOn) autoTimer = 0; });
-    b.addEventListener('mouseenter', () => showName(b.dataset.mode)); b.addEventListener('focus', () => showName(b.dataset.mode));
-    b.addEventListener('mouseleave', () => showName(mode)); b.addEventListener('blur', () => showName(mode));
+    b.addEventListener('click', () => { setMode(b.dataset.mode); autoTimer = 0; });
+    b.addEventListener('mouseenter', () => label(b.dataset.mode)); b.addEventListener('focus', () => label(b.dataset.mode));
+    b.addEventListener('mouseleave', () => label(mode)); b.addEventListener('blur', () => label(mode));
   });
-  autoBtn.addEventListener('mouseenter', () => showName(autoOn ? 'auto on' : 'auto')); autoBtn.addEventListener('mouseleave', () => showName(mode));
-  autoBtn.addEventListener('click', () => { autoOn = !autoOn; autoBtn.setAttribute('aria-pressed', autoOn); autoTimer = 0; nameEl.textContent = autoOn ? 'auto on' : mode; });
+  autoBtn.addEventListener('click', () => { autoOn = !autoOn; autoBtn.setAttribute('aria-pressed', autoOn); autoTimer = 0; if (autoOn) nameEl.innerHTML = '<b>auto</b><i>a new idea every eight seconds</i>'; else label(mode); });
+  autoBtn.addEventListener('mouseenter', () => { nameEl.innerHTML = '<b>auto</b><i>' + (autoOn ? 'on' : 'play them all') + '</i>'; });
+  autoBtn.addEventListener('mouseleave', () => label(mode));
   addEventListener('keydown', e => {
     if (e.target.closest && e.target.closest('input, textarea, [contenteditable]')) return;
     const n = +e.key; if (n >= 1 && n <= order.length) setMode(order[n - 1]);
     if (e.key === 'a' || e.key === 'A') autoBtn.click();
   });
+  label(mode);
 
   const loop = now => {
     const dt = Math.min(50, now - (last || now)) / 1000; last = now;
     if (running) {
-      t += dt; if (mixT < 1) mixT = Math.min(1, mixT + dt / .7);
-      if (autoOn) { autoTimer += dt; if (autoTimer > 7) { autoTimer = 0; setMode(order[(order.indexOf(mode) + 1) % order.length]); } }
+      t += dt; if (mixT < 1) mixT = Math.min(1, mixT + dt / .8);
+      if (autoOn) { autoTimer += dt; if (autoTimer > 8) { autoTimer = 0; setMode(order[(order.indexOf(mode) + 1) % order.length]); } }
       draw();
     }
     requestAnimationFrame(loop);
   };
   colours(); size(); draw();
-  if (document.fonts) document.fonts.ready.then(() => { buildText(); });
+  if (document.fonts) document.fonts.ready.then(() => { mask = null; });
   addEventListener('resize', () => { size(); draw(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { colours(); draw(); });
   addEventListener('themechange', () => { colours(); draw(); });
